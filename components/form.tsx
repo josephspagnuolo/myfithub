@@ -17,7 +17,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
         e.preventDefault();
         setLoading(true);
         if (type === "login") {
-          signIn("Credentials", {
+          signIn("credentials", {
             redirect: false,
             email: e.currentTarget.email.value,
             password: e.currentTarget.password.value,
@@ -38,6 +38,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
+              name: e.currentTarget.nametext.value,
               email: e.currentTarget.email.value,
               password: e.currentTarget.password.value,
             }),
@@ -57,6 +58,25 @@ export default function Form({ type }: { type: "login" | "register" }) {
       }}
       className="flex flex-col space-y-4 px-4 py-8 sm:px-16"
     >
+      {type === "register" ? (
+        <div>
+          <label
+            htmlFor="nametext"
+            className="block text-xs text-gray-500 uppercase"
+          >
+            Name
+          </label>
+          <input
+            id="nametext"
+            name="nametext"
+            type="text"
+            required
+            className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm"
+          />
+        </div>
+      ) : (
+        ""
+      )}
       <div>
         <label
           htmlFor="email"
@@ -89,20 +109,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
         />
       </div>
       <button
-        onClick={(e) => { signIn("Discord") }}
-        disabled={loading}
-        className={`${loading
-          ? "cursor-not-allowed border-gray-200 bg-gray-100"
-          : "border-black bg-black text-white hover:bg-[#292929]"
-          } flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none`}
-      >
-        {loading ? (
-          <LoadingDots color="#808080" />
-        ) : (
-          <p>Sign in with Discord</p>
-        )}
-      </button>
-      <button
+        type="submit"
         disabled={loading}
         className={`${loading
           ? "cursor-not-allowed border-gray-200 bg-gray-100"

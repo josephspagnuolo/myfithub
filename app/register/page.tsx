@@ -19,7 +19,7 @@ export default function Login() {
           </Link>
           <h3 className="text-xl font-semibold">Sign Up</h3>
           <p className="text-sm text-gray-500">
-            Create an account with your email and password
+            Create an account at MyFitHub with your name, email and password
           </p>
         </div>
         <Form type="register" />
