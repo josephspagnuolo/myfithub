@@ -7,7 +7,7 @@ import { Suspense } from "react";
 
 const title = "MyFitHub";
 const description =
-  "This is MyFitHub";
+  "This is MyFitHub - Your Hub for Tracking your Fitness Progress";
 
 export const metadata: Metadata = {
   title,
