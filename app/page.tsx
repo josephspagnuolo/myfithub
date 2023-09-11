@@ -3,13 +3,13 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex h-screen bg-black">
+    <div className="flex h-screen">
       <div className="w-screen h-screen flex flex-col justify-center items-center">
         <Image
           width={512}
           height={512}
           src="/logo.png"
-          alt="Platforms on Vercel"
+          alt="MyFitHub"
           className="w-48 h-48"
         />
         <div className="text-center max-w-screen-sm mb-10">
@@ -23,7 +23,6 @@ export default function Home() {
         <div className="flex space-x-3">
           <Link
             href="/protected"
-            prefetch={false} // workaround until https://github.com/vercel/vercel/pull/8978 is deployed
             className="text-stone-400 underline hover:text-stone-200 transition-all"
           >
             Protected Page

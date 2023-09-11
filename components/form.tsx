@@ -62,7 +62,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
         <div>
           <label
             htmlFor="nametext"
-            className="block text-xs text-gray-500 uppercase"
+            className="block text-xs text-gray-400"
           >
             Name
           </label>
@@ -80,7 +80,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
       <div>
         <label
           htmlFor="email"
-          className="block text-xs text-gray-500 uppercase"
+          className="block text-xs text-gray-400"
         >
           Email Address
         </label>
@@ -96,7 +96,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
       <div>
         <label
           htmlFor="password"
-          className="block text-xs text-gray-500 uppercase"
+          className="block text-xs text-gray-400"
         >
           Password
         </label>
@@ -112,8 +112,8 @@ export default function Form({ type }: { type: "login" | "register" }) {
         type="submit"
         disabled={loading}
         className={`${loading
-          ? "cursor-not-allowed border-gray-200 bg-gray-100"
-          : "border-black bg-black text-white hover:bg-[#292929]"
+          ? "cursor-not-allowed border-[#292929] bg-[#292929]"
+          : "border-black bg-sky-800 text-gray-300 hover:bg-sky-900"
           } flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none`}
       >
         {loading ? (
@@ -123,7 +123,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
         )}
       </button>
       {type === "login" ? (
-        <p className="text-center text-sm text-gray-500">
+        <p className="text-center text-sm text-gray-400">
           Don&apos;t have an account?{" "}
           <Link href="/register" className="font-semibold text-gray-300 hover:underline">
             Sign up
@@ -131,7 +131,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
           for free.
         </p>
       ) : (
-        <p className="text-center text-sm text-gray-500">
+        <p className="text-center text-sm text-gray-400">
           Already have an account?{" "}
           <Link href="/login" className="font-semibold text-gray-300 hover:underline">
             Sign in
