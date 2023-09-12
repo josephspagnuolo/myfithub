@@ -30,8 +30,8 @@ export default function Home() {
         </div>
         <div className="text-center max-w-screen-sm mb-10">
           <p className="text-stone-400 mt-5">
-            {`The date today is ${new Date().toDateString()} `}
-            {`The date one year ago was ${new Date(new Date().setFullYear(new Date().getFullYear() - 1))}`}
+            {`The date today is ${new Date().toLocaleString()} `}
+            {`The date one year ago was ${new Date(new Date().setFullYear(new Date().getFullYear() - 1)).toLocaleString}`}
           </p>
         </div>
       </div>
