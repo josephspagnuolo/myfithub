@@ -13,4 +13,18 @@ model User {
   name     String?
   email    String? @unique
   password String
+
+  workouts Workout[]
+}
+
+model Workout {
+  id        String   @id @default(cuid())
+  userEmail String
+  content   String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+
+  @@unique([id])
+  @@index([userEmail])
 }

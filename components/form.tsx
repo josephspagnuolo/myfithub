@@ -104,7 +104,9 @@ export default function Form({ type }: { type: "login" | "register" }) {
           id="password"
           name="password"
           type="password"
+          minLength={8}
           required
+          data-v-equal={true}
           className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm"
         />
       </div>
