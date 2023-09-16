@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
-import { getSession } from "next-auth/react";
+import WorkoutList from "./workoutlist";
 
 export default async function ShowWorkouts() {
   const session = await getServerSession();
@@ -11,11 +11,14 @@ export default async function ShowWorkouts() {
     }
   })
   return (
-    <div><ul>
-      {workouts.map((workout) => (
-        <li key={workout.id} {...workout}>{workout.content}{workout.createdAt.toString()}</li>
-      ))}
-    </ul></div>
+    <>
+      {/* <WorkoutList workouts={workouts} /> */}
+      <div><ul>
+        {workouts.map((workout) => (
+          <li key={workout.id} {...workout}>{workout.content}{' '}{workout.createdAt.toString()}</li>
+        ))}
+      </ul></div>
+    </>
   );
 }
 

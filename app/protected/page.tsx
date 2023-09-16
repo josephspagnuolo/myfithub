@@ -15,15 +15,12 @@ export default async function Home() {
   // console.log(workouts)
   return (
     <div className="flex">
-      <div className="w-screen flex flex-col space-y-5 justify-center items-center">
-        <iframe
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="w-full max-w-screen-lg aspect-video"
-        ></iframe>
-        <Link href="/protected/workout">New Workout</Link>
+      <div className="w-screen flex flex-col space-y-5 justify-center items-center pt-14">
+        <Link href="/protected/workout">
+          <button className="border-black bg-sky-800 text-gray-300 hover:bg-sky-900 flex h-12 w-48 items-center justify-center rounded-md border text-md font-semibold transition-all focus:outline-none">
+            New Workout
+          </button>
+        </Link>
         <ShowWorkouts />
         <SignOut />
       </div>

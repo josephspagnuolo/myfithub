@@ -10,7 +10,7 @@ export default function CreateWorkout() {
   const router = useRouter();
 
   return (
-    <form
+    <><form
       onSubmit={(e) => {
         e.preventDefault();
         setLoading(true);
@@ -27,8 +27,8 @@ export default function CreateWorkout() {
             toast.success("Great workout!");
             setTimeout(() => {
               setLoading(false);
+              router.refresh();
               router.replace("/protected");
-              router.refresh;
             }, 2000);
           } else {
             const { error } = await res.json();
@@ -50,16 +50,14 @@ export default function CreateWorkout() {
           name="content"
           type="content"
           required
-          className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm"
-        />
+          className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm" />
       </div>
       <button
         type="submit"
         disabled={loading}
         className={`${loading
           ? "cursor-not-allowed border-[#292929] bg-[#292929]"
-          : "border-black bg-sky-800 text-gray-300 hover:bg-sky-900"
-          } flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none`}
+          : "border-black bg-sky-800 text-gray-300 hover:bg-sky-900"} flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none`}
       >
         {loading ? (
           <LoadingDots color="#808080" />
@@ -68,6 +66,7 @@ export default function CreateWorkout() {
         )}
       </button>
     </form>
+      <a href="/protected">← Back to dashboard</a></>
   );
 }
 

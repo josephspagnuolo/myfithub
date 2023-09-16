@@ -22,7 +22,6 @@ export async function POST(req: Request) {
         createdAt: new Date()
       },
     });
-    console.log(session.user.name)
     return NextResponse.json(workout);
   }
 }
