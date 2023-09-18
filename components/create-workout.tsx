@@ -26,7 +26,6 @@ export default function CreateWorkout() {
           if (res.status === 200) {
             toast.success("Great workout!");
             setTimeout(() => {
-              setLoading(false);
               router.refresh();
               router.replace("/protected");
             }, 2000);

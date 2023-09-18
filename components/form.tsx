@@ -11,6 +11,26 @@ export default function Form({ type }: { type: "login" | "register" }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  function validate() {
+    if (type === "register") {
+      const input = document.getElementById("password");
+      const validityState = (input as HTMLInputElement).validity;
+      (input as HTMLInputElement).setCustomValidity("");
+      if (((input as HTMLInputElement).value).length < 1) {
+        (input as HTMLInputElement).setCustomValidity("Please fill out this field.");
+      } else if (((input as HTMLInputElement).value).includes(' ')) {
+        (input as HTMLInputElement).setCustomValidity("Password cannot include spaces.");
+      } else if (((input as HTMLInputElement).value).length < 8) {
+        (input as HTMLInputElement).setCustomValidity("Password must be at least 8 characters and include a number.");
+      } else if (!(/[0-9]/.test((input as HTMLInputElement).value))) {
+        (input as HTMLInputElement).setCustomValidity("Password must be at least 8 characters and include a number.");
+      } else {
+        (input as HTMLInputElement).setCustomValidity("");
+      }
+      //(input as HTMLInputElement).reportValidity();
+    }
+  }
+
   return (
     <form
       onSubmit={(e) => {
@@ -104,9 +124,8 @@ export default function Form({ type }: { type: "login" | "register" }) {
           id="password"
           name="password"
           type="password"
-          minLength={8}
           required
-          data-v-equal={true}
+          onChange={validate}
           className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm"
         />
       </div>
