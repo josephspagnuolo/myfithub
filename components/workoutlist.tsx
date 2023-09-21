@@ -54,16 +54,16 @@ export default function WorkoutList(
           <div className="w-3 h-3 leading-3 text-sm">Fri</div>
           <div className="w-3 h-3"></div>
         </div>
-        <div className="grid gap-1">{week10.map(day => <DateBox date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
-        <div className="grid gap-1">{week9.map(day => <DateBox date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
-        <div className="grid gap-1">{week8.map(day => <DateBox date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
-        <div className="grid gap-1">{week7.map(day => <DateBox date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
-        <div className="grid gap-1">{week6.map(day => <DateBox date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
-        <div className="grid gap-1">{week5.map(day => <DateBox date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
-        <div className="grid gap-1">{week4.map(day => <DateBox date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
-        <div className="grid gap-1">{week3.map(day => <DateBox date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
-        <div className="grid gap-1">{week2.map(day => <DateBox date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
-        <div className="grid gap-1">{week1.map(day => <DateBox date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
+        <div className="grid gap-1">{week10.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
+        <div className="grid gap-1">{week9.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
+        <div className="grid gap-1">{week8.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
+        <div className="grid gap-1">{week7.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
+        <div className="grid gap-1">{week6.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
+        <div className="grid gap-1">{week5.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
+        <div className="grid gap-1">{week4.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
+        <div className="grid gap-1">{week3.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
+        <div className="grid gap-1">{week2.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
+        <div className="grid gap-1">{week1.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
         <div className="grid gap-1 h-min">{week0.map(day => <DateBox date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
       </div>
     </>
