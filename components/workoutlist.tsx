@@ -64,7 +64,7 @@ export default function WorkoutList(
         <div className="grid gap-1">{week3.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
         <div className="grid gap-1">{week2.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
         <div className="grid gap-1">{week1.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
-        <div className="grid gap-1 h-min">{week0.map(day => <DateBox date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
+        <div className="grid gap-1 h-min">{week0.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
       </div>
     </>
   )
