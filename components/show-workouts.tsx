@@ -12,7 +12,7 @@ export default async function ShowWorkouts() {
   })
   return (
     <>
-      {/* <WorkoutList workouts={workouts} /> */}
+      <WorkoutList workouts={workouts} />
       <div><ul>
         {workouts.map((workout) => (
           <li key={workout.id} {...workout}>{workout.content}{' '}{workout.createdAt.toLocaleString('en-US', { timeZone: 'America/New_York' })}</li>

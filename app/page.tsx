@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default async function Home() {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-[85vh] sm:h-screen">
       <div className="w-screen h-screen flex flex-col justify-center items-center">
         <Image
           width={512}
@@ -28,12 +28,12 @@ export default async function Home() {
             </button>
           </Link>
         </div>
-        <div className="text-center max-w-screen-sm mb-10">
+        {/* <div className="text-center max-w-screen-sm mb-10">
           <p className="text-stone-400 mt-5">
             {`The date today is ${new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })} `}
             {`The date one year ago was ${new Date(new Date().setFullYear(new Date().getFullYear() - 1)).toLocaleString()}`}
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
