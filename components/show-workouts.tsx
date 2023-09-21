@@ -15,7 +15,7 @@ export default async function ShowWorkouts() {
       {/* <WorkoutList workouts={workouts} /> */}
       <div><ul>
         {workouts.map((workout) => (
-          <li key={workout.id} {...workout}>{workout.content}{' '}{workout.createdAt.toString()}</li>
+          <li key={workout.id} {...workout}>{workout.content}{' '}{workout.createdAt.toLocaleString('en-US', { timeZone: 'America/New_York' })}</li>
         ))}
       </ul></div>
     </>
