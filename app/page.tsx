@@ -5,7 +5,7 @@ import Link from "next/link";
 export default async function Home() {
   return (
     <div className="flex h-[85vh] sm:h-screen">
-      <div className="w-screen h-screen flex flex-col justify-center items-center">
+      <div className="w-screen flex flex-col justify-center items-center">
         <Image
           width={512}
           height={512}

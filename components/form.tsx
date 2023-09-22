@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 export default function Form({ type }: { type: "login" | "register" }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [visible, setVisible] = useState(false);
 
   function validate() {
     if (type === "register") {
@@ -114,16 +115,24 @@ export default function Form({ type }: { type: "login" | "register" }) {
         />
       </div>
       <div>
-        <label
-          htmlFor="password"
-          className="block text-xs text-gray-400"
-        >
-          Password
-        </label>
+        <div className="flex justify-between">
+          <label
+            htmlFor="password"
+            className="block text-xs text-gray-400"
+          >
+            Password
+          </label>
+          <label
+            className="block text-xs text-gray-400 underline cursor-pointer"
+            onClick={() => setVisible(!visible)}
+          >
+            {visible ? "Hide Password" : "Show Password"}
+          </label>
+        </div>
         <input
           id="password"
           name="password"
-          type="password"
+          type={visible ? "text" : "password"}
           required
           onChange={validate}
           className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm"
