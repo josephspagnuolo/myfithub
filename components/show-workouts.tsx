@@ -4,10 +4,10 @@ import WorkoutList from "./workoutlist";
 
 export default async function ShowWorkouts() {
   const session = await getServerSession();
-  const userEmail = session!.user!.email + "";
+  const useremail = session!.user!.email + "";
   const workouts = await prisma.workout.findMany({
     where: {
-      userEmail,
+      userEmail: useremail,
     }
   })
   return (

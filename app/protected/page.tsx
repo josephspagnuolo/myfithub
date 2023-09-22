@@ -23,7 +23,7 @@ export default async function Home() {
           </button>
         </Link>
       </div>
-      <div className="w-screen flex flex-col space-y-5 justify-center items-center px-4 pb-4">
+      <div className="w-full flex flex-col space-y-5 justify-center items-center px-4 pb-4">
         <ShowWorkouts />
         <SignOut />
       </div>
