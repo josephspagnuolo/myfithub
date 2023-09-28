@@ -106,6 +106,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
           Email Address
         </label>
         <input
+          autoFocus={type === "login"}
           id="email"
           name="email"
           type="email"

@@ -8,6 +8,11 @@ export default async function ShowWorkouts() {
   const workouts = await prisma.workout.findMany({
     where: {
       userEmail: useremail,
+    },
+    select: {
+      id: true,
+      content: true,
+      createdAt: true,
     }
   })
   return (
@@ -20,7 +25,7 @@ export default async function ShowWorkouts() {
         <div>Your Workouts</div>
         <ul>
           {workouts.map((workout) => (
-            <li key={workout.id} {...workout}>
+            <li className="break-words" key={workout.id} {...workout}>
               {workout.content}{' '}
               <span className="text-stone-400 text-sm">
                 {workout.createdAt.toLocaleString('en-US', { timeZone: 'America/New_York' })}
