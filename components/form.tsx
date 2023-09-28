@@ -36,6 +36,11 @@ export default function Form({ type }: { type: "login" | "register" }) {
     if (inputElement && (type === "login")) {
       inputElement.focus();
       inputElement.click();
+
+      setTimeout(() => {
+        inputElement.focus();
+        inputElement.click();
+      }, 1000)
     }
   }, []);
 
