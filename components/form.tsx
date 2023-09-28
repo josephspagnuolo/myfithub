@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { signIn } from "next-auth/react";
 import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
@@ -32,15 +32,18 @@ export default function Form({ type }: { type: "login" | "register" }) {
     }
   }
 
-  const emailInput = useCallback((inputElement: HTMLInputElement) => {
-    if (inputElement && (type === "login")) {
-      inputElement.focus();
-      inputElement.click();
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-      setTimeout(() => {
-        inputElement.focus();
-        inputElement.click();
-      }, 1000)
+  useEffect(() => {
+    // Check if the input element exists
+    if (inputRef.current) {
+      if (type === "login") {
+        // Focus on the input element
+        inputRef.current.focus();
+
+        // Open the keyboard (this step may not be necessary on all devices)
+        inputRef.current.click(); // or use inputRef.current.focus();
+      }
     }
   }, []);
 
@@ -118,7 +121,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
           Email Address
         </label>
         <input
-          ref={emailInput}
+          ref={inputRef}
           id="email"
           name="email"
           type="email"
