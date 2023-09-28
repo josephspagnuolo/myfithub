@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { signIn } from "next-auth/react";
 import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
@@ -31,6 +31,13 @@ export default function Form({ type }: { type: "login" | "register" }) {
       //(input as HTMLInputElement).reportValidity();
     }
   }
+
+  const emailInput = useCallback((inputElement: HTMLInputElement) => {
+    if (inputElement && (type === "login")) {
+      inputElement.focus();
+      inputElement.click();
+    }
+  }, []);
 
   return (
     <form
@@ -106,7 +113,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
           Email Address
         </label>
         <input
-          autoFocus={type === "login"}
+          ref={emailInput}
           id="email"
           name="email"
           type="email"
