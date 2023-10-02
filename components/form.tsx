@@ -32,21 +32,6 @@ export default function Form({ type }: { type: "login" | "register" }) {
     }
   }
 
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    // Check if the input element exists
-    if (inputRef.current) {
-      if (type === "login") {
-        // Focus on the input element
-        inputRef.current.focus();
-
-        // Open the keyboard (this step may not be necessary on all devices)
-        inputRef.current.click(); // or use inputRef.current.focus();
-      }
-    }
-  }, []);
-
   return (
     <form
       onSubmit={(e) => {
@@ -121,7 +106,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
           Email Address
         </label>
         <input
-          ref={inputRef}
+          autoFocus={type === "login"}
           id="email"
           name="email"
           type="email"

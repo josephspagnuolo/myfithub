@@ -17,11 +17,11 @@ export default async function ShowWorkouts() {
   })
   return (
     <>
-      <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col space-y-3 px-4 py-6 sm:px-16">
+      <div className="z-10 w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col space-y-3 px-4 py-4 sm:px-[75px]">
         <div>Recent Activity</div>
         <WorkoutList workouts={workouts} />
       </div>
-      <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col space-y-3 px-4 py-6 sm:px-16">
+      <div className="z-10 w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col space-y-3 px-4 py-4 sm:px-[75px]">
         <div>Your Workouts</div>
         <ul>
           {workouts.map((workout) => (
