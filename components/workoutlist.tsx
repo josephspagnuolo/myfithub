@@ -87,7 +87,7 @@ export default function WorkoutList(
     return arr;
   };
   function getMonth(week: string[]) {
-    if (week.at(0)?.slice(0, 2) === week.at(6)?.slice(0, 2)) {
+    if (week.at(0)?.slice(0, 2) === week.at(week.length - 1)?.slice(0, 2)) {
       const len = week.at(0)?.length || 0;
       const year = week.at(0)?.slice(len - 4, len);
       return (week.at(0)?.slice(0, 2) === "1/") ? (week.includes(`1/7/${year}`)) ? "Jan" : ""
