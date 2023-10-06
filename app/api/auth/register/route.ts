@@ -2,6 +2,11 @@ import prisma from "@/lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
+import { EmailTemplate } from "@/components/email-template";
+import { Resend } from "resend";
+import { randomUUID } from "crypto";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   const { name, email, password } = await req.json();
@@ -20,6 +25,26 @@ export async function POST(req: Request) {
         password: await hash(password, 10),
       },
     });
-    return NextResponse.json(user);
+    const token = await prisma.activateToken.create({
+      data: {
+        userId: user.id,
+        token: `${randomUUID()}${randomUUID()}`.replace(/-/g, ''),
+      },
+    })
+    try {
+      const userEmail = email as string;
+      const emailData = await resend.emails.send({
+        from: 'MyFitHub <onboarding@resend.dev>',
+        to: "josephspagnuolo1@gmail.com",
+        //to: userEmail,
+        subject: "MyFitHub Registration",
+        react: EmailTemplate({ name: user.name as string, token: token.token }) as React.ReactElement,
+      });
+
+      return NextResponse.json({ data: emailData, user });
+    } catch (error) {
+      return NextResponse.json({ error });
+    }
+    //return NextResponse.json(user);
   }
 }

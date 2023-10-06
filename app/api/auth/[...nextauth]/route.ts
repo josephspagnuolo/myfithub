@@ -32,6 +32,9 @@ export const authOptions: NextAuthOptions = {
         if (!(await compare(credentials.password, user.password)))
           throw new Error("Invalid email or password");
 
+        if (!user.active)
+          throw new Error("Please verify your email");
+
         return {
           id: user.id + '',
           name: user.name,

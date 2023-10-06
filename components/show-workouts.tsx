@@ -21,18 +21,24 @@ export default async function ShowWorkouts() {
         <div>Recent Activity</div>
         <WorkoutList workouts={workouts} />
       </div>
-      <div className="z-10 w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col space-y-3 px-4 py-4 sm:px-[75px]">
+      <div className="z-10 w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col space-y-3 px-4 py-4 sm:px-[75px] min-h-[210px]">
         <div>Your Workouts</div>
-        <ul>
-          {workouts.map((workout) => (
-            <li className="break-words" key={workout.id} {...workout}>
-              {workout.content}{' '}
-              <span className="text-stone-400 text-sm">
-                {workout.createdAt.toLocaleString('en-US', { timeZone: 'America/New_York' })}
-              </span>
-            </li>
-          ))}
-        </ul>
+        {workouts.length === 0 ? (
+          <span className="text-stone-400 text-sm">
+            Nothing so far...
+          </span>
+        ) : (
+          <ul>
+            {workouts.map((workout) => (
+              <li className="break-words" key={workout.id} {...workout}>
+                {workout.content}{' '}
+                <span className="text-stone-400 text-sm">
+                  {workout.createdAt.toLocaleString('en-US', { timeZone: 'America/New_York' })}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </>
   );

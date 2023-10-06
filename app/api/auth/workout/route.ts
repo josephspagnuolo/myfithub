@@ -30,7 +30,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const session = await getServerSession();
     if (!session || !session.user || !session.user.email) {
-      console.log("test")
       return NextResponse.json({ error: "Not Authenticated" }, { status: 400 });
     }
     const email = session.user.email;

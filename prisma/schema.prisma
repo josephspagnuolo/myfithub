@@ -13,8 +13,22 @@ model User {
   name     String?
   email    String? @unique
   password String
+  active   Boolean @default(false)
 
-  workouts Workout[]
+  activateTokens ActivateToken[]
+  workouts       Workout[]
+}
+
+model ActivateToken {
+  id          Int       @id @default(autoincrement())
+  userId      String
+  token       String    @unique
+  activatedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Workout {
