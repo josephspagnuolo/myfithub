@@ -17,6 +17,7 @@ export default function WorkoutList(
   };
 
   const whatDayIsIt = new Date().toLocaleDateString('en-US', { timeZone: 'America/New_York', weekday: 'long' })
+
   const dayOfWeek =
     (whatDayIsIt === "Sunday") ? 1
       : (whatDayIsIt === "Monday") ? 2
@@ -25,6 +26,8 @@ export default function WorkoutList(
             : (whatDayIsIt === "Thursday") ? 5
               : (whatDayIsIt === "Friday") ? 6
                 : 7
+
+  const isItSunday = dayOfWeek === 1;
 
   var daylist = getDaysArrayStrings(new Date(new Date().setFullYear(new Date().getFullYear() - 1)), new Date());
   var week0 = daylist.slice(daylist.length - dayOfWeek, daylist.length)
@@ -79,13 +82,16 @@ export default function WorkoutList(
   var week49 = daylist.slice(daylist.length - dayOfWeek - 343, daylist.length - dayOfWeek - 336)
   var week50 = daylist.slice(daylist.length - dayOfWeek - 350, daylist.length - dayOfWeek - 343)
   var week51 = daylist.slice(daylist.length - dayOfWeek - 357, daylist.length - dayOfWeek - 350)
-  var week52 = daylist.slice(0, daylist.length - dayOfWeek - 357)
+  var week52 = isItSunday ? (daylist.slice(1, daylist.length - dayOfWeek - 357)) : (daylist.slice(0, daylist.length - dayOfWeek - 357))
+  var week53 = daylist.slice(0, 1)
+
   var remaining = function (lengthOfWeek52: number) {
     for (var arr = [], i = 0; i < 7 - lengthOfWeek52; i++) {
       arr.push(i);
     }
     return arr;
   };
+
   function getMonth(week: string[]) {
     if (week.at(0)?.slice(0, 2) === week.at(week.length - 1)?.slice(0, 2)) {
       const len = week.at(0)?.length || 0;
@@ -121,6 +127,7 @@ export default function WorkoutList(
           <div className="w-3 h-3 leading-3 text-xs">Fri</div>
           <div className="w-3 h-3"></div>
         </div>
+        {isItSunday ? <div className="grid gap-1 w-[12px]"><div className="h-[12px] overflow-visible text-xs p-0 leading-3 pl-[0.5px]">{getMonth(week53)}</div>{remaining(week53.length).map(day => <div key={day} className="w-3 h-3"></div>)}{week53.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div> : null}
         <div className="grid gap-1 w-[12px]"><div className="h-[12px] overflow-visible text-xs p-0 leading-3 pl-[0.5px]">{getMonth(week52)}</div>{remaining(week52.length).map(day => <div key={day} className="w-3 h-3"></div>)}{week52.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
         <div className="grid gap-1 w-[12px]"><div className="h-[12px] overflow-visible text-xs p-0 leading-3 pl-[0.5px]">{getMonth(week51)}</div>{week51.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
         <div className="grid gap-1 w-[12px]"><div className="h-[12px] overflow-visible text-xs p-0 leading-3 pl-[0.5px]">{getMonth(week50)}</div>{week50.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>

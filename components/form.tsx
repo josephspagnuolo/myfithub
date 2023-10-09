@@ -66,7 +66,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
           }).then(async (res) => {
             setLoading(false);
             if (res.status === 200) {
-              toast.success("Account created! Please verify your email...");
+              toast.success("Account created! Please check your email for a verification link.");
               setTimeout(() => {
                 router.push("/login");
               }, 2000);
