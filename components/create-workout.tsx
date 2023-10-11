@@ -4,11 +4,11 @@ import { useState } from "react";
 import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function CreateWorkout() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  //border border-gray-600
   return (
     <>
       <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl shadow-xl bg-[#292929]">
@@ -29,7 +29,7 @@ export default function CreateWorkout() {
                 toast.success("Great workout!");
                 setTimeout(() => {
                   router.refresh();
-                  router.replace("/protected");
+                  router.replace("/dashboard");
                 }, 2000);
               } else {
                 const { error } = await res.json();
@@ -68,7 +68,8 @@ export default function CreateWorkout() {
           </button>
         </form>
       </div>
-      <a href="/protected">← Back to dashboard</a></>
+      <Link href="/dashboard">← Back to dashboard</Link>
+    </>
   );
 }
 

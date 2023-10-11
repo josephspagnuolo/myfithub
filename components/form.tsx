@@ -49,7 +49,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
               toast.error(error);
             } else {
               router.refresh();
-              router.push("/protected");
+              router.push("/dashboard");
             }
           });
         } else {
@@ -66,7 +66,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
           }).then(async (res) => {
             setLoading(false);
             if (res.status === 200) {
-              toast.success("Account created! Please check your email for a verification link.");
+              toast.success("Account created! Please check your email for a verification link.", { duration: 10000 });
               setTimeout(() => {
                 router.push("/login");
               }, 2000);
