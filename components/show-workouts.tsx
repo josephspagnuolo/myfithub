@@ -29,7 +29,7 @@ export default async function ShowWorkouts() {
           </span>
         ) : (
           <ul>
-            {workouts.map((workout) => (
+            {workouts.reverse().map((workout) => (
               <li className="break-words" key={workout.id} {...workout}>
                 {workout.content}{' '}
                 <span className="text-stone-400 text-sm">
