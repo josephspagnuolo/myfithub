@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
 import WorkoutList from "./workoutlist";
+import Link from "next/link";
 
 export default async function ShowWorkouts() {
   const session = await getServerSession();
@@ -28,16 +29,24 @@ export default async function ShowWorkouts() {
             Nothing so far...
           </span>
         ) : (
-          <ul>
-            {workouts.reverse().map((workout) => (
-              <li className="break-words" key={workout.id} {...workout}>
-                {workout.content}{' '}
-                <span className="text-stone-400 text-sm">
-                  {workout.createdAt.toLocaleString('en-US', { timeZone: 'America/New_York' })}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <>
+            <ul className="flex grow flex-col">
+              {workouts.reverse().slice(0, 7).map((workout) => (
+                <li className="break-words" key={workout.id}>
+                  <Link className="hover:underline" href={`/dashboard/workout/${workout.id}`}>{workout.content}</Link>{' '}
+                  <span className="text-stone-400 text-sm">
+                    {workout.createdAt.toLocaleString('en-US', { timeZone: 'America/New_York' })}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <div className="flex justify-end sm:-m-12">
+              <Link className="text-sky-600 hover:text-sky-700 flex overflow-y-clip"
+                href="/dashboard/workout/all">View All&nbsp;
+                <div className="scale-y-[2] scale-x-150 -translate-y-[2.5px] ml-0.5">→</div>
+              </Link>
+            </div>
+          </>
         )}
       </div>
     </>

@@ -5,13 +5,17 @@ import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { listOfAllExercises } from "./list-of-all-exercises";
+import Autocomplete from "@mui/joy/Autocomplete";
 
-export default function CreateWorkout() {
+export default function AddExercise() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [value, setValue] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState('');
+  const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <Link className="flex overflow-y-clip" href="/dashboard"><div className="scale-y-[2] scale-x-150 -translate-y-[2.5px] mr-0.5">←</div>&nbsp;Back to dashboard</Link>
       <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl shadow-xl bg-[#292929]">
         <form
           onSubmit={(e) => {
@@ -29,10 +33,10 @@ export default function CreateWorkout() {
               if (res.status === 200) {
                 const { workout } = await res.json()
                 //console.log(workout.id)
-                toast.success("Great workout!");
+                toast.success("Great exercise!");
                 setTimeout(() => {
                   router.refresh();
-                  router.replace(`/dashboard/workout/${workout.id}`);
+                  //router.replace(`/dashboard/workout/${workout.id}`);
                 }, 2000);
               } else {
                 const { error } = await res.json();
@@ -40,23 +44,29 @@ export default function CreateWorkout() {
               }
             });
           }}
-          className="flex flex-col space-y-4 px-4 py-8 sm:px-16"
+          //className="flex flex-col space-y-4 px-4 py-8 sm:px-16"
+          className="flex flex-col px-4 py-6"
         >
-          <div>
-            <label
-              htmlFor="content"
-              className="block text-xs text-gray-400"
-            >
-              Workout Name
-            </label>
-            <input
-              id="content"
-              name="content"
-              type="content"
-              placeholder="Chest Day"
-              required
-              className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25" />
-          </div>
+          <Autocomplete
+            //className="rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
+            variant="soft"
+            required
+            placeholder="Add..."
+            value={value}
+            onChange={(event: any, newValue: React.SetStateAction<string | null>) => {
+              setValue(newValue);
+              setIsOpen(false);
+            }}
+            inputValue={inputValue}
+            onInputChange={(event: any, newInputValue: React.SetStateAction<string>) => {
+              setInputValue(newInputValue);
+              newInputValue === "" ? setIsOpen(false) : setIsOpen(true);
+            }}
+            options={listOfAllExercises}
+            //sx={{ width: 300 }}
+            open={isOpen}
+          />
+          <br />
           <button
             type="submit"
             disabled={loading}
@@ -67,7 +77,7 @@ export default function CreateWorkout() {
             {loading ? (
               <LoadingDots color="#808080" />
             ) : (
-              <p>Create Workout</p>
+              <p>Add Exercise</p>
             )}
           </button>
         </form>

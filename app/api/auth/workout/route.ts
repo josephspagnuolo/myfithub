@@ -22,7 +22,8 @@ export async function POST(req: Request) {
         createdAt: new Date()
       },
     });
-    return NextResponse.json(workout);
+    //console.log(workout)
+    return NextResponse.json({ workout: workout });
   }
 }
 
