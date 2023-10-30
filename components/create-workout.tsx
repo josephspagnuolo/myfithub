@@ -11,7 +11,7 @@ export default function CreateWorkout() {
   const router = useRouter();
   return (
     <>
-      <Link className="flex overflow-y-clip" href="/dashboard"><div className="scale-y-[2] scale-x-150 -translate-y-[2.5px] mr-0.5">←</div>&nbsp;Back to dashboard</Link>
+      <Link className="absolute top-8 flex overflow-y-clip" href="/dashboard"><div className="sm:scale-y-[2] sm:scale-x-150 sm:-translate-y-[2.5px] sm:mr-0.5">←</div>&nbsp;Back to dashboard</Link>
       <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl shadow-xl bg-[#292929]">
         <form
           onSubmit={(e) => {
@@ -54,6 +54,7 @@ export default function CreateWorkout() {
               name="content"
               type="content"
               placeholder="Chest Day"
+              maxLength={22}
               required
               className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25" />
           </div>

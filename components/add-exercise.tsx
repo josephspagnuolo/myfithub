@@ -8,7 +8,7 @@ import Link from "next/link";
 import { listOfAllExercises } from "./list-of-all-exercises";
 import Autocomplete from "@mui/joy/Autocomplete";
 
-export default function AddExercise() {
+export default function AddExercise({ id }: { id: string }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [value, setValue] = useState<string | null>(null);
@@ -21,21 +21,24 @@ export default function AddExercise() {
           onSubmit={(e) => {
             e.preventDefault();
             setLoading(true);
-            fetch("/api/auth/workout", {
+            fetch(`/api/auth/workout/${id}`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                content: e.currentTarget.content.value,
+                name: value,
               }),
             }).then(async (res) => {
               if (res.status === 200) {
-                const { workout } = await res.json()
+                setValue(null)
+                //setLoading(false);
+                const { exercise } = await res.json()
                 //console.log(workout.id)
-                toast.success("Great exercise!");
                 setTimeout(() => {
                   router.refresh();
+                  toast.success("Great exercise!");
+                  setLoading(false);
                   //router.replace(`/dashboard/workout/${workout.id}`);
                 }, 2000);
               } else {
@@ -44,12 +47,9 @@ export default function AddExercise() {
               }
             });
           }}
-          //className="flex flex-col space-y-4 px-4 py-8 sm:px-16"
-          className="flex flex-col px-4 py-6"
+          className="flex flex-col px-4 py-5"
         >
           <Autocomplete
-            //className="rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
-            variant="soft"
             required
             placeholder="Add..."
             value={value}
@@ -63,16 +63,14 @@ export default function AddExercise() {
               newInputValue === "" ? setIsOpen(false) : setIsOpen(true);
             }}
             options={listOfAllExercises}
-            //sx={{ width: 300 }}
             open={isOpen}
           />
-          <br />
           <button
             type="submit"
             disabled={loading}
             className={`${loading
-              ? "cursor-not-allowed border-[#292929] bg-[#292929]"
-              : "border-black bg-sky-800 text-gray-300 hover:bg-sky-900"} flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none`}
+              ? "cursor-not-allowed border-[#292929] bg-[#292929] mt-4"
+              : "border-black bg-sky-800 text-gray-300 hover:bg-sky-900"} flex mt-4 h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none`}
           >
             {loading ? (
               <LoadingDots color="#808080" />
