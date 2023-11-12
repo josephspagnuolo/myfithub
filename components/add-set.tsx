@@ -102,7 +102,7 @@ export default function AddSet({ id }: { id: string }) {
             <p>Add Set</p>
           )}
         </button>
-        <div className="col-span-3 flex space-x-9 sm:space-x-5 justify-normal sm:justify-center">
+        <div className="col-span-3 flex space-x-8 sm:space-x-5 justify-normal sm:justify-center">
           <div>
             <input
               id="hrs"
@@ -113,7 +113,7 @@ export default function AddSet({ id }: { id: string }) {
               pattern="\d*"
               maxLength={2}
               placeholder="2"
-              className="w-[42px] appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
+              className="w-[48px] appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
             />
             <label className="mt-1.5 mx-2 text-sm" htmlFor="hrs">hrs</label>
           </div>
@@ -127,7 +127,7 @@ export default function AddSet({ id }: { id: string }) {
               pattern="^([1-5]?[0-9]|59)$"
               maxLength={2}
               placeholder="45"
-              className="w-[42px] appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
+              className="w-[48px] appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
             />
             <label className="mt-1.5 mx-2 text-sm" htmlFor="mins">min</label>
           </div>
@@ -141,7 +141,7 @@ export default function AddSet({ id }: { id: string }) {
               pattern="^([1-5]?[0-9]|59)$"
               maxLength={2}
               placeholder="30"
-              className="w-[42px] appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
+              className="-ml-1 w-[48px] appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
             />
             <label className="mt-1.5 mx-2 text-sm" htmlFor="seconds">sec</label>
           </div>
