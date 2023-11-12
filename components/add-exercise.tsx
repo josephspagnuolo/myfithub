@@ -8,7 +8,7 @@ import Link from "next/link";
 import { listOfAllExercises } from "./list-of-all-exercises";
 import Autocomplete from "@mui/joy/Autocomplete";
 
-export default function AddExercise({ id }: { id: string }) {
+export default function AddExercise({ id, currentExsList }: { id: string; currentExsList: string[] }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [value, setValue] = useState<string | null>(null);
@@ -61,9 +61,24 @@ export default function AddExercise({ id }: { id: string }) {
             onInputChange={(event: any, newInputValue: React.SetStateAction<string>) => {
               setInputValue(newInputValue);
               newInputValue === "" ? setIsOpen(false) : setIsOpen(true);
+              if (value !== null) {
+                setValue(null);
+                setTimeout(() => {
+                  setInputValue(newInputValue);
+                  newInputValue === "" ? setIsOpen(false) : setIsOpen(true);
+                }, 1);
+              }
             }}
             options={listOfAllExercises}
+            getOptionDisabled={(option) =>
+              currentExsList.includes(option.toString())
+            }
             open={isOpen}
+            sx={{
+              '&::before': {
+                transform: 'scaleX(0)',
+              },
+            }}
           />
           <button
             type="submit"
