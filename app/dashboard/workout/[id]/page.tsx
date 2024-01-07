@@ -1,5 +1,6 @@
 import AddExercise from "@/components/add-exercise";
 import AddSet from "@/components/add-set";
+import ClosingButton from "@/components/closingbutton";
 import ShowSets from "@/components/show-sets";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
@@ -46,10 +47,11 @@ export default async function WorkoutPage({ params }: { params: { id: string } }
               </span>
             ) : (
               <>
-                <fieldset id="accordion" className="w-full max-w-md sm:max-w-5xl border-none p-1 pb-0 overflow-hidden rounded-2xl space-y-5">
+                <fieldset id="accordion" className="w-full max-w-md sm:max-w-5xl border-none overflow-hidden rounded-2xl space-y-5">
                   {thisWorkout.exercises.map((ex) => (
                     <label key={ex.id} className="z-10 w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] hover:bg-opacity-60 flex flex-col px-4 py-4 sm:px-[67px] cursor-pointer">
-                      <input type="radio" value="bar1" name="accordion" className="peer hidden" defaultChecked={false} />
+                      <ClosingButton id={ex.id} />
+                      <input id={ex.id} type="radio" value="bar1" name="accordion" className="peer hidden" defaultChecked={false} />
                       <span className="flex justify-between">
                         <div>
                           {ex.name}
