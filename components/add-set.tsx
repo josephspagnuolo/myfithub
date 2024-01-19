@@ -26,7 +26,7 @@ export default function AddSet({ id }: { id: string }) {
             });
             setLoading(false);
           } else {
-            fetch(`/api/auth/exercise/${id}`, {
+            fetch(`/api/exercise/${id}`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

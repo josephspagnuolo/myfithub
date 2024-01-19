@@ -15,24 +15,19 @@ export async function POST(
   if (!session || !session.user || !session.user.email) {
     return NextResponse.json({ error: "Not Authenticated" }, { status: 400 });
   }
-  const { reps, weight, timehrs, timemins, timeseconds } = await req.json();
-  const exercise = await prisma.exercise.findUnique({
+  const { name } = await req.json();
+  const workout = await prisma.workout.findUnique({
     where: {
       id,
     },
   });
-  if (exercise) {
-    const exerciseSet = await prisma.exerciseSet.create({
+  if (workout) {
+    const exercise = await prisma.exercise.create({
       data: {
-        reps,
-        weight,
-        timehrs,
-        timemins,
-        timeseconds,
-        exerciseId: id,
+        name,
+        workoutId: id,
       },
     });
-    //console.log(workout)
-    return NextResponse.json({ exerciseSet: exerciseSet });
+    return NextResponse.json({ exercise: exercise });
   }
 }

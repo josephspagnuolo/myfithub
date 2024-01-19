@@ -14,7 +14,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
     <h2>Verify your email address</h2>
     <h4>Welcome, {name}!</h4>
     <h4>Please activate your MyFitHub account by clicking the following link:</h4>
-    <a href={`${process.env.NEXTAUTH_URL}/activate/${token}`}>Verify my account</a>
+    <a href={`${process.env.NEXTAUTH_URL}/api/activate/${token}`}>Verify my account</a>
     <h4>If this was not you, you can safely delete this email.</h4>
   </div>
 );

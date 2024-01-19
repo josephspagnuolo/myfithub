@@ -21,7 +21,7 @@ export default function AddExercise({ id, currentExsList }: { id: string; curren
           onSubmit={(e) => {
             e.preventDefault();
             setLoading(true);
-            fetch(`/api/auth/workout/${id}`, {
+            fetch(`/api/workout/${id}`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

@@ -17,7 +17,7 @@ export default function CreateWorkout() {
           onSubmit={(e) => {
             e.preventDefault();
             setLoading(true);
-            fetch("/api/auth/workout", {
+            fetch("/api/workout", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

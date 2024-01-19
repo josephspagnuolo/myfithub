@@ -22,25 +22,6 @@ export async function POST(req: Request) {
         createdAt: new Date()
       },
     });
-    //console.log(workout)
     return NextResponse.json({ workout: workout });
-  }
-}
-
-export async function GET(req: NextRequest, res: NextResponse) {
-  try {
-    const session = await getServerSession();
-    if (!session || !session.user || !session.user.email) {
-      return NextResponse.json({ error: "Not Authenticated" }, { status: 400 });
-    }
-    const email = session.user.email;
-    const workouts = await prisma.workout.findMany({
-      where: {
-        userEmail: email + "",
-      }
-    });
-    return NextResponse.json({ message: "Success nice work", workouts }, { status: 200 });
-  } catch (error) {
-    return NextResponse.json({ error: "Error" }, { status: 500 });
   }
 }
