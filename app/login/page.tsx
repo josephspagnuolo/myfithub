@@ -4,9 +4,9 @@ import Link from "next/link";
 
 export default function Login() {
   return (
-    <div className="flex h-[85vh] sm:h-screen w-screen items-center justify-center">
+    <main className="flex grow items-center justify-center">
       <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl border border-gray-600 shadow-xl bg-[#292929]">
-        <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-600 px-4 py-6 pt-8 text-center sm:px-16">
+        <div className="flex flex-col items-center justify-center space-y-2 border-b border-gray-600 px-4 py-4 pt-5 text-center sm:px-16">
           <Link href="/">
             <Image
               src="/logo.png"
@@ -24,6 +24,6 @@ export default function Login() {
         </div>
         <Form type="login" />
       </div>
-    </div>
+    </main>
   );
 }

@@ -29,7 +29,7 @@ export default async function WorkoutPage({ params }: { params: { id: string } }
   const currentExsList = thisWorkout?.exercises.map(e => e.name) || []
 
   return (
-    <div className="flex">
+    <main className="flex-1">
       <div className="w-screen flex flex-col space-y-5 justify-center items-center px-4 py-14">
         <Link className="absolute top-8 flex overflow-y-clip" href="/dashboard"><div className="sm:scale-y-[2] sm:scale-x-150 sm:-translate-y-[2.5px] sm:mr-0.5">←</div>&nbsp;Back to dashboard</Link>
         {thisWorkout ? (
@@ -86,6 +86,6 @@ export default async function WorkoutPage({ params }: { params: { id: string } }
           </>
         )}
       </div>
-    </div>
+    </main>
   );
 }

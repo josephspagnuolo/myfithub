@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-interface EmailTemplateProps {
+interface VerifyEmailTemplateProps {
   name: string;
   token: string;
 }
 
-export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
+export const VerifyEmailTemplate: React.FC<Readonly<VerifyEmailTemplateProps>> = ({
   name,
   token,
 }) => (

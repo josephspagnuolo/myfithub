@@ -16,7 +16,7 @@ export default async function AllWorkouts() {
     }
   })
   return (
-    <div className="flex">
+    <main className="grow">
       <div className="w-screen flex flex-col space-y-5 justify-center items-center px-4 py-[53px]">
         <Link className="absolute top-8 flex overflow-y-clip" href="/dashboard">
           <div className="sm:scale-y-[2] sm:scale-x-150 sm:-translate-y-[2.5px] sm:mr-0.5">←</div>
@@ -41,6 +41,6 @@ export default async function AllWorkouts() {
           </>
         )}
       </div>
-    </div>
+    </main>
   );
 }

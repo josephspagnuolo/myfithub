@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
-import { EmailTemplate } from "@/components/email-template";
+import { VerifyEmailTemplate } from "@/components/verify-email-template";
 import { Resend } from "resend";
 import { randomUUID } from "crypto";
 
@@ -38,13 +38,12 @@ export async function POST(req: Request) {
         //to: "josephspagnuolo1@gmail.com",
         to: userEmail,
         subject: "MyFitHub Registration",
-        react: EmailTemplate({ name: user.name as string, token: token.token }) as React.ReactElement,
+        react: VerifyEmailTemplate({ name: user.name as string, token: token.token }) as React.ReactElement,
       });
 
       return NextResponse.json({ data: emailData, user });
     } catch (error) {
       return NextResponse.json({ error });
     }
-    //return NextResponse.json(user);
   }
 }

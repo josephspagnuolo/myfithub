@@ -77,7 +77,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
           });
         }
       }}
-      className="flex flex-col space-y-4 px-4 py-8 sm:px-16"
+      className="flex flex-col space-y-3 px-4 py-5 sm:px-16"
     >
       {type === "register" ? (
         <div>
@@ -154,13 +154,20 @@ export default function Form({ type }: { type: "login" | "register" }) {
         )}
       </button>
       {type === "login" ? (
-        <p className="text-center text-sm text-gray-400">
-          Don&apos;t have an account?{" "}
-          <Link href="/register" className="font-semibold text-gray-300 hover:underline">
-            Sign up
-          </Link>{" "}
-          for free.
-        </p>
+        <>
+          <p className="text-center text-sm text-gray-400">
+            <Link href="/forgot-password" className="hover:underline">
+              Forgot your password?
+            </Link>
+          </p>
+          <p className="text-center text-sm text-gray-400">
+            Don&apos;t have an account?{" "}
+            <Link href="/register" className="font-semibold text-gray-300 hover:underline">
+              Sign up
+            </Link>{" "}
+            for free.
+          </p>
+        </>
       ) : (
         <p className="text-center text-sm text-gray-400">
           Already have an account?{" "}

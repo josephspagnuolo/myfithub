@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default async function Home() {
   return (
-    <div className="flex h-[85vh] sm:h-screen">
+    <main className="flex grow">
       <div className="w-screen flex flex-col justify-center items-center">
         <Image
           width={512}
@@ -35,6 +35,6 @@ export default async function Home() {
           </p>
         </div> */}
       </div>
-    </div>
+    </main>
   );
 }

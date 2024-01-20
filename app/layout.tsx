@@ -28,12 +28,15 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-[#191919] text-gray-300">
+      <body className="bg-[#191919] text-gray-300 flex flex-col  min-h-[88vh] sm:min-h-screen">
         <Toaster />
         <Suspense fallback="Loading...">
           <AuthStatus />
         </Suspense>
         {children}
+        <footer className="bottom-2.5 w-full flex justify-center items-center text-gray-400 text-xs py-4">
+          <p>&copy; 2024 MyFitHub.ca - All rights reserved.</p>
+        </footer>
       </body>
     </html>
   );
