@@ -50,7 +50,7 @@ export default async function PasswordResetPage({ params }: { params: { token: s
             />
           </Link>
           <span className="text-stone-400 text-sm">
-            Error! You shouldn't be here...
+            Error! You should not be here...
           </span>
         </>
       )}
