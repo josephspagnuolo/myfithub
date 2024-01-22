@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Form from "@/components/form";
 import Link from "next/link";
+import GitHubSigninButton from "@/components/github-signin-button";
 
 export default function Login() {
   return (
@@ -22,6 +23,7 @@ export default function Login() {
             Create an account at MyFitHub with your name, email and password
           </p>
         </div>
+        {/* <GitHubSigninButton /> */}
         <Form type="register" />
       </div>
     </main>
