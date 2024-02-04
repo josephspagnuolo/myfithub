@@ -1,8 +1,10 @@
 import prisma from "@/lib/prisma";
-import Link from "next/link";
 
-export default async function ShowSets({ id }: { id: string }) {
-
+export default async function ShowSets({
+  id
+}: {
+  id: string;
+}) {
   const exercise = await prisma.exercise.findFirst({
     where: {
       id: id,
@@ -11,7 +13,7 @@ export default async function ShowSets({ id }: { id: string }) {
       sets: true,
       createdAt: true,
     }
-  })
+  });
 
   const sets = exercise?.sets || [];
 

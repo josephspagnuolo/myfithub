@@ -1,13 +1,12 @@
 import DateBox from "./datebox";
 
-export default function WorkoutList(
-  { workouts
-  }: {
-    workouts:
-    { id: string; content: string; createdAt: Date; }[]
-  }) {
+export default function WorkoutList({
+  workouts
+}: {
+  workouts: { id: string; content: string; createdAt: Date; }[];
+}) {
 
-  const workoutTimes = workouts.map(w => w.createdAt.toLocaleDateString('en-US', { timeZone: 'America/New_York' }))
+  const workoutTimes = workouts.map(w => w.createdAt.toLocaleDateString('en-US', { timeZone: 'America/New_York' }));
 
   var getDaysArrayStrings = function (start: Date, end: Date) {
     for (var arr = [], dt = new Date(start); dt <= new Date(end); dt.setDate(dt.getDate() + 1)) {
@@ -16,7 +15,7 @@ export default function WorkoutList(
     return arr;
   };
 
-  const whatDayIsIt = new Date().toLocaleDateString('en-US', { timeZone: 'America/New_York', weekday: 'long' })
+  const whatDayIsIt = new Date().toLocaleDateString('en-US', { timeZone: 'America/New_York', weekday: 'long' });
 
   const dayOfWeek =
     (whatDayIsIt === "Sunday") ? 1
@@ -25,65 +24,65 @@ export default function WorkoutList(
           : (whatDayIsIt === "Wednesday") ? 4
             : (whatDayIsIt === "Thursday") ? 5
               : (whatDayIsIt === "Friday") ? 6
-                : 7
+                : 7;
 
   const isItSunday = dayOfWeek === 1;
 
   var daylist = getDaysArrayStrings(new Date(new Date().setFullYear(new Date().getFullYear() - 1)), new Date());
-  var week0 = daylist.slice(daylist.length - dayOfWeek, daylist.length)
-  var week1 = daylist.slice(daylist.length - dayOfWeek - 7, daylist.length - dayOfWeek)
-  var week2 = daylist.slice(daylist.length - dayOfWeek - 14, daylist.length - dayOfWeek - 7)
-  var week3 = daylist.slice(daylist.length - dayOfWeek - 21, daylist.length - dayOfWeek - 14)
-  var week4 = daylist.slice(daylist.length - dayOfWeek - 28, daylist.length - dayOfWeek - 21)
-  var week5 = daylist.slice(daylist.length - dayOfWeek - 35, daylist.length - dayOfWeek - 28)
-  var week6 = daylist.slice(daylist.length - dayOfWeek - 42, daylist.length - dayOfWeek - 35)
-  var week7 = daylist.slice(daylist.length - dayOfWeek - 49, daylist.length - dayOfWeek - 42)
-  var week8 = daylist.slice(daylist.length - dayOfWeek - 56, daylist.length - dayOfWeek - 49)
-  var week9 = daylist.slice(daylist.length - dayOfWeek - 63, daylist.length - dayOfWeek - 56)
-  var week10 = daylist.slice(daylist.length - dayOfWeek - 70, daylist.length - dayOfWeek - 63)
-  var week11 = daylist.slice(daylist.length - dayOfWeek - 77, daylist.length - dayOfWeek - 70)
-  var week12 = daylist.slice(daylist.length - dayOfWeek - 84, daylist.length - dayOfWeek - 77)
-  var week13 = daylist.slice(daylist.length - dayOfWeek - 91, daylist.length - dayOfWeek - 84)
-  var week14 = daylist.slice(daylist.length - dayOfWeek - 98, daylist.length - dayOfWeek - 91)
-  var week15 = daylist.slice(daylist.length - dayOfWeek - 105, daylist.length - dayOfWeek - 98)
-  var week16 = daylist.slice(daylist.length - dayOfWeek - 112, daylist.length - dayOfWeek - 105)
-  var week17 = daylist.slice(daylist.length - dayOfWeek - 119, daylist.length - dayOfWeek - 112)
-  var week18 = daylist.slice(daylist.length - dayOfWeek - 126, daylist.length - dayOfWeek - 119)
-  var week19 = daylist.slice(daylist.length - dayOfWeek - 133, daylist.length - dayOfWeek - 126)
-  var week20 = daylist.slice(daylist.length - dayOfWeek - 140, daylist.length - dayOfWeek - 133)
-  var week21 = daylist.slice(daylist.length - dayOfWeek - 147, daylist.length - dayOfWeek - 140)
-  var week22 = daylist.slice(daylist.length - dayOfWeek - 154, daylist.length - dayOfWeek - 147)
-  var week23 = daylist.slice(daylist.length - dayOfWeek - 161, daylist.length - dayOfWeek - 154)
-  var week24 = daylist.slice(daylist.length - dayOfWeek - 168, daylist.length - dayOfWeek - 161)
-  var week25 = daylist.slice(daylist.length - dayOfWeek - 175, daylist.length - dayOfWeek - 168)
-  var week26 = daylist.slice(daylist.length - dayOfWeek - 182, daylist.length - dayOfWeek - 175)
-  var week27 = daylist.slice(daylist.length - dayOfWeek - 189, daylist.length - dayOfWeek - 182)
-  var week28 = daylist.slice(daylist.length - dayOfWeek - 196, daylist.length - dayOfWeek - 189)
-  var week29 = daylist.slice(daylist.length - dayOfWeek - 203, daylist.length - dayOfWeek - 196)
-  var week30 = daylist.slice(daylist.length - dayOfWeek - 210, daylist.length - dayOfWeek - 203)
-  var week31 = daylist.slice(daylist.length - dayOfWeek - 217, daylist.length - dayOfWeek - 210)
-  var week32 = daylist.slice(daylist.length - dayOfWeek - 224, daylist.length - dayOfWeek - 217)
-  var week33 = daylist.slice(daylist.length - dayOfWeek - 231, daylist.length - dayOfWeek - 224)
-  var week34 = daylist.slice(daylist.length - dayOfWeek - 238, daylist.length - dayOfWeek - 231)
-  var week35 = daylist.slice(daylist.length - dayOfWeek - 245, daylist.length - dayOfWeek - 238)
-  var week36 = daylist.slice(daylist.length - dayOfWeek - 252, daylist.length - dayOfWeek - 245)
-  var week37 = daylist.slice(daylist.length - dayOfWeek - 259, daylist.length - dayOfWeek - 252)
-  var week38 = daylist.slice(daylist.length - dayOfWeek - 266, daylist.length - dayOfWeek - 259)
-  var week39 = daylist.slice(daylist.length - dayOfWeek - 273, daylist.length - dayOfWeek - 266)
-  var week40 = daylist.slice(daylist.length - dayOfWeek - 280, daylist.length - dayOfWeek - 273)
-  var week41 = daylist.slice(daylist.length - dayOfWeek - 287, daylist.length - dayOfWeek - 280)
-  var week42 = daylist.slice(daylist.length - dayOfWeek - 294, daylist.length - dayOfWeek - 287)
-  var week43 = daylist.slice(daylist.length - dayOfWeek - 301, daylist.length - dayOfWeek - 294)
-  var week44 = daylist.slice(daylist.length - dayOfWeek - 308, daylist.length - dayOfWeek - 301)
-  var week45 = daylist.slice(daylist.length - dayOfWeek - 315, daylist.length - dayOfWeek - 308)
-  var week46 = daylist.slice(daylist.length - dayOfWeek - 322, daylist.length - dayOfWeek - 315)
-  var week47 = daylist.slice(daylist.length - dayOfWeek - 329, daylist.length - dayOfWeek - 322)
-  var week48 = daylist.slice(daylist.length - dayOfWeek - 336, daylist.length - dayOfWeek - 329)
-  var week49 = daylist.slice(daylist.length - dayOfWeek - 343, daylist.length - dayOfWeek - 336)
-  var week50 = daylist.slice(daylist.length - dayOfWeek - 350, daylist.length - dayOfWeek - 343)
-  var week51 = daylist.slice(daylist.length - dayOfWeek - 357, daylist.length - dayOfWeek - 350)
-  var week52 = isItSunday ? (daylist.slice(1, daylist.length - dayOfWeek - 357)) : (daylist.slice(0, daylist.length - dayOfWeek - 357))
-  var week53 = daylist.slice(0, 1)
+  var week0 = daylist.slice(daylist.length - dayOfWeek, daylist.length);
+  var week1 = daylist.slice(daylist.length - dayOfWeek - 7, daylist.length - dayOfWeek);
+  var week2 = daylist.slice(daylist.length - dayOfWeek - 14, daylist.length - dayOfWeek - 7);
+  var week3 = daylist.slice(daylist.length - dayOfWeek - 21, daylist.length - dayOfWeek - 14);
+  var week4 = daylist.slice(daylist.length - dayOfWeek - 28, daylist.length - dayOfWeek - 21);
+  var week5 = daylist.slice(daylist.length - dayOfWeek - 35, daylist.length - dayOfWeek - 28);
+  var week6 = daylist.slice(daylist.length - dayOfWeek - 42, daylist.length - dayOfWeek - 35);
+  var week7 = daylist.slice(daylist.length - dayOfWeek - 49, daylist.length - dayOfWeek - 42);
+  var week8 = daylist.slice(daylist.length - dayOfWeek - 56, daylist.length - dayOfWeek - 49);
+  var week9 = daylist.slice(daylist.length - dayOfWeek - 63, daylist.length - dayOfWeek - 56);
+  var week10 = daylist.slice(daylist.length - dayOfWeek - 70, daylist.length - dayOfWeek - 63);
+  var week11 = daylist.slice(daylist.length - dayOfWeek - 77, daylist.length - dayOfWeek - 70);
+  var week12 = daylist.slice(daylist.length - dayOfWeek - 84, daylist.length - dayOfWeek - 77);
+  var week13 = daylist.slice(daylist.length - dayOfWeek - 91, daylist.length - dayOfWeek - 84);
+  var week14 = daylist.slice(daylist.length - dayOfWeek - 98, daylist.length - dayOfWeek - 91);
+  var week15 = daylist.slice(daylist.length - dayOfWeek - 105, daylist.length - dayOfWeek - 98);
+  var week16 = daylist.slice(daylist.length - dayOfWeek - 112, daylist.length - dayOfWeek - 105);
+  var week17 = daylist.slice(daylist.length - dayOfWeek - 119, daylist.length - dayOfWeek - 112);
+  var week18 = daylist.slice(daylist.length - dayOfWeek - 126, daylist.length - dayOfWeek - 119);
+  var week19 = daylist.slice(daylist.length - dayOfWeek - 133, daylist.length - dayOfWeek - 126);
+  var week20 = daylist.slice(daylist.length - dayOfWeek - 140, daylist.length - dayOfWeek - 133);
+  var week21 = daylist.slice(daylist.length - dayOfWeek - 147, daylist.length - dayOfWeek - 140);
+  var week22 = daylist.slice(daylist.length - dayOfWeek - 154, daylist.length - dayOfWeek - 147);
+  var week23 = daylist.slice(daylist.length - dayOfWeek - 161, daylist.length - dayOfWeek - 154);
+  var week24 = daylist.slice(daylist.length - dayOfWeek - 168, daylist.length - dayOfWeek - 161);
+  var week25 = daylist.slice(daylist.length - dayOfWeek - 175, daylist.length - dayOfWeek - 168);
+  var week26 = daylist.slice(daylist.length - dayOfWeek - 182, daylist.length - dayOfWeek - 175);
+  var week27 = daylist.slice(daylist.length - dayOfWeek - 189, daylist.length - dayOfWeek - 182);
+  var week28 = daylist.slice(daylist.length - dayOfWeek - 196, daylist.length - dayOfWeek - 189);
+  var week29 = daylist.slice(daylist.length - dayOfWeek - 203, daylist.length - dayOfWeek - 196);
+  var week30 = daylist.slice(daylist.length - dayOfWeek - 210, daylist.length - dayOfWeek - 203);
+  var week31 = daylist.slice(daylist.length - dayOfWeek - 217, daylist.length - dayOfWeek - 210);
+  var week32 = daylist.slice(daylist.length - dayOfWeek - 224, daylist.length - dayOfWeek - 217);
+  var week33 = daylist.slice(daylist.length - dayOfWeek - 231, daylist.length - dayOfWeek - 224);
+  var week34 = daylist.slice(daylist.length - dayOfWeek - 238, daylist.length - dayOfWeek - 231);
+  var week35 = daylist.slice(daylist.length - dayOfWeek - 245, daylist.length - dayOfWeek - 238);
+  var week36 = daylist.slice(daylist.length - dayOfWeek - 252, daylist.length - dayOfWeek - 245);
+  var week37 = daylist.slice(daylist.length - dayOfWeek - 259, daylist.length - dayOfWeek - 252);
+  var week38 = daylist.slice(daylist.length - dayOfWeek - 266, daylist.length - dayOfWeek - 259);
+  var week39 = daylist.slice(daylist.length - dayOfWeek - 273, daylist.length - dayOfWeek - 266);
+  var week40 = daylist.slice(daylist.length - dayOfWeek - 280, daylist.length - dayOfWeek - 273);
+  var week41 = daylist.slice(daylist.length - dayOfWeek - 287, daylist.length - dayOfWeek - 280);
+  var week42 = daylist.slice(daylist.length - dayOfWeek - 294, daylist.length - dayOfWeek - 287);
+  var week43 = daylist.slice(daylist.length - dayOfWeek - 301, daylist.length - dayOfWeek - 294);
+  var week44 = daylist.slice(daylist.length - dayOfWeek - 308, daylist.length - dayOfWeek - 301);
+  var week45 = daylist.slice(daylist.length - dayOfWeek - 315, daylist.length - dayOfWeek - 308);
+  var week46 = daylist.slice(daylist.length - dayOfWeek - 322, daylist.length - dayOfWeek - 315);
+  var week47 = daylist.slice(daylist.length - dayOfWeek - 329, daylist.length - dayOfWeek - 322);
+  var week48 = daylist.slice(daylist.length - dayOfWeek - 336, daylist.length - dayOfWeek - 329);
+  var week49 = daylist.slice(daylist.length - dayOfWeek - 343, daylist.length - dayOfWeek - 336);
+  var week50 = daylist.slice(daylist.length - dayOfWeek - 350, daylist.length - dayOfWeek - 343);
+  var week51 = daylist.slice(daylist.length - dayOfWeek - 357, daylist.length - dayOfWeek - 350);
+  var week52 = isItSunday ? (daylist.slice(1, daylist.length - dayOfWeek - 357)) : (daylist.slice(0, daylist.length - dayOfWeek - 357));
+  var week53 = daylist.slice(0, 1);
 
   var remaining = function (lengthOfWeek52: number) {
     for (var arr = [], i = 0; i < 7 - lengthOfWeek52; i++) {
@@ -183,5 +182,5 @@ export default function WorkoutList(
         <div className="grid gap-1 w-[12px] h-min"><div className="h-[12px] overflow-visible text-xs p-0 leading-3"></div>{week0.map(day => <DateBox key={day} date={day} didworkout={workoutTimes.includes(day)} howmany={workoutTimes.filter(c => c === day).length} />)}</div>
       </div>
     </>
-  )
+  );
 }

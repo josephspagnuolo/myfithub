@@ -6,9 +6,8 @@ export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
 
   // If it's the root path, just render it
-  if (path === "/") {
+  if (path === "/")
     return NextResponse.next();
-  }
 
   const session = await getToken({
     req,

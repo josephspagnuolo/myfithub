@@ -1,9 +1,10 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
 import Link from "next/link";
 
 export default async function AllWorkouts() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   const useremail = session!.user!.email + "";
   const workouts = await prisma.workout.findMany({
     where: {
@@ -14,10 +15,10 @@ export default async function AllWorkouts() {
       content: true,
       createdAt: true,
     }
-  })
+  });
   return (
     <main className="grow">
-      <div className="w-screen flex flex-col space-y-5 justify-center items-center px-4 py-[53px]">
+      <div className="w-full flex flex-col space-y-5 justify-center items-center px-4 py-[53px]">
         <Link className="absolute top-8 flex overflow-y-clip" href="/dashboard">
           <div className="sm:scale-y-[2] sm:scale-x-150 sm:-translate-y-[2.5px] sm:mr-0.5">←</div>
           &nbsp;Back to dashboard</Link>

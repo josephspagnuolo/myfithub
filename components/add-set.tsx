@@ -5,7 +5,11 @@ import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-export default function AddSet({ id }: { id: string }) {
+export default function AddSet({
+  id
+}: {
+  id: string;
+}) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [repsInputValue, setRepsInputValue] = useState("");
@@ -41,7 +45,6 @@ export default function AddSet({ id }: { id: string }) {
             }).then(async (res) => {
               if (res.status === 200) {
                 const { set } = await res.json()
-                //console.log(set.id)
                 setTimeout(() => {
                   setRepsInputValue("");
                   setWeightInputValue("");

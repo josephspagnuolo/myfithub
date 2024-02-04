@@ -5,7 +5,11 @@ import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-export default function PasswordResetForm({ token }: { token: string }) {
+export default function PasswordResetForm({
+  token
+}: {
+  token: string;
+}) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [visible, setVisible] = useState(false);
@@ -90,5 +94,5 @@ export default function PasswordResetForm({ token }: { token: string }) {
         )}
       </button>
     </form>
-  )
+  );
 }

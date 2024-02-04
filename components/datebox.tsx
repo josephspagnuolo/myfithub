@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Tooltip from '@mui/joy/Tooltip';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -10,9 +10,7 @@ export default function DateBox({
   date: string;
   didworkout: boolean;
   howmany: number;
-}
-) {
-
+}) {
   const [open, setOpen] = useState(false);
 
   const handleTooltipClose = () => {
@@ -39,17 +37,14 @@ export default function DateBox({
                             : ""
   }
   const month = getMonth(date);
-  const format1 = date.substring(date.indexOf("/") + 1)
-  const format2 = format1.substring(0, format1.indexOf("/"))
-  const suffix = (format2 === "1" || format2 === "21" || format2 === "31") ? "st" : (format2 === "2" || format2 === "22") ? "nd" : (format2 === "3" || format2 === "23") ? "rd" : "th"
-  const formattedDate = month + " " + format2 + suffix
+  const format1 = date.substring(date.indexOf("/") + 1);
+  const format2 = format1.substring(0, format1.indexOf("/"));
+  const suffix = (format2 === "1" || format2 === "21" || format2 === "31") ? "st" : (format2 === "2" || format2 === "22") ? "nd" : (format2 === "3" || format2 === "23") ? "rd" : "th";
+  const formattedDate = month + " " + format2 + suffix;
   const isOne = howmany === 1;
   const isZero = howmany === 0;
   const title = isOne ? (howmany.toString() + " Workout on " + formattedDate) : (isZero ? ("No Workouts on " + formattedDate) : (howmany.toString() + " Workouts on " + formattedDate));
   return (
-    // <Tooltip disableInteractive disableFocusListener placement="top" arrow enterTouchDelay={125} leaveTouchDelay={30000} leaveDelay={0} enterDelay={0} title={title}>
-    //   <div className={`rounded-sm ${didworkout ? "bg-green-500" : "bg-gray-700"} w-3 h-3`}></div>
-    // </Tooltip>
     <div>
       <ClickAwayListener onClickAway={handleTooltipClose}>
         <div>
@@ -60,5 +55,5 @@ export default function DateBox({
         </div>
       </ClickAwayListener>
     </div>
-  )
+  );
 }

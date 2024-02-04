@@ -1,3 +1,4 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import AddExercise from "@/components/add-exercise";
 import AddSet from "@/components/add-set";
 import ClosingButton from "@/components/closingbutton";
@@ -6,11 +7,14 @@ import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
 import Link from "next/link";
 
-export default async function WorkoutPage({ params }: { params: { id: string } }) {
+export default async function WorkoutPage({
+  params
+}: {
+  params: { id: string };
+}) {
+  const { id } = params;
 
-  const { id } = params
-
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   const useremail = session!.user!.email + "";
 
@@ -24,13 +28,13 @@ export default async function WorkoutPage({ params }: { params: { id: string } }
       createdAt: true,
       exercises: true,
     }
-  })
+  });
 
-  const currentExsList = thisWorkout?.exercises.map(e => e.name) || []
+  const currentExsList = thisWorkout?.exercises.map(e => e.name) || [];
 
   return (
     <main className="flex-1">
-      <div className="w-screen flex flex-col space-y-5 justify-center items-center px-4 py-14">
+      <div className="w-full flex flex-col space-y-5 justify-center items-center px-4 py-14">
         <Link className="absolute top-8 flex overflow-y-clip" href="/dashboard"><div className="sm:scale-y-[2] sm:scale-x-150 sm:-translate-y-[2.5px] sm:mr-0.5">←</div>&nbsp;Back to dashboard</Link>
         {thisWorkout ? (
           <>
@@ -67,14 +71,7 @@ export default async function WorkoutPage({ params }: { params: { id: string } }
                       </div>
                     </label>
                   ))}
-                </fieldset>{/*
-                {thisWorkout.exercises.map((ex) => (
-                  <div key={ex.id} className="w-full max-w-md sm:max-w-5xl rounded-2xl">
-                    <div className="z-10 w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] hover:bg-opacity-60 flex flex-col space-y-3 px-4 py-4 sm:px-[67px]">
-                      {ex.name}
-                    </div>
-                  </div>
-                ))}*/}
+                </fieldset>
               </>
             )}
           </>

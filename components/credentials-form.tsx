@@ -1,13 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { signIn } from "next-auth/react";
 import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function Form({ type }: { type: "login" | "register" }) {
+export default function CredentialsForm({
+  type, working, doWorking
+}: {
+  type: "login" | "register";
+  working: boolean;
+  doWorking: Dispatch<SetStateAction<boolean>>;
+}) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [visible, setVisible] = useState(false);
@@ -37,6 +43,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
       onSubmit={(e) => {
         e.preventDefault();
         setLoading(true);
+        doWorking(true);
         if (type === "login") {
           signIn("credentials", {
             redirect: false,
@@ -46,6 +53,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
           }).then(({ error }) => {
             if (error) {
               setLoading(false);
+              doWorking(false);
               toast.error(error);
             } else {
               router.refresh();
@@ -65,6 +73,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
             }),
           }).then(async (res) => {
             setLoading(false);
+            doWorking(false);
             if (res.status === 200) {
               toast.success("Account created! Please check your email for a verification link.", { duration: 10000 });
               setTimeout(() => {
@@ -77,7 +86,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
           });
         }
       }}
-      className="flex flex-col space-y-3 px-4 py-5 sm:px-16"
+      className="flex flex-col space-y-3 px-4 py-5 pt-2 sm:px-16"
     >
       {type === "register" ? (
         <div>
@@ -141,8 +150,8 @@ export default function Form({ type }: { type: "login" | "register" }) {
       </div>
       <button
         type="submit"
-        disabled={loading}
-        className={`${loading
+        disabled={working}
+        className={`${working ? "cursor-not-allowed" : ""} ${loading
           ? "cursor-not-allowed border-[#292929] bg-[#292929]"
           : "border-black bg-sky-800 text-gray-300 hover:bg-sky-900"
           } flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none`}

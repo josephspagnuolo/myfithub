@@ -21,9 +21,9 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials.password) {
+        if (!credentials?.email || !credentials.password)
           throw new Error("Missing username or password");
-        }
+
         const user = await prisma.user.findUnique({
           where: {
             email: credentials.email
@@ -32,6 +32,9 @@ export const authOptions: NextAuthOptions = {
         // if user doesn't exist or password doesn't match
         if (!user)
           throw new Error("Invalid email or password");
+
+        if (!user.password)
+          throw new Error("Invalid account");
 
         if (!(await compare(credentials.password, user.password)))
           throw new Error("Invalid email or password");
@@ -47,6 +50,63 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async session({ token, session }) {
+      if (token?.sub && session?.user)
+        session.user.id = token.sub;
+      return session;
+    },
+    async jwt({ token, trigger }) {
+      if (trigger === "signIn") {
+        if (!token.email || !token.sub)
+          throw new Error("Invalid account");
+
+        const emailUser = await prisma.user.findFirst({
+          where: {
+            email: token.email,
+            providerId: null,
+          },
+        });
+        if (!emailUser) {
+          const providerUser = await prisma.user.upsert({
+            where: {
+              providerId: token.sub,
+            },
+            create: {
+              name: token.name,
+              email: token.email,
+              image: token.picture,
+              providerId: token.sub,
+              active: true,
+            },
+            update: {
+              name: token.name,
+              email: token.email,
+            }
+          });
+          token.sub = providerUser.id;
+        } else {
+          if (token.picture) {
+            await prisma.user.update({
+              where: {
+                email: token.email,
+              },
+              data: {
+                name: token.name,
+                password: null,
+                image: token.picture,
+                providerId: token.sub,
+                active: true,
+              }
+            });
+            token.sub = emailUser.id;
+          }
+        }
+      }
+      return token;
+    },
+  },
+  session: { strategy: "jwt" },
 };
 
 const handler = NextAuth(authOptions);

@@ -8,10 +8,11 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   const { email } = await req.json();
-  const existingUser = await prisma.user.findUnique({
+  const existingUser = await prisma.user.findFirst({
     where: {
       email,
       active: true,
+      providerId: null,
     },
   });
   if (!existingUser) {
@@ -22,17 +23,15 @@ export async function POST(req: Request) {
         userId: existingUser.id,
         token: `${randomUUID()}${randomUUID()}`.replace(/-/g, ''),
       },
-    })
+    });
     try {
       const userEmail = email as string;
       const emailData = await resend.emails.send({
         from: 'MyFitHub <security@myfithub.ca>',
-        //to: "josephspagnuolo1@gmail.com",
         to: userEmail,
         subject: "MyFitHub Password Reset Request",
         react: ForgotPasswordEmailTemplate({ name: existingUser.name as string, token: token.token }) as React.ReactElement,
       });
-
       return NextResponse.json({ data: emailData, existingUser });
     } catch (error) {
       return NextResponse.json({ error });

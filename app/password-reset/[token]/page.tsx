@@ -3,8 +3,11 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import Image from "next/image";
 
-export default async function PasswordResetPage({ params }: { params: { token: string } }) {
-
+export default async function PasswordResetPage({
+  params
+}: {
+  params: { token: string };
+}) {
   const { token } = params;
 
   const thisToken = await prisma.passwordResetToken.findUnique({

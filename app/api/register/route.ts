@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma";
-import { NextApiRequest, NextApiResponse } from "next";
 import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
 import { VerifyEmailTemplate } from "@/components/verify-email-template";
@@ -16,7 +15,7 @@ export async function POST(req: Request) {
     },
   });
   if (exists) {
-    return NextResponse.json({ error: "User already exists" }, { status: 400 });
+    return NextResponse.json({ error: "Account already exists" }, { status: 400 });
   } else {
     const user = await prisma.user.create({
       data: {
@@ -30,17 +29,15 @@ export async function POST(req: Request) {
         userId: user.id,
         token: `${randomUUID()}${randomUUID()}`.replace(/-/g, ''),
       },
-    })
+    });
     try {
       const userEmail = email as string;
       const emailData = await resend.emails.send({
         from: 'MyFitHub <onboarding@myfithub.ca>',
-        //to: "josephspagnuolo1@gmail.com",
         to: userEmail,
         subject: "MyFitHub Registration",
         react: VerifyEmailTemplate({ name: user.name as string, token: token.token }) as React.ReactElement,
       });
-
       return NextResponse.json({ data: emailData, user });
     } catch (error) {
       return NextResponse.json({ error });

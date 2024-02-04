@@ -1,6 +1,10 @@
-"use client"
+"use client";
 
-export default function ClosingButton({ id }: { id: string }) {
+export default function ClosingButton({
+  id
+}: {
+  id: string;
+}) {
   function clearRadio() {
     let radio = document.getElementById(id) as HTMLInputElement;
     if (radio.checked == false) {

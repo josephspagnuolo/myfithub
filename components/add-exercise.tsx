@@ -4,11 +4,15 @@ import { useState } from "react";
 import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { listOfAllExercises } from "./list-of-all-exercises";
 import Autocomplete from "@mui/joy/Autocomplete";
 
-export default function AddExercise({ id, currentExsList }: { id: string; currentExsList: string[] }) {
+export default function AddExercise({
+  id, currentExsList
+}: {
+  id: string;
+  currentExsList: string[];
+}) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [value, setValue] = useState<string | null>(null);
@@ -32,14 +36,11 @@ export default function AddExercise({ id, currentExsList }: { id: string; curren
             }).then(async (res) => {
               if (res.status === 200) {
                 setValue(null)
-                //setLoading(false);
                 const { exercise } = await res.json()
-                //console.log(workout.id)
                 setTimeout(() => {
                   router.refresh();
                   toast.success("Great exercise!");
                   setLoading(false);
-                  //router.replace(`/dashboard/workout/${workout.id}`);
                 }, 2000);
               } else {
                 const { error } = await res.json();

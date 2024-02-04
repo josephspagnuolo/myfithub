@@ -9,11 +9,13 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(cuid())
-  name     String?
-  email    String? @unique
-  password String
-  active   Boolean @default(false)
+  id         String  @id @default(cuid())
+  name       String?
+  email      String? @unique
+  password   String?
+  image      String?
+  providerId String? @unique
+  active     Boolean @default(false)
 
   activateTokens      ActivateToken[]
   passwordResetTokens PasswordResetToken[]

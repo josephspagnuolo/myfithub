@@ -28,7 +28,6 @@ export default function CreateWorkout() {
             }).then(async (res) => {
               if (res.status === 200) {
                 const { workout } = await res.json()
-                //console.log(workout.id)
                 toast.success("Great workout!");
                 setTimeout(() => {
                   router.refresh();
