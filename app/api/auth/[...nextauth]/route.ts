@@ -82,24 +82,49 @@ export const authOptions: NextAuthOptions = {
             update: {
               name: token.name,
               email: token.email,
+              image: token.picture,
             }
           });
           token.sub = providerUser.id;
         } else {
           if (token.picture) {
-            await prisma.user.update({
+            const alsoProviderUser = await prisma.user.findFirst({
               where: {
-                email: token.email,
-              },
-              data: {
-                name: token.name,
-                password: null,
-                image: token.picture,
                 providerId: token.sub,
-                active: true,
-              }
+              },
             });
-            token.sub = emailUser.id;
+            if (!alsoProviderUser) {
+              await prisma.user.update({
+                where: {
+                  email: token.email,
+                },
+                data: {
+                  name: token.name,
+                  password: null,
+                  image: token.picture,
+                  providerId: token.sub,
+                  active: true,
+                }
+              });
+              token.sub = emailUser.id;
+            } else {
+              await prisma.user.delete({
+                where: {
+                  email: token.email,
+                },
+              });
+              const providerUser = await prisma.user.update({
+                where: {
+                  providerId: token.sub,
+                },
+                data: {
+                  name: token.name,
+                  email: token.email,
+                  image: token.picture,
+                }
+              });
+              token.sub = providerUser.id;
+            }
           }
         }
       }
