@@ -8,30 +8,39 @@ import { useRouter } from "next/navigation";
 export default function Migrate() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  const handleMigrate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/migrate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        toast.success("Migration successful!");
+        router.push('/');
+      } else {
+        const { message } = await response.json();
+        toast.error(message || "An error occurred during migration.");
+      }
+    } catch (error) {
+      // Catch network errors and log them
+      console.error("Migration error:", error);
+      toast.error("An unexpected error occurred.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          setLoading(true);
-          fetch("/api/migrate", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }).then(async (res) => {
-            if (res.status === 200) {
-              toast.success("Migrated");
-              setTimeout(() => {
-                router.refresh();
-                router.replace(`/`);
-              }, 2000);
-            } else {
-              const { error } = await res.json();
-              toast.error(error);
-            }
-          });
-        }}
+        onSubmit={handleMigrate}
         className="flex flex-col space-y-4 px-4 py-8 sm:px-16"
       >
         <button
@@ -44,11 +53,10 @@ export default function Migrate() {
           {loading ? (
             <LoadingDots color="#808080" />
           ) : (
-            <p>Migrate</p>
+            "Migrate"
           )}
         </button>
       </form>
     </>
   );
 }
-
