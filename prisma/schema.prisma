@@ -19,8 +19,7 @@ model User {
 
   activateTokens      ActivateToken[]
   passwordResetTokens PasswordResetToken[]
-  workouts            Workout[]            @relation("usingemail")
-  workouts2           Workout[]            @relation("usingid")
+  workouts            Workout[]
 }
 
 model ActivateToken {
@@ -49,18 +48,15 @@ model PasswordResetToken {
 
 model Workout {
   id        String   @id @default(cuid())
-  userEmail String
-  userId    String?
+  userId    String
   content   String
   createdAt DateTime @default(now())
 
   exercises Exercise[]
 
-  user  User  @relation("usingemail", fields: [userEmail], references: [email], onDelete: Cascade)
-  user2 User? @relation("usingid", fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([id])
-  @@index([userEmail])
   @@index([userId])
 }
 

@@ -5,10 +5,10 @@ import Link from "next/link";
 
 export default async function AllWorkouts() {
   const session = await getServerSession(authOptions);
-  const useremail = session!.user!.email + "";
+  const userId = session!.user!.id;
   const workouts = await prisma.workout.findMany({
     where: {
-      userEmail: useremail,
+      userId,
     },
     select: {
       id: true,

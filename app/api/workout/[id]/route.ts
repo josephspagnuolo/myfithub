@@ -10,7 +10,7 @@ export async function POST(req: Request, {
 }) {
   const { id } = params;
   const session = await getServerSession(authOptions);
-  if (!session || !session.user || !session.user.email)
+  if (!session || !session.user || !session.user.id)
     return NextResponse.json({ error: "Not Authenticated" }, { status: 400 });
 
   const { name } = await req.json();

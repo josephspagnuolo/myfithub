@@ -29,6 +29,7 @@ export default function WorkoutList({
   const isItSunday = dayOfWeek === 1;
 
   var daylist = getDaysArrayStrings(new Date(new Date().setFullYear(new Date().getFullYear() - 1)), new Date());
+  if (daylist.length === 367) daylist.shift();
   var week0 = daylist.slice(daylist.length - dayOfWeek, daylist.length);
   var week1 = daylist.slice(daylist.length - dayOfWeek - 7, daylist.length - dayOfWeek);
   var week2 = daylist.slice(daylist.length - dayOfWeek - 14, daylist.length - dayOfWeek - 7);

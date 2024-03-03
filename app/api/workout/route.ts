@@ -5,21 +5,21 @@ import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
-  if (!session || !session.user || !session.user.email)
+  if (!session || !session.user || !session.user.id)
     return NextResponse.json({ error: "Not Authenticated" }, { status: 400 });
 
-  const email = session.user.email;
+  const id = session.user.id;
   const { content } = await req.json();
   const user = await prisma.user.findUnique({
     where: {
-      email,
+      id,
     },
   });
   if (user) {
     const workout = await prisma.workout.create({
       data: {
         content,
-        userEmail: user.email + "",
+        userId: user.id,
         createdAt: new Date()
       },
     });

@@ -6,10 +6,10 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function ShowWorkouts() {
   const session = await getServerSession(authOptions);
-  const useremail = session!.user!.email + "";
+  const userId = session!.user!.id;
   const workouts = await prisma.workout.findMany({
     where: {
-      userEmail: useremail,
+      userId,
     },
     select: {
       id: true,

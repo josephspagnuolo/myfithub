@@ -16,11 +16,11 @@ export default async function WorkoutPage({
 
   const session = await getServerSession(authOptions);
 
-  const useremail = session!.user!.email + "";
+  const userId = session!.user!.id;
 
   const thisWorkout = await prisma.workout.findFirst({
     where: {
-      userEmail: useremail,
+      userId,
       id: id,
     },
     select: {
