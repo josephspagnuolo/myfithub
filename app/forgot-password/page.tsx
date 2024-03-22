@@ -47,7 +47,7 @@ export default function ForgotPassword() {
                 router.push("/login");
               } else {
                 const { error } = await res.json();
-                toast.error(error);
+                toast.error("There was an error...");
               }
             });
           }}>

@@ -51,7 +51,7 @@ export default function PasswordResetForm({
             router.push("/login");
           } else {
             const { error } = await res.json();
-            toast.error(error);
+            toast.error("There was an error...");
           }
         });
       }}>

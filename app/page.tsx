@@ -1,5 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'MyFitHub',
+  description: "This is your Hub for everything Fitness. Track your Progress, Visualize your Results, Improve your Health",
+}
 
 export default async function Home() {
   return (

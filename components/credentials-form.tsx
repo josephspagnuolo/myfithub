@@ -54,7 +54,7 @@ export default function CredentialsForm({
             if (error) {
               setLoading(false);
               doWorking(false);
-              toast.error(error);
+              toast.error("There was an error...");
             } else {
               router.refresh();
               router.push("/dashboard");
@@ -81,7 +81,7 @@ export default function CredentialsForm({
               }, 2000);
             } else {
               const { error } = await res.json();
-              toast.error(error);
+              toast.error("There was an error...");
             }
           });
         }

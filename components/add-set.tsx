@@ -25,8 +25,9 @@ export default function AddSet({
           setLoading(true);
           if ((repsInputValue === "") && (weightInputValue === "") && (hrsInputValue === "") && (minsInputValue === "") && (secondsInputValue === "")) {
             console.log("empty")
-            toast.error("Please enter the set info", {
+            toast("Please enter the set info", {
               id: "1",
+              icon: '⚠️',
             });
             setLoading(false);
           } else {
@@ -57,7 +58,7 @@ export default function AddSet({
                 }, 2000);
               } else {
                 const { error } = await res.json();
-                toast.error(error);
+                toast.error("There was an error...");
               }
             });
           }

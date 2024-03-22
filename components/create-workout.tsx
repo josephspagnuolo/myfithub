@@ -35,7 +35,7 @@ export default function CreateWorkout() {
                 }, 2000);
               } else {
                 const { error } = await res.json();
-                toast.error(error);
+                toast.error("There was an error...");
               }
             });
           }}
