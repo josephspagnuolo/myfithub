@@ -2,6 +2,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import AddExercise from "@/components/add-exercise";
 import AddSet from "@/components/add-set";
 import ClosingButton from "@/components/closingbutton";
+import DeleteExerciseButton from "@/components/delete-exercise";
 import ShowSets from "@/components/show-sets";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
@@ -53,14 +54,16 @@ export default async function WorkoutPage({
               <>
                 <fieldset id="accordion" className="w-full max-w-md sm:max-w-5xl border-none overflow-hidden rounded-2xl space-y-5">
                   {thisWorkout.exercises.map((ex) => (
-                    <label key={ex.id} className="z-10 w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] hover:bg-opacity-60 flex flex-col px-4 py-4 sm:px-[67px] cursor-pointer">
-                      <ClosingButton id={ex.id} />
-                      <input id={ex.id} type="radio" value="bar1" name="accordion" className="peer hidden" defaultChecked={false} />
+                    <label key={ex.id} className="z-10 w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col px-4 py-4 sm:px-[67px]">
+                      <input id={ex.id} type="radio" disabled value="bar1" name="accordion" className="peer hidden" defaultChecked={false} />
                       <span className="flex justify-between">
                         <div>
                           {ex.name}
                         </div>
-                        <div className="text-3xl leading-4">+</div>
+                        <div className="flex flex-row">
+                          <ClosingButton id={ex.id} />
+                          <DeleteExerciseButton id={ex.id} />
+                        </div>
                       </span>
                       <div className="grid grid-rows-[0fr] transition-all ease-in-out duration-500 overflow-hidden pt-0 peer-checked:grid-rows-[1fr] peer-checked:cursor-default">
                         <div className="overflow-hidden p-0 m-0">

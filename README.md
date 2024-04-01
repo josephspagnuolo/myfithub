@@ -7,7 +7,7 @@
 
 <p align="center">
 This was built using <a href="https://nextjs.org/">Next.js</a> with <a href="https://next-auth.js.org/">Next-Auth</a> for GitHub OAuth and email & password login,<br/>
-<a href="https://www.prisma.io/">Prisma</a> as the ORM, and a <a href="https://planetscale.com/">PlanetScale</a> MySQL database to persist the data, hosted on <a href="https://vercel.com/">Vercel</a></p>
+<a href="https://www.prisma.io/">Prisma</a> as the ORM, and a <a href="https://supabase.com/">Supabase</a> PostgreSQL database to persist the data, hosted on <a href="https://vercel.com/">Vercel</a></p>
 
 <br/>
 

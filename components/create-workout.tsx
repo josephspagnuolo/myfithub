@@ -30,8 +30,8 @@ export default function CreateWorkout() {
                 const { workout } = await res.json()
                 toast.success("Great workout!");
                 setTimeout(() => {
+                  router.push(`/dashboard/workout/${workout.id}`);
                   router.refresh();
-                  router.replace(`/dashboard/workout/${workout.id}`);
                 }, 2000);
               } else {
                 const { error } = await res.json();

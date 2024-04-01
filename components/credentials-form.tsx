@@ -54,10 +54,18 @@ export default function CredentialsForm({
             if (error) {
               setLoading(false);
               doWorking(false);
-              toast.error("There was an error...");
+              toast.error(error);
             } else {
-              router.refresh();
-              router.push("/dashboard");
+              const toastId = toast.loading("Signing in...", {
+                style: { minWidth: "230px" }
+              });
+              setTimeout(() => {
+                toast.success("Signed in successfully!", {
+                  id: toastId,
+                });
+                router.refresh();
+                router.push("/dashboard");
+              }, 1000);
             }
           });
         } else {
@@ -81,7 +89,7 @@ export default function CredentialsForm({
               }, 2000);
             } else {
               const { error } = await res.json();
-              toast.error("There was an error...");
+              toast.error(error);
             }
           });
         }
@@ -115,7 +123,6 @@ export default function CredentialsForm({
           Email Address
         </label>
         <input
-          autoFocus={type === "login"}
           id="email"
           name="email"
           type="email"

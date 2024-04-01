@@ -1,6 +1,6 @@
 // These styles apply to every route in the application
 import "@/styles/globals.css";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import { Toaster } from "react-hot-toast";
 import AuthStatus from "@/components/auth-status";
 import { Suspense } from "react";
@@ -18,8 +18,11 @@ export const metadata: Metadata = {
     description,
   },
   metadataBase: new URL("https://www.myfithub.ca"),
-  themeColor: "#FFF",
 };
+
+export const viewport: Viewport = {
+  themeColor: "#191919",
+}
 
 export default async function RootLayout({
   children,
