@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import CredentialsForm from "./credentials-form";
 import GitHubSigninButton from "./github-signin-button";
 
@@ -12,7 +12,9 @@ export default function AuthOptions({
   const [working, setWorking] = useState(false);
   return (
     <>
-      <GitHubSigninButton working={working} doWorking={setWorking} />
+      <Suspense>
+        <GitHubSigninButton working={working} doWorking={setWorking} />
+      </Suspense>
       <div className="flex flex-row align-middle items-center">
         <div className="w-full h-0 border-[0.5px] border-b-0 border-gray-600"></div>
         <span className="flex justify-center text-center text-sm text-gray-400 px-2">OR</span>

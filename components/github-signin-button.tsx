@@ -25,7 +25,7 @@ export default function GitHubSigninButton({
         router.push("/login");
       }, 100);
     }
-  }, []);
+  }, [error, router]);
   return (
     <div className="flex px-4 pb-2 sm:px-16">
       <button disabled={working} className={`${working ? "cursor-not-allowed" : ""} ${loading
