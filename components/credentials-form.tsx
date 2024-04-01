@@ -63,8 +63,8 @@ export default function CredentialsForm({
                 toast.success("Signed in successfully!", {
                   id: toastId,
                 });
-                router.refresh();
                 router.push("/dashboard");
+                router.refresh();
               }, 1000);
             }
           });
