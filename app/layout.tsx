@@ -38,7 +38,13 @@ export default async function RootLayout({
         </Suspense>
         {children}
         <footer className="bottom-2.5 flex justify-center items-center text-gray-400 text-xs py-4">
-          <p>&copy; 2024 MyFitHub.ca - All rights reserved.</p>
+          <div className="flex justify-center flex-col-reverse space-y-1 space-y-reverse md:space-y-0 md:flex-row md:space-x-5">
+            <p>&copy; 2024 MyFitHub.ca - All rights reserved.</p>
+            <div className="flex justify-center flex-row space-x-5">
+              <p>Terms</p>
+              <p>Privacy</p>
+            </div>
+          </div>
         </footer>
       </body>
     </html>

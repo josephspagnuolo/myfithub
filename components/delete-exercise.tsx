@@ -33,7 +33,7 @@ export default function DeleteExerciseButton({
                 setOpen(false);
               }}
             >
-              Yes, delete
+              Delete
             </button>
           </div>
         </div>
