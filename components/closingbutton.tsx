@@ -1,15 +1,27 @@
 "use client";
 
+import { useState } from "react";
+import { FaRegCaretSquareDown } from "react-icons/fa";
+
 export default function ClosingButton({
-  id
+  id, defaultChecked
 }: {
   id: string;
+  defaultChecked: boolean;
 }) {
-  function clearRadio() {
-    let radio = document.getElementById(id) as HTMLInputElement;
-    radio.checked = !radio.checked;
+  const [checked, setChecked] = useState(defaultChecked);
+
+  function handleClick() {
+    const radio = document.getElementById(id) as HTMLInputElement;
+    if (radio) {
+      radio.checked = !radio.checked;
+      setChecked(radio.checked);
+    }
   }
+
   return (
-    <button className="text-stone-200 hover:text-stone-400 text-[46px] font-extralight leading-3 pb-2.5" onClick={() => clearRadio()}><span>+</span></button>
+    <button className="text-stone-200 hover:text-stone-400" onClick={handleClick}>
+      <FaRegCaretSquareDown size={22} className={`${checked ? 'rotate-180' : 'rotate-0'}`} />
+    </button>
   );
 }

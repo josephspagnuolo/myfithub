@@ -18,7 +18,7 @@ export default function ForgotPassword() {
             <Image
               src="/logo.png"
               priority
-              alt="Logo"
+              alt="MyFitHub Logo"
               className="h-10 w-10 rounded-full"
               width={20}
               height={20}
@@ -71,9 +71,9 @@ export default function ForgotPassword() {
             type="submit"
             disabled={loading}
             className={`${loading
-              ? "cursor-not-allowed border-[#292929] bg-[#292929]"
-              : "border-black bg-sky-800 text-gray-300 hover:bg-sky-900"
-              } flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none`}
+              ? "bg-[#292929] border border-[#292929] cursor-not-allowed"
+              : "bg-sky-800 hover:bg-sky-900 text-gray-300 hover:text-gray-400 border border-black"
+              } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none`}
           >
             {loading ? (
               <LoadingDots color="#808080" />

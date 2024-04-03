@@ -28,10 +28,12 @@ export default function GitHubSigninButton({
   }, [error, router]);
   return (
     <div className="flex px-4 pb-2 sm:px-16">
-      <button disabled={working} className={`${working ? "cursor-not-allowed" : ""} ${loading
-        ? "cursor-not-allowed border-[#292929] bg-[#292929]"
-        : "border-black bg-black text-gray-300"
-        } flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none`}
+      <button
+        disabled={working}
+        className={`${working ? "cursor-not-allowed" : ""} ${loading
+          ? "bg-[#292929] border border-[#292929] cursor-not-allowed"
+          : "bg-black text-gray-300 hover:text-gray-400 border border-black"
+          } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none`}
         onClick={(e) => {
           e.preventDefault();
           setLoading(true);

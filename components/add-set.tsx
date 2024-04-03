@@ -26,7 +26,7 @@ export default function AddSet({
           if ((repsInputValue === "") && (weightInputValue === "") && (hrsInputValue === "") && (minsInputValue === "") && (secondsInputValue === "")) {
             console.log("empty")
             toast("Please enter the set info", {
-              id: "1",
+              id: "add-set",
               icon: '⚠️',
             });
             setLoading(false);
@@ -97,8 +97,9 @@ export default function AddSet({
           type="submit"
           disabled={loading}
           className={`${loading
-            ? "cursor-not-allowed border-[#292929] bg-[#292929]"
-            : "border-black bg-sky-800 text-gray-300 hover:bg-sky-900"} sm:hidden flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none`}
+            ? "bg-[#292929] border border-[#292929] cursor-not-allowed"
+            : "bg-sky-800 hover:bg-sky-900 text-gray-300 hover:text-gray-400 border border-black"
+            } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none sm:hidden`}
         >
           {loading ? (
             <LoadingDots color="#808080" />
@@ -154,8 +155,8 @@ export default function AddSet({
           type="submit"
           disabled={loading}
           className={`${loading
-            ? "cursor-not-allowed border-[#292929] bg-[#292929]"
-            : "border-black bg-sky-800 text-gray-300 hover:bg-sky-900"} hidden sm:flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none`}
+            ? "bg-[#292929] border border-[#292929] cursor-not-allowed"
+            : "bg-sky-800 hover:bg-sky-900 text-gray-300 hover:text-gray-400 border border-black"} h-10 w-full sm:flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none hidden`}
         >
           {loading ? (
             <LoadingDots color="#808080" />

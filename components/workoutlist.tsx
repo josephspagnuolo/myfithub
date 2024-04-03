@@ -3,7 +3,11 @@ import DateBox from "./datebox";
 export default function WorkoutList({
   workouts
 }: {
-  workouts: { id: string; content: string; createdAt: Date; }[];
+  workouts: {
+    id: string;
+    content: string;
+    createdAt: Date;
+  }[];
 }) {
 
   const workoutTimes = workouts.map(w => w.createdAt.toLocaleDateString('en-US', { timeZone: 'America/New_York' }));

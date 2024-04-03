@@ -1,21 +1,11 @@
-import prisma from "@/lib/prisma";
+import { showSets } from "./actions";
 
 export default async function ShowSets({
   id
 }: {
   id: string;
 }) {
-  const exercise = await prisma.exercise.findFirst({
-    where: {
-      id: id,
-    },
-    select: {
-      sets: true,
-      createdAt: true,
-    }
-  });
-
-  const sets = exercise?.sets || [];
+  const sets = await showSets(id);
 
   function getSetString1(set: {
     id: string;

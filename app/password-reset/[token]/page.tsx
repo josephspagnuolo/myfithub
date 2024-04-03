@@ -27,7 +27,7 @@ export default async function PasswordResetPage({
               <Image
                 src="/logo.png"
                 priority
-                alt="Logo"
+                alt="MyFitHub Logo"
                 className="h-10 w-10 rounded-full"
                 width={20}
                 height={20}
@@ -46,7 +46,7 @@ export default async function PasswordResetPage({
             <Image
               src="/logo.png"
               priority
-              alt="Logo"
+              alt="MyFitHub Logo"
               className="h-16 w-16 rounded-full"
               width={20}
               height={20}

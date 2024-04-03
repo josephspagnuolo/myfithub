@@ -10,7 +10,7 @@ export default async function Home() {
         <div className="flex justify-between w-full max-w-md sm:max-w-5xl space-y-5 items-center pt-14 px-4 pb-4">
           <div className="text-3xl font-medium">Dashboard</div>
           <Link href="/dashboard/workout">
-            <button className="border-black bg-sky-800 text-gray-300 hover:bg-sky-900 flex h-12 w-36 sm:w-48 items-center justify-center rounded-md border text-md font-semibold transition-all focus:outline-none">
+            <button className="bg-sky-800 hover:bg-sky-900 text-gray-300 hover:text-gray-400 border border-black h-12 w-48 flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none">
               New Workout
             </button>
           </Link>

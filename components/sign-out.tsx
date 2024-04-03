@@ -11,12 +11,13 @@ export default function SignOut() {
       className="text-stone-200 hover:text-stone-400 transition-all rounded-md border border-stone-200 hover:border-stone-400 p-1.5 pt-1"
       onClick={async () => {
         const data = await signOut({ redirect: false, callbackUrl: "/" });
-        const toastId = toast.loading("Signing out...", {
+        toast.loading("Signing out...", {
+          id: "sign-out",
           style: { minWidth: "230px" }
         });
         setTimeout(() => {
           toast.success("Signed out successfully!", {
-            id: toastId,
+            id: "sign-out",
           });
           router.push(data.url);
           router.refresh();
