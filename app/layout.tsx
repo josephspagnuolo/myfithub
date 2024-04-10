@@ -4,6 +4,7 @@ import { Metadata, Viewport } from "next";
 import { Toaster } from "react-hot-toast";
 import AuthStatus from "@/components/auth-status";
 import { Suspense } from "react";
+import Link from "next/link";
 
 const title = "MyFitHub";
 const description =
@@ -41,8 +42,8 @@ export default async function RootLayout({
           <div className="flex justify-center flex-col-reverse space-y-1 space-y-reverse md:space-y-0 md:flex-row md:space-x-5">
             <p>&copy; 2024 MyFitHub.ca - All rights reserved.</p>
             <div className="flex justify-center flex-row space-x-5">
-              <p>Terms</p>
-              <p>Privacy</p>
+              <Link href="/terms">Terms</Link>
+              <Link href="/privacy">Privacy</Link>
             </div>
           </div>
         </footer>

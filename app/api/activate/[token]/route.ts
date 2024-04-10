@@ -2,11 +2,11 @@ import prisma from '@/lib/prisma'
 import { NextResponse } from 'next/server'
 
 export async function GET({
-  params,
+  params
 }: {
   params: { token: string };
 }) {
-  const { token } = params
+  const token = params.token;
 
   const user = await prisma.user.findFirst({
     where: {
