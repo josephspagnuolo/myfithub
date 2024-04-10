@@ -16,7 +16,7 @@ export default async function Terms() {
             MyFitHub Terms of Service
           </h1>
           <p className="text-stone-400">
-            Thank you for using MyFitHub! We're happy you're here. Please read this Terms of Service agreement carefully before accessing or using MyFitHub.
+            Thank you for using MyFitHub! We&apos;re happy you&apos;re here. Please read this Terms of Service agreement carefully before accessing or using MyFitHub.
           </p>
           <p className="text-stone-400">
             1. Acceptance of Terms <br />
@@ -44,7 +44,7 @@ export default async function Terms() {
           </p>
           <p className="text-stone-400">
             6. Disclaimer of Warranties <br />
-            MyFitHub is provided "as is" and "as available" without any warranties of any kind, express or implied. We do not warrant that MyFitHub will be error-free or uninterrupted, or that any defects will be corrected. Your use of MyFitHub is at your own risk.
+            MyFitHub is provided &quot;as is&quot; and &quot;as available&quot; without any warranties of any kind, express or implied. We do not warrant that MyFitHub will be error-free or uninterrupted, or that any defects will be corrected. Your use of MyFitHub is at your own risk.
           </p>
           <p className="text-stone-400">
             7. Limitation of Liability <br />

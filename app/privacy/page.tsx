@@ -16,7 +16,7 @@ export default async function Privacy() {
             MyFitHub Privacy Policy
           </h1>
           <p className="text-stone-400">
-            Your privacy is important to us. It is MyFitHub's policy to respect your privacy regarding any information we may collect from you across our website, https://www.myfithub.ca, and other sites we own and operate.
+            Your privacy is important to us. It is MyFitHub&apos;s policy to respect your privacy regarding any information we may collect from you across our website, https://www.myfithub.ca, and other sites we own and operate.
           </p>
           <p className="text-stone-400">
             1. Information We Collect <br />
@@ -45,7 +45,7 @@ export default async function Privacy() {
           </p>
           <p className="text-stone-400">
             5. Security <br />
-            We take reasonable measures to protect your information from unauthorized access, use, or disclosure. However, no method of transmission over the internet or electronic storage is completely secure, so we cannot guarantee absolute security.
+            We take reasonable measures to protect your information from unauthorized access, use, or disclosure. However, no method of transmission over the internet or electronic storage is completely secure, so we cannot guarantee absolute 100% security.
           </p>
           <p className="text-stone-400">
             6. Changes to This Privacy Policy <br />
