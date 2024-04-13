@@ -45,7 +45,7 @@ export default async function ShowSets({
 
   return (
     <>
-      <div className="z-10 w-full max-w-md sm:max-w-5xl overflow-hidden flex flex-col">
+      <div className="w-full max-w-md sm:max-w-5xl overflow-hidden flex flex-col">
         {sets.length === 0 ? (
           <span className="text-stone-400 text-sm">
             No sets so far...

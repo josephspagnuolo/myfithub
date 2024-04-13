@@ -20,7 +20,7 @@ export default function AddExercise({
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl shadow-xl bg-[#292929]">
+      <div className="w-full max-w-md overflow-hidden rounded-2xl shadow-xl bg-[#292929]">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -80,6 +80,7 @@ export default function AddExercise({
                 transform: 'scaleX(0)',
               },
             }}
+            className="relative z-0"
           />
           <button
             type="submit"

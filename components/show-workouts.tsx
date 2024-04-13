@@ -19,12 +19,12 @@ export default async function ShowWorkouts() {
   });
   return (
     <>
-      <div className="z-10 w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col space-y-3 px-4 py-4 sm:px-[67px]">
+      <div className="w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col space-y-3 px-4 py-4 sm:px-[67px]">
         <div>Recent Activity</div>
         <WorkoutList workouts={workouts} />
       </div>
       <div className="flex flex-col md:flex-row w-full max-w-md sm:max-w-5xl md:space-x-5 space-y-5 md:space-y-0">
-        <div className="z-10 w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col space-y-3 sm:space-y-5 px-4 py-4 sm:px-[67px] min-h-[250px]">
+        <div className="w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col space-y-3 sm:space-y-5 px-4 py-4 sm:px-[67px] min-h-[250px]">
           <div className="flex justify-between">
             <div>Your Workouts</div>
             {workouts.length > 0 && <div>
@@ -53,7 +53,7 @@ export default async function ShowWorkouts() {
             </ul>
           )}
         </div>
-        <div className="z-10 w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col space-y-3 sm:space-y-5 px-4 py-4 sm:px-[67px] min-h-[250px]">
+        <div className="w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col space-y-3 sm:space-y-5 px-4 py-4 sm:px-[67px] min-h-[250px]">
           <div>Your Progress</div>
         </div>
       </div>

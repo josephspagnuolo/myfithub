@@ -1,8 +1,6 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import AddExercise from "@/components/add-exercise";
 import AddSet from "@/components/add-set";
-import ClosingButton from "@/components/closingbutton";
-import DeleteExerciseButton from "@/components/delete-exercise";
 import ExpandableExerciseBox from "@/components/radio-expand-exercise";
 import ShowSets from "@/components/show-sets";
 import prisma from "@/lib/prisma";
@@ -35,9 +33,12 @@ export default async function WorkoutPage({
   const currentExsList = thisWorkout?.exercises.map(e => e.name) || [];
 
   return (
-    <main className="flex-1">
-      <div className="w-full flex flex-col space-y-5 justify-center items-center px-4 py-14">
-        <Link className="absolute top-8 flex overflow-y-clip" href="/dashboard"><div className="sm:scale-y-[2] sm:scale-x-150 sm:-translate-y-[2.5px] sm:mr-0.5">←</div>&nbsp;Back to dashboard</Link>
+    <main className="grow">
+      <div className="w-full flex flex-col space-y-5 justify-center items-center px-4 py-4">
+        <Link className="absolute top-4 flex overflow-y-clip z-50" href="/dashboard">
+          <div className="sm:scale-y-[2] sm:scale-x-150 sm:-translate-y-[2.5px] sm:mr-0.5">←</div>
+          <span>&nbsp;Back to dashboard</span>
+        </Link>
         {thisWorkout ? (
           <>
             <div className="flex flex-col w-full items-center">
@@ -55,7 +56,7 @@ export default async function WorkoutPage({
               <>
                 <fieldset id="accordion" className="w-full max-w-md sm:max-w-5xl border-none overflow-hidden rounded-2xl space-y-5">
                   {thisWorkout.exercises.map((ex, index) => (
-                    <label key={ex.id} className="z-10 w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col px-4 py-4 sm:px-[67px]">
+                    <label key={ex.id} className="w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col px-4 py-4 sm:px-[67px]">
                       <ExpandableExerciseBox ex={ex} defaultChecked={index === 0} />
                       <div className="grid grid-rows-[0fr] transition-all ease-in-out duration-500 overflow-hidden pt-0 peer-checked:grid-rows-[1fr]">
                         <div className="overflow-hidden p-0 m-0">

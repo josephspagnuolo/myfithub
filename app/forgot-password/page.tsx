@@ -12,7 +12,7 @@ export default function ForgotPassword() {
   const router = useRouter();
   return (
     <main className="flex grow items-center justify-center">
-      <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl border border-gray-600 shadow-xl bg-[#292929]">
+      <div className="w-full max-w-md overflow-hidden rounded-2xl border border-gray-600 shadow-xl bg-[#292929] mx-3">
         <div className="flex flex-col items-center justify-center space-y-2 border-b border-gray-600 px-4 py-4 pt-5 text-center sm:px-16">
           <Link href="/">
             <Image
@@ -83,9 +83,10 @@ export default function ForgotPassword() {
           </button>
         </form>
       </div>
-      <Link className="absolute top-8 flex overflow-y-clip" href="/login">
+      <Link className="absolute top-14 flex overflow-y-clip" href="/login">
         <div className="sm:scale-y-[2] sm:scale-x-150 sm:-translate-y-[2.5px] sm:mr-0.5">←</div>
-        &nbsp;Back to login</Link>
+        <span>&nbsp;Back to login</span>
+      </Link>
     </main>
   );
 }
