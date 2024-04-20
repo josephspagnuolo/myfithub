@@ -109,7 +109,7 @@ export default function CredentialsForm({
             name="nametext"
             type="text"
             required
-            className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm"
+            className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-black px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm"
           />
         </div>
       ) : (
@@ -128,7 +128,7 @@ export default function CredentialsForm({
           type="email"
           autoComplete="email"
           required
-          className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm"
+          className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-black px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm"
         />
       </div>
       <div>
@@ -152,7 +152,7 @@ export default function CredentialsForm({
           type={visible ? "text" : "password"}
           required
           onChange={validate}
-          className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm"
+          className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-black px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm"
         />
       </div>
       <button
@@ -185,13 +185,25 @@ export default function CredentialsForm({
           </p>
         </>
       ) : (
-        <p className="text-center text-sm text-gray-400">
-          Already have an account?{" "}
-          <Link href="/login" className="font-semibold text-gray-300 hover:underline">
-            Sign in
-          </Link>{" "}
-          instead.
-        </p>
+        <>
+          <p className="text-center text-xs text-gray-400">
+            By signing up, you agree to our{" "}
+            <Link href="/terms" className="font-semibold text-gray-300 hover:underline">
+              Terms of Use
+            </Link>
+            {" and "}
+            <Link href="/privacy" className="font-semibold text-gray-300 hover:underline whitespace-nowrap">
+              Privacy Policy
+            </Link>{"."}
+          </p>
+          <p className="text-center text-sm text-gray-400">
+            Already have an account?{" "}
+            <Link href="/login" className="font-semibold text-gray-300 hover:underline">
+              Sign in
+            </Link>{" "}
+            instead.
+          </p>
+        </>
       )}
     </form>
   );

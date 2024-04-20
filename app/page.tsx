@@ -10,20 +10,12 @@ export const metadata: Metadata = {
 export default async function Home() {
   return (
     <main className="flex grow">
-      <div className="w-screen flex flex-col justify-center items-center">
-        <Image
-          src="/logo.png"
-          priority
-          alt="MyFitHub Logo"
-          className="w-48 h-48 rounded-full"
-          width={512}
-          height={512}
-        />
+      <div className="w-screen flex flex-col justify-center items-center p-3">
+        <p className="text-center text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-white to-gray-400">
+          A new world of fitness
+        </p>
         <div className="text-center max-w-screen-sm mb-10">
-          <h1 className="text-stone-200 font-bold text-2xl">
-            MyFitHub
-          </h1>
-          <p className="text-stone-400 mt-5">
+          <p className="text-xl text-stone-400 mt-5">
             This is your hub for tracking your fitness progress
           </p>
         </div>

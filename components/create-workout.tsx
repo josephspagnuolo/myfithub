@@ -58,7 +58,7 @@ export default function CreateWorkout() {
               placeholder="Chest Day"
               maxLength={22}
               required
-              className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-[#191919] px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25" />
+              className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-black px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25" />
           </div>
           <button
             type="submit"

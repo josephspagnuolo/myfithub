@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 export default async function Privacy() {
   return (
     <main className="flex justify-center grow items-start">
-      <div className="flex flex-col w-full max-w-5xl px-4 py-16">
-        <div className="space-y-5">
+      <div className="flex justify-center flex-col px-4 py-16">
+        <div className="space-y-5 max-w-5xl">
           <h1 className="text-stone-200 font-bold text-2xl">
             MyFitHub Privacy Policy
           </h1>

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#191919",
+  themeColor: "black",
 }
 
 export default async function RootLayout({
@@ -32,7 +32,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-[#191919] text-gray-300 flex flex-col min-h-[88vh] sm:min-h-screen">
+      <body className="bg-black text-gray-300 flex flex-col min-h-[88vh] sm:min-h-screen">
         <Toaster />
         <NavBar />
         {children}
