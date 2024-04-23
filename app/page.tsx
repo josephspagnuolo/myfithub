@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Metadata } from "next";
+import { FaArrowRight } from "react-icons/fa";
 
 export const metadata: Metadata = {
   title: 'MyFitHub',
@@ -11,8 +12,11 @@ export default async function Home() {
   return (
     <main className="flex grow">
       <div className="w-screen flex flex-col justify-center items-center p-3">
-        <p className="text-center text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-white to-gray-400">
-          A new world of fitness
+        <a href="https://github.com/josephspagnuolo/myfithub" target="_blank" className="card-wrapper w-40 h-7 group">
+          <div className="card-content flex items-center justify-center text-sm pb-px">We are Open Source<FaArrowRight className="ml-1 mt-0.5 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out" size={10} /></div>
+        </a>
+        <p className="mt-3 cursor-default max-w-[525px] lg:max-w-[700px] text-center text-7xl lg:text-8xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white to-zinc-400 leading-[0.92]">
+          Explore a new world of fitness
         </p>
         <div className="text-center max-w-screen-sm mb-10">
           <p className="text-xl text-stone-400 mt-5">
