@@ -21,6 +21,6 @@ body {
   }
 
   .card-content {
-    @apply relative w-[calc(100%-1.5px)] h-[calc(100%-1.5px)] top-[0.6px] lg:top-[0.85px] left-[0.75px] rounded-full bg-zinc-900;
+    @apply relative w-[calc(100%-1.5px)] h-[calc(100%-1.5px)] top-[0.75px] lg:top-[0.85px] left-[0.75px] rounded-full bg-zinc-900;
   }
 }
