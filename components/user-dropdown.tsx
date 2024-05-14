@@ -38,8 +38,8 @@ export default function UserDropdown({
             className="rounded-full cursor-pointer sm:hover:opacity-75 transition-all relative z-50"
             onClick={toggleDropdown}
           />
-          <div className={`${isOpen ? 'absolute top-12 -right-px flex justify-center flex-col w-60' : 'hidden'}`}>
-            <div className="flex flex-col p-4 bg-[#292929] rounded-lg space-y-2 shadow-[0_0_25px_50px_rgba(0,0,0,0.3)] z-10">
+          <div className={`${isOpen ? 'absolute top-12 -right-px flex justify-center flex-col w-60 z-50' : 'hidden'}`}>
+            <div className="flex flex-col p-4 bg-[#292929] rounded-lg space-y-2 shadow-[0_0_2500px_5000px_rgba(0,0,0,0.3)] z-10">
               <div className="text-center">
                 <p className="text-stone-400 text-sm">
                   Signed in as
@@ -51,6 +51,7 @@ export default function UserDropdown({
           </div>
         </div>
       </ClickAwayListener >
+      <div className={`${isOpen ? 'fixed top-0 right-0 left-0 bottom-0 z-40' : 'hidden'}`}></div>
     </>
   );
 };
