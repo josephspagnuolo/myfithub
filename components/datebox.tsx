@@ -1,6 +1,6 @@
 "use client";
 
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from '@mui/joy/Tooltip';
 import { useState } from 'react';
 import Link from 'next/link';
 
@@ -48,7 +48,6 @@ export default function DateBox({
   return (
     <>
       <Tooltip onClose={handleTooltipClose} open={open} placement="top" arrow
-        slotProps={{ popper: { modifiers: [{ name: 'offset', options: { offset: [0, -10], }, }], }, }}
         disableInteractive={howmany === 0} disableFocusListener disableTouchListener title={
           <>
             <span className="text-balance">{howmany > 0 ? title + ":" : title}</span>
