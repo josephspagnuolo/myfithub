@@ -3,6 +3,7 @@
 import Tooltip from '@mui/joy/Tooltip';
 import { useState } from 'react';
 import Link from 'next/link';
+import { CssVarsProvider } from '@mui/joy';
 
 export default function DateBox({
   date, didworkout, workoutsThatDay, howmany
@@ -47,7 +48,14 @@ export default function DateBox({
   const title = isOne ? (howmany.toString() + " Workout on " + formattedDate) : (isZero ? ("No Workouts on " + formattedDate) : (howmany.toString() + " Workouts on " + formattedDate));
   return (
     <>
-      <Tooltip onClose={handleTooltipClose} open={open} placement="top" arrow
+      <CssVarsProvider defaultMode="dark" />
+      <Tooltip onClose={handleTooltipClose} open={open} placement="top" arrow variant="plain"
+        sx={{
+          boxShadow: "0px 0px 0px 0px",
+          p: "3px 8px",
+          backgroundColor: "rgba(0, 0, 0, 0.70)",
+          translate: "0.5px 8px",
+        }}
         disableInteractive={howmany === 0} disableFocusListener disableTouchListener title={
           <>
             <span className="text-balance">{howmany > 0 ? title + ":" : title}</span>
@@ -59,7 +67,7 @@ export default function DateBox({
               ))}
             </ul>}
           </>
-        }>
+        } className="">
         <span onMouseEnter={handleTooltipOpen} onClick={() => {
           if (howmany > 0) {
             handleTooltipOpen();

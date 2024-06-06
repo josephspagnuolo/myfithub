@@ -76,7 +76,7 @@ const ProgressChart = () => {
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="rounded-md bg-black/75 p-2">
+        <div className="rounded-md bg-black/75 p-2 pt-1 pb-1.5">
           <p className="">{`${label}`}</p>
           <p className="text-zinc-400 text-sm">{`${payload[0].dataKey}: ${payload[0].value}`}</p>
           <p className="text-zinc-400 text-sm">{`${payload[1].dataKey}: ${payload[1].value}`}</p>
