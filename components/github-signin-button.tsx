@@ -31,8 +31,8 @@ export default function GitHubSigninButton({
       <button
         disabled={working}
         className={`${working ? "cursor-not-allowed" : ""} ${loading
-          ? "bg-[#292929] border border-[#292929] cursor-not-allowed"
-          : "bg-black text-gray-300 hover:text-gray-400 border border-black"
+          ? "bg-[#1a1a1c] border border-[#1a1a1c] cursor-not-allowed"
+          : "bg-black hover:text-zinc-400 border border-black"
           } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none`}
         onClick={(e) => {
           e.preventDefault();

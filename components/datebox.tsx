@@ -1,14 +1,15 @@
 "use client";
 
-import Tooltip from '@mui/joy/Tooltip';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Tooltip from '@mui/material/Tooltip';
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function DateBox({
-  date, didworkout, howmany
+  date, didworkout, workoutsThatDay, howmany
 }: {
   date: string;
   didworkout: boolean;
+  workoutsThatDay: { id: string; name: string; date: string; }[];
   howmany: number;
 }) {
   const [open, setOpen] = useState(false);
@@ -45,15 +46,27 @@ export default function DateBox({
   const isZero = howmany === 0;
   const title = isOne ? (howmany.toString() + " Workout on " + formattedDate) : (isZero ? ("No Workouts on " + formattedDate) : (howmany.toString() + " Workouts on " + formattedDate));
   return (
-    <div>
-      <ClickAwayListener onClickAway={handleTooltipClose}>
-        <div>
-          <Tooltip onClose={handleTooltipClose} open={open} placement="top" arrow
-            disableInteractive disableFocusListener disableHoverListener disableTouchListener title={title}>
-            <div onMouseEnter={handleTooltipOpen} onMouseLeave={handleTooltipClose} onClick={handleTooltipOpen} className={`rounded-sm ${didworkout ? "bg-green-500" : "bg-gray-700"} w-3 h-3`}></div>
-          </Tooltip>
-        </div>
-      </ClickAwayListener>
-    </div>
+    <>
+      <Tooltip onClose={handleTooltipClose} open={open} placement="top" arrow
+        slotProps={{ popper: { modifiers: [{ name: 'offset', options: { offset: [0, -10], }, }], }, }}
+        disableInteractive={howmany === 0} disableFocusListener disableTouchListener title={
+          <>
+            <span className="text-balance">{howmany > 0 ? title + ":" : title}</span>
+            {howmany > 0 && <ul className="flex justify-center items-center flex-col-reverse text-sm pb-1">
+              {workoutsThatDay.map(workout => (
+                <li key={workout.id} className="text-sky-600 hover:text-sky-700">
+                  <Link href={`/dashboard/workout/${workout.id}`}>{workout.name}</Link>
+                </li>
+              ))}
+            </ul>}
+          </>
+        }>
+        <span onMouseEnter={handleTooltipOpen} onClick={() => {
+          if (howmany > 0) {
+            handleTooltipOpen();
+          }
+        }} className={`rounded-sm ${didworkout ? "bg-green-500" : "bg-[#2d2d30]"} w-3 h-3`}></span>
+      </Tooltip>
+    </>
   );
 }

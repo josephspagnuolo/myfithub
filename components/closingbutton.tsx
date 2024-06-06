@@ -20,7 +20,7 @@ export default function ClosingButton({
   }
 
   return (
-    <button className="text-stone-200 hover:text-stone-400" onClick={handleClick}>
+    <button className="text-zinc-200 hover:text-zinc-400" onClick={handleClick}>
       <FaRegCaretSquareDown size={22} className={`${checked ? 'rotate-180' : 'rotate-0'}`} />
     </button>
   );

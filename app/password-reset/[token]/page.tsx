@@ -22,8 +22,8 @@ export default async function PasswordResetPage({
     <main className="flex grow items-center justify-center flex-col">
       {thisToken ? (
         <>
-          <div className="w-full max-w-md overflow-hidden rounded-2xl border border-gray-600 shadow-xl bg-[#292929] mx-3">
-            <div className="flex flex-col items-center justify-center space-y-2 border-b border-gray-600 px-4 py-4 pt-5 text-center sm:px-16">
+          <div className="w-full max-w-md overflow-hidden rounded-2xl border border-zinc-600 shadow-xl bg-[#1a1a1c] mx-3">
+            <div className="flex flex-col items-center justify-center space-y-2 border-b border-zinc-600 px-4 py-4 pt-5 text-center sm:px-16">
               <Image
                 src="/logo.png"
                 priority
@@ -33,7 +33,7 @@ export default async function PasswordResetPage({
                 height={20}
               />
               <h3 className="text-xl font-semibold">Password Reset</h3>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-zinc-400">
                 Enter your new password for your MyFitHub account
               </p>
             </div>
@@ -52,7 +52,7 @@ export default async function PasswordResetPage({
               height={20}
             />
           </Link>
-          <span className="text-stone-400 text-sm">
+          <span className="text-zinc-400 text-sm">
             Error! You should not be here...
           </span>
         </>

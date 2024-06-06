@@ -47,7 +47,7 @@ export default async function ShowSets({
     <>
       <div className="w-full max-w-md sm:max-w-5xl overflow-hidden flex flex-col">
         {sets.length === 0 ? (
-          <span className="text-stone-400 text-sm">
+          <span className="text-zinc-400 text-sm">
             No sets so far...
           </span>
         ) : (
@@ -55,19 +55,19 @@ export default async function ShowSets({
             <ul className="flex grow flex-col divide-y-[1px] space-y-1">
               {sets.map((set, idx) => (
                 <li className=" -indent-[4.65em] pl-[4.65em] pb-1 pt-1.5" key={set.id}>
-                  <span className="text-stone-400 text-2xl pr-2.5">Set {idx + 1}:&nbsp;</span>
+                  <span className="text-zinc-400 text-2xl pr-2.5">Set {idx + 1}:&nbsp;</span>
                   {getSetString1(set) === "" ? (
-                    <span className="text-gray-300 text-2xl">{getSetString2(set)}</span>
+                    <span className=" text-2xl">{getSetString2(set)}</span>
                   ) : (
                     ""
                   )}
                   {getSetString2(set) === "" ? (
-                    <span className="text-gray-300 text-2xl">{getSetString1(set)}</span>
+                    <span className=" text-2xl">{getSetString1(set)}</span>
                   ) : (
                     ""
                   )}
                   {(getSetString1(set) !== "" && getSetString2(set) !== "") ? (
-                    <span className="text-gray-300 text-2xl">{getSetString1(set)}{", "}<br className="sm:hidden" />{getSetString2(set)}</span>
+                    <span className=" text-2xl">{getSetString1(set)}{", "}<br className="sm:hidden" />{getSetString2(set)}</span>
                   ) : (
                     ""
                   )}

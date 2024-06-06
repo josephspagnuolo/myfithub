@@ -32,11 +32,11 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-black text-gray-300 flex flex-col min-h-svh">
+      <body className="bg-black text-zinc-200 flex flex-col min-h-svh">
         <Toaster />
         <NavBar />
         {children}
-        <footer className="bottom-2.5 flex justify-center items-center text-gray-400 text-xs py-4">
+        <footer className="bottom-2.5 flex justify-center items-center text-zinc-400 text-xs py-4">
           <div className="flex justify-center flex-col-reverse space-y-1 space-y-reverse md:space-y-0 md:flex-row md:space-x-5">
             <p>&copy; 2024 MyFitHub.ca - All rights reserved.</p>
             <div className="flex justify-center flex-row space-x-5">

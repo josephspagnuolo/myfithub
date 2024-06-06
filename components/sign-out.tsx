@@ -11,7 +11,7 @@ export default function SignOut() {
   const router = useRouter();
   return (
     <button
-      className={`${loading ? "border-transparent hover:border-transparent" : ""} text-stone-200 hover:text-stone-400 transition-all rounded-md border border-stone-200 hover:border-stone-400 p-1.5 pt-1`}
+      className={`${loading ? "border-transparent hover:border-transparent" : "border-zinc-200 hover:border-zinc-400"} text-zinc-200 hover:text-zinc-400 transition-all rounded-md border p-1.5 pt-1`}
       disabled={loading}
       onClick={async () => {
         setLoading(true);

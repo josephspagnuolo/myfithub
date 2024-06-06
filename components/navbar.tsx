@@ -17,19 +17,19 @@ export default async function NavBar() {
             height={34}
             className="w-[60px] h-[34px]"
           />
-          {!session && <h1 className="text-gray-300 font-semibold leading-8">MyFitHub</h1>}
+          {!session && <h1 className=" font-semibold leading-8">MyFitHub</h1>}
         </Link>
         {session && session.user ? (
           <UserDropdown user={session.user} />
         ) : (
           <div className="flex space-x-3">
-            <Link href="/login" className="text-gray-300 hover:text-gray-400 flex items-center justify-center text-md font-semibold transition-all">
+            <Link href="/login" className=" hover:text-zinc-400 flex items-center justify-center text-md font-semibold transition-all">
               <button>
                 Sign In
               </button>
             </Link>
             <Link href="/register">
-              <button className="bg-sky-800 hover:bg-sky-900 text-gray-300 hover:text-gray-400 border border-black h-full w-20 flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none">
+              <button className="bg-sky-800 hover:bg-sky-900 hover:text-zinc-400 border border-black h-full w-20 flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none">
                 Sign Up
               </button>
             </Link>

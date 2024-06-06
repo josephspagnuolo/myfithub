@@ -59,12 +59,12 @@ export default function PasswordResetForm({
         <div className="flex justify-between">
           <label
             htmlFor="password"
-            className="block text-xs text-gray-400"
+            className="block text-xs text-zinc-400"
           >
             Password
           </label>
           <label
-            className="block text-xs text-gray-400 underline cursor-pointer"
+            className="block text-xs text-zinc-400 underline cursor-pointer"
             onClick={() => setVisible(!visible)}
           >
             {visible ? "Hide Password" : "Show Password"}
@@ -76,15 +76,15 @@ export default function PasswordResetForm({
           type={visible ? "text" : "password"}
           required
           onChange={validate}
-          className="mt-1 block w-full appearance-none rounded-md border border-gray-600 bg-black px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:outline-none focus:ring-black sm:text-sm"
+          className="mt-1 block w-full appearance-none rounded-md border border-zinc-600 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm"
         />
       </div>
       <button
         type="submit"
         disabled={loading}
         className={`${loading
-          ? "bg-[#292929] border border-[#292929] cursor-not-allowed"
-          : "bg-sky-800 hover:bg-sky-900 text-gray-300 hover:text-gray-400 border border-black"
+          ? "bg-[#1a1a1c] border border-[#1a1a1c] cursor-not-allowed"
+          : "bg-sky-800 hover:bg-sky-900 hover:text-zinc-400 border border-black"
           } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none`}
       >
         {loading ? (

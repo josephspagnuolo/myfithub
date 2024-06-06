@@ -43,20 +43,20 @@ export default async function WorkoutPage({
           <>
             <div className="flex flex-col w-full items-center">
               <div className="text-xl font-medium text-left w-full max-w-md sm:px-4 -translate-y-1 overflow-auto overflow-ellipsis">{thisWorkout.content}</div>
-              <div className="text-left text-stone-400 w-full max-w-md sm:px-4 leading-3">
+              <div className="text-left text-zinc-400 w-full max-w-md sm:px-4 leading-3">
                 {thisWorkout.createdAt.toLocaleString('en-US', { timeZone: 'America/New_York', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' })}
               </div>
             </div>
             <AddExercise id={id} currentExsList={currentExsList} />
             {thisWorkout.exercises.length === 0 ? (
-              <span className="text-stone-400 text-sm">
+              <span className="text-zinc-400 text-sm">
                 No exercises so far...
               </span>
             ) : (
               <>
                 <fieldset id="accordion" className="w-full max-w-md sm:max-w-5xl border-none overflow-hidden rounded-2xl space-y-5">
                   {thisWorkout.exercises.map((ex, index) => (
-                    <label key={ex.id} className="w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col px-4 py-4 sm:px-[67px]">
+                    <label key={ex.id} className="w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#1a1a1c] flex flex-col px-4 py-4 sm:px-[67px]">
                       <ExpandableExerciseBox ex={ex} defaultChecked={index === 0} />
                       <div className="grid grid-rows-[0fr] transition-all ease-in-out duration-500 overflow-hidden pt-0 peer-checked:grid-rows-[1fr]">
                         <div className="overflow-hidden p-0 m-0">
@@ -73,7 +73,7 @@ export default async function WorkoutPage({
           </>
         ) : (
           <>
-            <span className="text-stone-400 text-sm">
+            <span className="text-zinc-400 text-sm">
               No workout to show here...
             </span>
           </>

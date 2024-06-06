@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
-import WorkoutList from "./workoutlist";
+import ActivityCalendar from "./activity-calendar";
 import Link from "next/link";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import ProgressChart from "./progress-chart";
@@ -20,12 +20,12 @@ export default async function ShowWorkouts() {
   });
   return (
     <>
-      <div className="w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col space-y-3 px-4 py-4 sm:px-[67px]">
+      <div className="w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#1a1a1c] flex flex-col space-y-3 px-4 py-4 sm:px-[67px]">
         <div>Recent Activity</div>
-        <WorkoutList workouts={workouts} />
+        <ActivityCalendar workouts={workouts} />
       </div>
       <div className="flex flex-col md:flex-row w-full max-w-md sm:max-w-5xl md:space-x-5 space-y-5 md:space-y-0">
-        <div className="w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col space-y-3 sm:space-y-5 px-4 py-4 sm:px-[67px] min-h-[250px]">
+        <div className="w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#1a1a1c] flex flex-col space-y-3 sm:space-y-5 px-4 py-4 sm:px-[67px] min-h-[250px]">
           <div className="flex justify-between">
             <div>Your Workouts</div>
             {workouts.length > 0 && <div>
@@ -36,17 +36,17 @@ export default async function ShowWorkouts() {
             </div>}
           </div>
           {workouts.length === 0 ? (
-            <span className="text-stone-400 text-sm">
+            <span className="text-zinc-400 text-sm">
               Nothing so far...
             </span>
           ) : (
-            <ul className="flex grow flex-col text-stone-400 text-sm">
-              {workouts.reverse().slice(0, 7).map((workout) => (
+            <ul className="flex grow flex-col space-y-[3px]">
+              {workouts.reverse().slice(0, 8).map((workout) => (
                 <li className="line-clamp-1" key={workout.id}>
                   <Link className="hover:underline w-[250px] truncate" href={`/dashboard/workout/${workout.id}`}>
-                    <span className="text-gray-300 text-base">{workout.content}</span>
-                  </Link>{' '}
-                  <span className="text-stone-400 text-sm">
+                    <span className="text-base">{workout.content}</span>
+                  </Link>
+                  <span className="text-zinc-400 text-sm pl-1.5">
                     {workout.createdAt.toLocaleString('en-US', { timeZone: 'America/New_York', dateStyle: 'medium', timeStyle: 'short' })}
                   </span>
                 </li>
@@ -54,7 +54,7 @@ export default async function ShowWorkouts() {
             </ul>
           )}
         </div>
-        <div className="w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#292929] flex flex-col space-y-3 sm:space-y-5 px-4 py-4 sm:px-[67px] min-h-[250px]">
+        <div className="w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#1a1a1c] flex flex-col space-y-3 sm:space-y-5 px-4 py-4 sm:px-[67px] min-h-[250px]">
           <div>Your Progress</div>
           <ProgressChart />
         </div>

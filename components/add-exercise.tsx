@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { listOfAllExercises } from "./list-of-all-exercises";
 import Autocomplete from "@mui/joy/Autocomplete";
+import { CssVarsProvider } from "@mui/joy";
 
 export default function AddExercise({
   id, currentExsList
@@ -17,10 +18,10 @@ export default function AddExercise({
   const router = useRouter();
   const [value, setValue] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState('');
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <div className="w-full max-w-md overflow-hidden rounded-2xl shadow-xl bg-[#292929]">
+      <div className="w-full max-w-md overflow-hidden rounded-2xl shadow-xl bg-[#1a1a1c]">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -50,9 +51,11 @@ export default function AddExercise({
           }}
           className="flex flex-col px-4 py-5"
         >
+          <CssVarsProvider defaultMode="dark" />
           <Autocomplete
             required
             placeholder="Add..."
+            variant="plain"
             value={value}
             onChange={(event: any, newValue: React.SetStateAction<string | null>) => {
               setValue(newValue);
@@ -79,15 +82,20 @@ export default function AddExercise({
               '&::before': {
                 transform: 'scaleX(0)',
               },
+              input: {
+                "&::placeholder": {
+                  opacity: 0.25
+                }
+              }
             }}
-            className="relative z-0"
+            className="relative z-0 border border-zinc-600 bg-black focus-within:border-zinc-400 focus-within:outline-none focus-within:ring-black"
           />
           <button
             type="submit"
             disabled={loading}
             className={`${loading
-              ? "bg-[#292929] border border-[#292929] cursor-not-allowed"
-              : "bg-sky-800 hover:bg-sky-900 text-gray-300 hover:text-gray-400 border border-black"
+              ? "bg-[#1a1a1c] border border-[#1a1a1c] cursor-not-allowed"
+              : "bg-sky-800 hover:bg-sky-900 hover:text-zinc-400 border border-black"
               } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none mt-4`}
           >
             {loading ? (
