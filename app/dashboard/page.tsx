@@ -1,7 +1,6 @@
 import ShowWorkouts from "@/components/show-workouts";
 import Link from "next/link";
 
-
 export default async function Home() {
   return (
     <main className="justify-center items-center grow">

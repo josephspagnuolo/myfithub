@@ -53,12 +53,12 @@ export default function DateBox({
         sx={{
           boxShadow: "0px 0px 0px 0px",
           p: "3px 8px",
-          backgroundColor: "rgba(0, 0, 0, 0.70)",
+          backgroundColor: "rgba(0, 0, 0, 0.75)",
           translate: "0.5px 8px",
         }}
         disableInteractive={howmany === 0} disableFocusListener disableTouchListener title={
           <>
-            <span className="text-balance">{howmany > 0 ? title + ":" : title}</span>
+            <span className="text-balance text-base">{howmany > 0 ? title + ":" : title}</span>
             {howmany > 0 && <ul className="flex justify-center items-center flex-col-reverse text-sm pb-1">
               {workoutsThatDay.map(workout => (
                 <li key={workout.id} className="text-sky-600 hover:text-sky-700">
@@ -68,11 +68,8 @@ export default function DateBox({
             </ul>}
           </>
         } className="">
-        <span onMouseEnter={handleTooltipOpen} onClick={() => {
-          if (howmany > 0) {
-            handleTooltipOpen();
-          }
-        }} className={`rounded-sm ${didworkout ? "bg-green-500" : "bg-[#2d2d30]"} w-3 h-3`}></span>
+        <span onMouseEnter={handleTooltipOpen} onClick={handleTooltipOpen}
+          className={`rounded-sm ${didworkout ? "bg-green-500" : "bg-[#2d2d30]"} w-3 h-3`}></span>
       </Tooltip>
     </>
   );
