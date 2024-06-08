@@ -49,14 +49,15 @@ export default function DateBox({
   return (
     <>
       <CssVarsProvider defaultMode="dark" />
-      <Tooltip onClose={handleTooltipClose} open={open} placement="top" arrow variant="plain"
+      <Tooltip onClose={handleTooltipClose} onOpen={handleTooltipOpen} open={open} placement="top" arrow
         sx={{
           boxShadow: "0px 0px 0px 0px",
           p: "3px 8px",
-          backgroundColor: "rgba(0, 0, 0, 0.75)",
+          backgroundColor: "rgba(0, 0, 0, 0.8)",
           translate: "0.5px 8px",
         }}
-        disableInteractive={howmany === 0} disableFocusListener disableTouchListener title={
+        variant="plain" disableInteractive={howmany === 0} disableFocusListener disableTouchListener
+        title={
           <>
             <span className="text-balance text-base">{howmany > 0 ? title + ":" : title}</span>
             {howmany > 0 && <ul className="flex justify-center items-center flex-col-reverse text-sm pb-1">
@@ -67,8 +68,8 @@ export default function DateBox({
               ))}
             </ul>}
           </>
-        } className="">
-        <span onMouseEnter={handleTooltipOpen} onClick={handleTooltipOpen}
+        }>
+        <span onClick={handleTooltipOpen}
           className={`rounded-sm ${didworkout ? "bg-green-500" : "bg-[#2d2d30]"} w-3 h-3`}></span>
       </Tooltip>
     </>
