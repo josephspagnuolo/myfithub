@@ -56,7 +56,7 @@ export default async function ShowWorkouts() {
         </div>
         <div className="w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#1a1a1c] flex flex-col space-y-3 sm:space-y-5 px-4 py-4 sm:px-[67px] min-h-[250px]">
           <div>Your Progress</div>
-          {/* <ProgressChart /> */}
+          <ProgressChart />
         </div>
       </div>
     </>

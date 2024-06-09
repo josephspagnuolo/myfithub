@@ -3,7 +3,7 @@
 import Tooltip from '@mui/joy/Tooltip';
 import { useState } from 'react';
 import Link from 'next/link';
-import { CssVarsProvider } from '@mui/joy';
+import { ClickAwayListener } from '@mui/material';
 
 export default function DateBox({
   date, didworkout, workoutsThatDay, howmany
@@ -48,30 +48,31 @@ export default function DateBox({
   const title = isOne ? (howmany.toString() + " Workout on " + formattedDate) : (isZero ? ("No Workouts on " + formattedDate) : (howmany.toString() + " Workouts on " + formattedDate));
   return (
     <>
-      <CssVarsProvider defaultMode="dark" />
-      <Tooltip onClose={handleTooltipClose} onOpen={handleTooltipOpen} open={open} placement="top" arrow
-        sx={{
-          boxShadow: "0px 0px 0px 0px",
-          p: "3px 8px",
-          backgroundColor: "rgba(0, 0, 0, 0.8)",
-          translate: "0.5px 8px",
-        }}
-        variant="plain" disableInteractive={howmany === 0} disableTouchListener
-        title={
-          <>
-            <span className="text-balance text-base">{howmany > 0 ? title + ":" : title}</span>
-            {howmany > 0 && <ul className="flex justify-center items-center flex-col-reverse text-sm pb-1">
-              {workoutsThatDay.map(workout => (
-                <li key={workout.id} className="text-sky-600 hover:text-sky-700">
-                  <Link href={`/dashboard/workout/${workout.id}`}>{workout.name}</Link>
-                </li>
-              ))}
-            </ul>}
-          </>
-        }>
-        <span onClick={handleTooltipOpen}
-          className={`rounded-sm ${didworkout ? "bg-green-500" : "bg-[#2d2d30]"} w-3 h-3`}></span>
-      </Tooltip>
+      <ClickAwayListener onClickAway={handleTooltipClose}>
+        <Tooltip onClose={handleTooltipClose} onOpen={handleTooltipOpen} open={open} arrow
+          sx={{
+            boxShadow: "0px 0px 0px 0px",
+            p: "3px 8px",
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            translate: "0.5px 8px",
+          }}
+          placement="top" variant="plain" disableInteractive={howmany === 0} disableTouchListener
+          title={
+            <>
+              <span className="text-balance text-base">{howmany > 0 ? title + ":" : title}</span>
+              {howmany > 0 && <ul className="flex justify-center items-center flex-col-reverse text-sm pb-1">
+                {workoutsThatDay.map(workout => (
+                  <li key={workout.id} className="text-sky-600 hover:text-sky-700">
+                    <Link href={`/dashboard/workout/${workout.id}`}>{workout.name}</Link>
+                  </li>
+                ))}
+              </ul>}
+            </>
+          }>
+          <span onClick={handleTooltipOpen}
+            className={`rounded-sm ${didworkout ? "bg-green-500" : "bg-[#2d2d30]"} w-3 h-3`}></span>
+        </Tooltip>
+      </ClickAwayListener>
     </>
   );
 }
