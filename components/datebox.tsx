@@ -56,7 +56,7 @@ export default function DateBox({
           backgroundColor: "rgba(0, 0, 0, 0.8)",
           translate: "0.5px 8px",
         }}
-        variant="plain" disableInteractive={howmany === 0} disableFocusListener disableTouchListener
+        variant="plain" disableInteractive={howmany === 0} disableTouchListener
         title={
           <>
             <span className="text-balance text-base">{howmany > 0 ? title + ":" : title}</span>
