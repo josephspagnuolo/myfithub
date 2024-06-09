@@ -23,6 +23,16 @@ export default function DateBox({
     setOpen(true);
   };
 
+  const [openTouch, setOpenTouch] = useState(false);
+
+  const handleTouchTooltipClose = () => {
+    setOpenTouch(false);
+  };
+
+  const handleTouchTooltipOpen = () => {
+    setOpenTouch(true);
+  };
+
   function getMonth(day: string) {
     return (day.slice(0, 2) === "1/") ? "January"
       : (day.slice(0, 2) === "2/") ? "February"
@@ -48,7 +58,36 @@ export default function DateBox({
   const title = isOne ? (howmany.toString() + " Workout on " + formattedDate) : (isZero ? ("No Workouts on " + formattedDate) : (howmany.toString() + " Workouts on " + formattedDate));
   return (
     <>
-      <ClickAwayListener onClickAway={handleTooltipClose}>
+      <div className="flex md:hidden">
+        <ClickAwayListener onClickAway={handleTouchTooltipClose}>
+          <div className="flex">
+            <Tooltip onClose={handleTouchTooltipClose} open={openTouch} disableFocusListener
+              sx={{
+                boxShadow: "0px 0px 0px 0px",
+                p: "3px 8px",
+                backgroundColor: "rgba(0, 0, 0, 0.8)",
+                translate: "0.5px 8px",
+              }}
+              arrow placement="top" disableHoverListener disableTouchListener variant="plain"
+              title={
+                <>
+                  <span className="text-balance text-base">{howmany > 0 ? title + ":" : title}</span>
+                  {howmany > 0 && <ul className="flex justify-center items-center flex-col-reverse text-sm pb-1">
+                    {workoutsThatDay.map(workout => (
+                      <li key={workout.id} className="text-sky-600 hover:text-sky-700">
+                        <Link href={`/dashboard/workout/${workout.id}`}>{workout.name}</Link>
+                      </li>
+                    ))}
+                  </ul>}
+                </>
+              }>
+              <span onClick={handleTouchTooltipOpen}
+                className={`rounded-sm ${didworkout ? "bg-green-500" : "bg-[#2d2d30]"} w-3 h-3`}></span>
+            </Tooltip>
+          </div>
+        </ClickAwayListener>
+      </div>
+      <div className="hidden md:flex ">
         <Tooltip onClose={handleTooltipClose} onOpen={handleTooltipOpen} open={open} arrow
           sx={{
             boxShadow: "0px 0px 0px 0px",
@@ -63,7 +102,7 @@ export default function DateBox({
               {howmany > 0 && <ul className="flex justify-center items-center flex-col-reverse text-sm pb-1">
                 {workoutsThatDay.map(workout => (
                   <li key={workout.id} className="text-sky-600 hover:text-sky-700">
-                    <Link href={`/dashboard/workout/${workout.id}`} onClick={(e) => e.stopPropagation()}>{workout.name}</Link>
+                    <Link href={`/dashboard/workout/${workout.id}`}>{workout.name}</Link>
                   </li>
                 ))}
               </ul>}
@@ -72,7 +111,30 @@ export default function DateBox({
           <span onClick={handleTooltipOpen}
             className={`rounded-sm ${didworkout ? "bg-green-500" : "bg-[#2d2d30]"} w-3 h-3`}></span>
         </Tooltip>
-      </ClickAwayListener>
+      </div>
+      {/* <Tooltip onClose={handleTooltipClose} onOpen={handleTooltipOpen} open={open} arrow
+        sx={{
+          boxShadow: "0px 0px 0px 0px",
+          p: "3px 8px",
+          backgroundColor: "rgba(0, 0, 0, 0.8)",
+          translate: "0.5px 8px",
+        }}
+        placement="top" variant="plain" disableInteractive={howmany === 0} disableTouchListener
+        title={
+          <>
+            <span className="text-balance text-base">{howmany > 0 ? title + ":" : title}</span>
+            {howmany > 0 && <ul className="flex justify-center items-center flex-col-reverse text-sm pb-1">
+              {workoutsThatDay.map(workout => (
+                <li key={workout.id} className="text-sky-600 hover:text-sky-700">
+                  <Link href={`/dashboard/workout/${workout.id}`}>{workout.name}</Link>
+                </li>
+              ))}
+            </ul>}
+          </>
+        }>
+        <span onClick={handleTooltipOpen}
+          className={`rounded-sm ${didworkout ? "bg-green-500" : "bg-[#2d2d30]"} w-3 h-3`}></span>
+      </Tooltip> */}
     </>
   );
 }
