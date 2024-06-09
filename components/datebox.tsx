@@ -63,7 +63,7 @@ export default function DateBox({
               {howmany > 0 && <ul className="flex justify-center items-center flex-col-reverse text-sm pb-1">
                 {workoutsThatDay.map(workout => (
                   <li key={workout.id} className="text-sky-600 hover:text-sky-700">
-                    <Link href={`/dashboard/workout/${workout.id}`}>{workout.name}</Link>
+                    <Link href={`/dashboard/workout/${workout.id}`} onClick={(e) => e.stopPropagation()}>{workout.name}</Link>
                   </li>
                 ))}
               </ul>}
