@@ -32,6 +32,19 @@ export default async function WorkoutPage({
 
   const currentExsList = thisWorkout?.exercises.map(e => e.name) || [];
 
+  const workouts = await prisma.workout.findMany({
+    where: {
+      userId,
+    },
+    select: {
+      id: true,
+      content: true,
+      createdAt: true,
+      exercises: true,
+    }
+  });
+  const exercises = workouts.map(w => w.exercises).filter(exs => exs.length != 0).flat();
+
   return (
     <main className="grow">
       <div className="w-full flex flex-col space-y-5 justify-center items-center px-4 py-4">
@@ -57,7 +70,7 @@ export default async function WorkoutPage({
                 <fieldset id="accordion" className="w-full max-w-md sm:max-w-5xl border-none overflow-hidden rounded-2xl space-y-5">
                   {thisWorkout.exercises.map((ex, index) => (
                     <label key={ex.id} className="w-full max-w-md sm:max-w-5xl overflow-hidden rounded-2xl shadow-xl bg-[#1a1a1c] flex flex-col px-4 py-4 sm:px-[67px]">
-                      <ExpandableExerciseBox ex={ex} defaultChecked={index === 0} />
+                      <ExpandableExerciseBox ex={ex} defaultChecked={index === 0} pastExs={exercises.filter(pastEx => pastEx.name === ex.name && pastEx.id !== ex.id && pastEx.createdAt < ex.createdAt)} />
                       <div className="grid grid-rows-[0fr] transition-all ease-in-out duration-500 overflow-hidden pt-0 peer-checked:grid-rows-[1fr]">
                         <div className="overflow-hidden p-0 m-0">
                           <div className="h-4" />

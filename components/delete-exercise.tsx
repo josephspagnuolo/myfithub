@@ -13,7 +13,7 @@ export default function DeleteExerciseButton({
   const [open, setOpen] = useState(false);
   return (
     <>
-      <button className="ml-3 text-zinc-200 hover:text-zinc-400"
+      <button className="text-zinc-200 hover:text-zinc-400"
         onClick={() => setOpen(true)}
       >
         <FaRegTrashAlt size={20} strokeWidth={8} />

@@ -54,8 +54,8 @@ export default async function ShowSets({
           <>
             <ul className="flex grow flex-col divide-y-[1px] space-y-1">
               {sets.map((set, idx) => (
-                <li className=" -indent-[4.65em] pl-[4.65em] pb-1 pt-1.5" key={set.id}>
-                  <span className="text-zinc-400 text-2xl pr-2.5">Set {idx + 1}:&nbsp;</span>
+                <li className="-indent-[4.1em] pl-[4.1em] pb-1 pt-1.5" key={set.id}>
+                  <span className="text-zinc-400 text-2xl font-light pr-1">Set {idx + 1}:&nbsp;</span>
                   {getSetString1(set) === "" ? (
                     <span className=" text-2xl">{getSetString2(set)}</span>
                   ) : (
