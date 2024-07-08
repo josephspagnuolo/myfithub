@@ -55,7 +55,7 @@ export default async function Terms() {
             MyFitHub reserves the right to modify or update these Terms of Service at any time without prior notice. Your continued use of MyFitHub after any changes to these terms constitutes acceptance of those changes.
           </p>
           <p className="text-zinc-400">
-            If you have any questions about these Terms of Service, please contact us at <a href="mailto:myfithub.ca@gmail.com" className="hover:underline">myfithub.ca@gmail.com</a> and we will get back to you as soon as possible.
+            If you have any questions about these Terms of Service, please contact us at <a href="mailto:myfithub.link@gmail.com" className="hover:underline">myfithub.link@gmail.com</a> and we will get back to you as soon as possible.
           </p>
           <p className="text-zinc-400">
             Last updated: April 10th, 2024

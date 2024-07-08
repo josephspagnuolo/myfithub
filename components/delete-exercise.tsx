@@ -3,7 +3,7 @@
 import { FaRegTrashAlt } from "react-icons/fa";
 import Modal from '@mui/joy/Modal';
 import { useState } from "react";
-import { deleteExercise } from "./actions";
+import { deleteExercise } from "../lib/actions";
 
 export default function DeleteExerciseButton({
   id

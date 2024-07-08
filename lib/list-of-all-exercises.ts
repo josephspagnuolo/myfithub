@@ -179,4 +179,6 @@ export const listOfAllExercises = [
   "Jump squats",
   "Close-grip bench press",
   "Shrugs",
+  "Chest press machine",
+  "Ab crunch machine",
 ];

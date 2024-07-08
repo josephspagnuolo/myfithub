@@ -33,7 +33,7 @@ export async function POST(req: Request) {
     try {
       const userEmail = email as string;
       const emailData = await resend.emails.send({
-        from: 'MyFitHub <onboarding@myfithub.ca>',
+        from: 'MyFitHub <security@mail.myfithub.link>',
         to: userEmail,
         subject: "MyFitHub Registration",
         react: VerifyEmailTemplate({ name: user.name as string, token: token.token }) as React.ReactElement,

@@ -4,7 +4,7 @@ import { useState } from "react";
 import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { listOfAllExercises } from "./list-of-all-exercises";
+import { listOfAllExercises } from "../lib/list-of-all-exercises";
 import Autocomplete from "@mui/joy/Autocomplete";
 import { CssVarsProvider } from "@mui/joy";
 

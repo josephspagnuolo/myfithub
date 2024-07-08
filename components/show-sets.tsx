@@ -1,4 +1,4 @@
-import { showSets } from "./actions";
+import { showSets } from "../lib/actions";
 
 export default async function ShowSets({
   id

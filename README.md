@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://www.myfithub.ca/">
+  <a href="https://www.myfithub.link/">
     <img src="/public/logo.png" height="96">
     <h3 align="center">MyFitHub</h3>
   </a>

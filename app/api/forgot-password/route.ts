@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     try {
       const userEmail = email as string;
       const emailData = await resend.emails.send({
-        from: 'MyFitHub <security@myfithub.ca>',
+        from: 'MyFitHub <security@mail.myfithub.link>',
         to: userEmail,
         subject: "MyFitHub Password Reset Request",
         react: ForgotPasswordEmailTemplate({ name: existingUser.name as string, token: token.token }) as React.ReactElement,

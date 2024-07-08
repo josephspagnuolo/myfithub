@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title,
     description,
   },
-  metadataBase: new URL("https://www.myfithub.ca"),
+  metadataBase: new URL("https://www.myfithub.link"),
 };
 
 export const viewport: Viewport = {
@@ -38,7 +38,7 @@ export default async function RootLayout({
         {children}
         <footer className="bottom-2.5 flex justify-center items-center text-zinc-400 text-xs py-4">
           <div className="flex justify-center flex-col-reverse space-y-1 space-y-reverse md:space-y-0 md:flex-row md:space-x-5">
-            <p>&copy; 2024 MyFitHub.ca - All rights reserved.</p>
+            <p>&copy; 2024 MyFitHub.link - All rights reserved.</p>
             <div className="flex justify-center flex-row space-x-5">
               <Link href="/terms">Terms</Link>
               <Link href="/privacy">Privacy</Link>
