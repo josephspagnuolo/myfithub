@@ -4,22 +4,18 @@ import { useState } from "react";
 import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 export default function CreateWorkout() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   return (
     <>
-      <Link className="absolute top-4 flex overflow-y-clip z-50" href="/dashboard">
-        <div className="sm:scale-y-[2] sm:scale-x-150 sm:-translate-y-[2.5px] sm:mr-0.5">←</div>
-        <span>&nbsp;Back to dashboard</span>
-      </Link>
-      <div className="w-full max-w-md overflow-hidden rounded-2xl shadow-xl bg-[#1a1a1c]">
+      <div className="w-full max-w-md overflow-hidden rounded-2xl border border-zinc-800 shadow-xl bg-stone-900">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             setLoading(true);
+            const toastId = toast.loading("Creating...");
             fetch("/api/workout", {
               method: "POST",
               headers: {
@@ -31,14 +27,15 @@ export default function CreateWorkout() {
             }).then(async (res) => {
               if (res.status === 200) {
                 const { workout } = await res.json()
-                toast.success("Great workout!");
-                setTimeout(() => {
-                  router.push(`/dashboard/workout/${workout.id}`);
-                  router.refresh();
-                }, 2000);
+                toast.success("Great workout!", {
+                  id: toastId,
+                });
+                router.push(`/dashboard/workout/${workout.id}`);
               } else {
                 const { error } = await res.json();
-                toast.error("There was an error...");
+                toast.error(error, {
+                  id: toastId,
+                });
               }
             });
           }}
@@ -58,15 +55,15 @@ export default function CreateWorkout() {
               placeholder="Chest Day"
               maxLength={22}
               required
-              className="mt-1 block w-full appearance-none rounded-md border border-zinc-600 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25" />
+              className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25" />
           </div>
           <button
             type="submit"
             disabled={loading}
             className={`${loading
-              ? "bg-[#1a1a1c] border border-[#1a1a1c] cursor-not-allowed"
-              : "bg-sky-800 hover:bg-sky-900 hover:text-zinc-400 border border-black"
-              } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none`}
+              ? "bg-stone-900 border border-stone-900 cursor-not-allowed"
+              : "bg-sky-600 hover:bg-sky-700 border border-black"
+              } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all`}
           >
             {loading ? (
               <LoadingDots color="#808080" />

@@ -1,5 +1,5 @@
 import { CssVarsProvider } from "@mui/joy";
-import DateBox from "./datebox";
+import DateBox from "@/components/datebox";
 
 export default function ActivityCalendar({
   workouts
@@ -122,7 +122,7 @@ export default function ActivityCalendar({
   return (
     <>
       <CssVarsProvider defaultMode="dark" />
-      <div className="flex flex-row gap-1 pb-3 sm:pb-1.5 overflow-x-auto scroll-mt-1">
+      <div className="flex justify-center flex-row gap-1 pb-3 sm:pb-1.5 overflow-x-auto scroll-mt-1">
         <div className="grid gap-1 w-[26px] min-w-[26px]">
           <div className="w-3 h-3"></div>
           <div className="w-3 h-3"></div>

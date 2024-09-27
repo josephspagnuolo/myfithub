@@ -1,6 +1,7 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
 import prisma from "@/lib/prisma";
 import { compare } from "bcrypt";
 
@@ -13,6 +14,10 @@ export const authOptions: NextAuthOptions = {
     Github({
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+    }),
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -43,7 +48,7 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Please verify your email");
 
         return {
-          id: user.id + '',
+          id: user.id,
           name: user.name,
           email: user.email,
         }
@@ -61,13 +66,12 @@ export const authOptions: NextAuthOptions = {
         if (!token.email || !token.sub)
           throw new Error("Invalid account");
 
-        const emailUser = await prisma.user.findFirst({
+        const user = await prisma.user.findFirst({
           where: {
             email: token.email,
-            providerId: null,
           },
         });
-        if (!emailUser) {
+        if (!user) {
           const providerUser = await prisma.user.upsert({
             where: {
               providerId: token.sub,
@@ -80,12 +84,29 @@ export const authOptions: NextAuthOptions = {
               active: true,
             },
             update: {
-              name: token.name,
               email: token.email,
-              image: token.picture,
             }
           });
           token.sub = providerUser.id;
+        } else if (user.providerId !== null) {
+          if (user.providerId === token.sub) {
+            token.sub = user.id;
+          } else {
+            await prisma.user.delete({
+              where: {
+                email: token.email,
+              },
+            });
+            const providerUser = await prisma.user.create({
+              data: {
+                name: token.name,
+                email: token.email,
+                image: token.picture,
+                providerId: token.sub,
+              }
+            });
+            token.sub = providerUser.id;
+          }
         } else {
           if (token.picture) {
             const alsoProviderUser = await prisma.user.findFirst({
@@ -106,7 +127,7 @@ export const authOptions: NextAuthOptions = {
                   active: true,
                 }
               });
-              token.sub = emailUser.id;
+              token.sub = user.id;
             } else {
               await prisma.user.delete({
                 where: {
@@ -118,15 +139,21 @@ export const authOptions: NextAuthOptions = {
                   providerId: token.sub,
                 },
                 data: {
-                  name: token.name,
                   email: token.email,
-                  image: token.picture,
                 }
               });
               token.sub = providerUser.id;
             }
           }
         }
+      } else {
+        const user = await prisma.user.findFirst({
+          where: {
+            id: token.sub,
+          },
+        });
+        token.name = user?.name;
+        if (user?.image) token.picture = user?.image;
       }
       return token;
     },

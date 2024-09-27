@@ -32,7 +32,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-black text-zinc-200 flex flex-col min-h-svh">
+      <body className="bg-black text-zinc-50 flex flex-col min-h-svh leading-snug">
         <Toaster />
         <NavBar />
         {children}

@@ -24,10 +24,8 @@ export default async function Home() {
           </p>
         </div>
         <div className="flex space-x-3 mt-8">
-          <Link href="/register">
-            <button className="bg-sky-800 hover:bg-sky-900 hover:text-zinc-400 border border-black h-12 w-48 flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none">
-              Get started
-            </button>
+          <Link href="/register" className="bg-sky-600 hover:bg-sky-700 border border-black h-12 w-48 flex items-center justify-center rounded-md text-md font-semibold transition-all">
+            Get started
           </Link>
         </div>
       </div>

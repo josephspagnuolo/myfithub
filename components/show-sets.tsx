@@ -1,4 +1,4 @@
-import { showSets } from "../lib/actions";
+import { showSets } from "@/lib/actions";
 
 export default async function ShowSets({
   id
@@ -45,7 +45,7 @@ export default async function ShowSets({
 
   return (
     <>
-      <div className="w-full max-w-md sm:max-w-5xl overflow-hidden flex flex-col">
+      <div className="w-full max-w-[950px] overflow-hidden flex flex-col">
         {sets.length === 0 ? (
           <span className="text-zinc-400 text-sm">
             No sets so far...

@@ -11,7 +11,7 @@ export default async function Terms() {
   return (
     <main className="flex justify-center grow items-start">
       <div className="flex justify-center flex-col px-4 py-16">
-        <div className="space-y-5 max-w-5xl">
+        <div className="space-y-5 max-w-[950px]">
           <h1 className="font-bold text-2xl">
             MyFitHub Terms of Service
           </h1>

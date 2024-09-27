@@ -3,7 +3,8 @@
 import { FaRegTrashAlt } from "react-icons/fa";
 import Modal from '@mui/joy/Modal';
 import { useState } from "react";
-import { deleteExercise } from "../lib/actions";
+import { deleteExercise } from "@/lib/actions";
+import toast from "react-hot-toast";
 
 export default function DeleteExerciseButton({
   id
@@ -18,18 +19,20 @@ export default function DeleteExerciseButton({
       >
         <FaRegTrashAlt size={20} strokeWidth={8} />
       </button>
-      <Modal open={open} onClose={() => setOpen(false)} className="flex justify-center items-center backdrop-blur-md bg-zinc-400/15">
-        <div className="flex flex-col justify-center text-center w-3/4 sm:w-96 h-40 rounded-lg bg-[#1a1a1c] space-y-7">
-          <span className="text-lg font-medium">Are you sure?</span>
-          <div className="flex justify-evenly">
-            <button className=" hover:text-zinc-400 border border-zinc-200 hover:border-zinc-400 h-12 w-1/3 flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none"
+      <Modal open={open} onClose={(event, reason: string) => { if (reason !== "backdropClick") setOpen(false) }} className="flex justify-center items-center backdrop-blur-0 bg-black/50">
+        <div className="flex flex-col justify-center text-center w-5/6 sm:w-full sm:max-w-lg p-6 rounded-lg bg-black border border-zinc-800">
+          <span className="text-lg font-medium sm:text-left">Are you sure?</span>
+          <span className="text-sm text-zinc-400 pt-1 leading-tight sm:text-left">This action cannot be undone. This will permanently remove this exercise from this workout.</span>
+          <div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 space-y-2 space-y-reverse sm:space-y-0 mt-4">
+            <button className="border border-zinc-800 hover:bg-zinc-800 h-10 w-full sm:w-20 flex items-center justify-center rounded-md text-md font-semibold transition-all"
               onClick={() => setOpen(false)}
             >
               Cancel
             </button>
-            <button type="submit" className="bg-red-800 hover:bg-red-900 hover:text-zinc-400 border border-black h-12 w-1/3 flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none"
+            <button type="submit" className="bg-red-800 hover:bg-red-900 border border-black h-10 w-full sm:w-20 flex items-center justify-center rounded-md text-md font-semibold transition-all"
               onClick={() => {
                 deleteExercise(id);
+                toast.success("Exercise deleted.");
                 setOpen(false);
               }}
             >

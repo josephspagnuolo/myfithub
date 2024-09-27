@@ -3,6 +3,65 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
+export async function editAccount(id: string, name: string) {
+  const editedAccount = prisma.user.update({
+    where: {
+      id
+    },
+    data: {
+      name
+    }
+  });
+  try {
+    await prisma.$transaction([editedAccount]);
+  } catch (error) {
+    console.log("An error occurred while editing your account:", error)
+  }
+  revalidatePath("/", "layout");
+}
+
+export async function deleteAccount(id: string) {
+  const deletedPasswordResetTokens = prisma.passwordResetToken.deleteMany({ where: { userId: id } })
+  try {
+    await prisma.$transaction([deletedPasswordResetTokens]);
+  } catch (error) {
+    console.log("An error occurred while deleting your password reset tokens:", error)
+  }
+  const deletedAccount = prisma.user.delete({ where: { id } });
+  try {
+    await prisma.$transaction([deletedAccount]);
+  } catch (error) {
+    console.log("An error occurred while deleting your account:", error)
+  }
+}
+
+export async function deleteWorkout(id: string) {
+  const deletedWorkout = prisma.workout.delete({ where: { id } });
+  try {
+    await prisma.$transaction([deletedWorkout]);
+  } catch (error) {
+    console.log("An error occurred while deleting the workout:", error)
+  }
+  revalidatePath("/dashboard", "layout");
+}
+
+export async function editWorkoutTitle(id: string, content: string) {
+  const editedWorkoutTitle = prisma.workout.update({
+    where: {
+      id,
+    },
+    data: {
+      content
+    },
+  });
+  try {
+    await prisma.$transaction([editedWorkoutTitle]);
+  } catch (error) {
+    console.log("An error occurred while editing the workout title:", error)
+  }
+  revalidatePath("/dashboard", "layout");
+}
+
 export async function deleteExercise(id: string) {
   const deletedExercise = prisma.exercise.delete({ where: { id } });
   try {

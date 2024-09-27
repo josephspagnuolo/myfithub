@@ -2,7 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { BsGithub } from "react-icons/bs";
+import { FcGoogle } from "react-icons/fc";
 import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -39,17 +39,17 @@ export default function GitHubSigninButton({
           e.preventDefault();
           setLoading(true);
           doWorking(true);
-          signIn("github");
+          signIn("google");
           toast.loading("Signing in...");
         }}
       >
         {loading ? (
           <>
-            <BsGithub size={20} className="mr-2" /><LoadingDots color="#808080" />
+            <FcGoogle size={20} className="mr-2" /><LoadingDots color="#808080" />
           </>
         ) : (
           <>
-            <BsGithub size={20} className="mr-2" /><span>{type === "login" ? "Log in with GitHub" : "Sign up with GitHub"}</span>
+            <FcGoogle size={20} className="mr-2" /><span>{type === "login" ? "Log in with Google" : "Sign up with Google"}</span>
           </>
         )}
       </button>

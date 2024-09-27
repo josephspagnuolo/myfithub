@@ -33,10 +33,11 @@ export default function PasswordResetForm({
   }
 
   return (
-    <form className="flex flex-col space-y-3 px-4 py-5 sm:px-16"
+    <form className="flex flex-col space-y-3 p-6"
       onSubmit={(e) => {
         e.preventDefault();
         setLoading(true);
+        const toastId = toast.loading("Resetting...");
         fetch(`/api/password-reset/${token}`, {
           method: "POST",
           headers: {
@@ -47,11 +48,16 @@ export default function PasswordResetForm({
           }),
         }).then(async (res) => {
           if (res.status === 200) {
-            toast.success("You have successfully reset your password", { duration: 10000 });
+            toast.success("You have successfully reset your password", {
+              id: toastId,
+              duration: 10000
+            });
             router.push("/login");
           } else {
             const { error } = await res.json();
-            toast.error("There was an error...");
+            toast.error(error, {
+              id: toastId,
+            });
           }
         });
       }}>
@@ -76,16 +82,16 @@ export default function PasswordResetForm({
           type={visible ? "text" : "password"}
           required
           onChange={validate}
-          className="mt-1 block w-full appearance-none rounded-md border border-zinc-600 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm"
+          className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm"
         />
       </div>
       <button
         type="submit"
         disabled={loading}
         className={`${loading
-          ? "bg-[#1a1a1c] border border-[#1a1a1c] cursor-not-allowed"
-          : "bg-sky-800 hover:bg-sky-900 hover:text-zinc-400 border border-black"
-          } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none`}
+          ? "bg-stone-900 border border-stone-900 cursor-not-allowed"
+          : "bg-sky-600 hover:bg-sky-700 border border-black"
+          } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all`}
       >
         {loading ? (
           <LoadingDots color="#808080" />

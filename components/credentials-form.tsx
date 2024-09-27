@@ -45,6 +45,7 @@ export default function CredentialsForm({
         setLoading(true);
         doWorking(true);
         if (type === "login") {
+          const toastId = toast.loading("Logging in...");
           signIn("credentials", {
             redirect: false,
             email: e.currentTarget.email.value,
@@ -54,21 +55,19 @@ export default function CredentialsForm({
             if (error) {
               setLoading(false);
               doWorking(false);
-              toast.error(error);
-            } else {
-              const toastId = toast.loading("Signing in...", {
-                style: { minWidth: "230px" }
+              toast.error(error, {
+                id: toastId,
               });
-              setTimeout(() => {
-                toast.success("Signed in successfully!", {
-                  id: toastId,
-                });
-                router.push("/dashboard");
-                router.refresh();
-              }, 1000);
+            } else {
+              toast.success("Logged in successfully!", {
+                id: toastId,
+              });
+              router.push("/dashboard");
+              router.refresh();
             }
           });
         } else {
+          const toastId = toast.loading("Registering...");
           fetch("/api/register", {
             method: "POST",
             headers: {
@@ -83,18 +82,21 @@ export default function CredentialsForm({
             setLoading(false);
             doWorking(false);
             if (res.status === 200) {
-              toast.success("Account created! Please check your email for a verification link.", { duration: 10000 });
-              setTimeout(() => {
-                router.push("/login");
-              }, 2000);
+              toast.success("Account created! Please check your email for a verification link.", {
+                id: toastId,
+                duration: 10000
+              });
+              router.push("/login");
             } else {
               const { error } = await res.json();
-              toast.error(error);
+              toast.error(error, {
+                id: toastId,
+              });
             }
           });
         }
       }}
-      className="flex flex-col space-y-3 px-4 py-5 pt-2 sm:px-16"
+      className="flex flex-col space-y-3 p-4 sm:px-8 pt-2"
     >
       {type === "register" ? (
         <div>
@@ -109,7 +111,8 @@ export default function CredentialsForm({
             name="nametext"
             type="text"
             required
-            className="mt-1 block w-full appearance-none rounded-md border border-zinc-600 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm"
+            disabled={working}
+            className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm"
           />
         </div>
       ) : (
@@ -127,8 +130,10 @@ export default function CredentialsForm({
           name="email"
           type="email"
           autoComplete="email"
+          inputMode="email"
           required
-          className="mt-1 block w-full appearance-none rounded-md border border-zinc-600 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm"
+          disabled={working}
+          className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm"
         />
       </div>
       <div>
@@ -140,6 +145,7 @@ export default function CredentialsForm({
             Password
           </label>
           <button
+            type="button"
             className="text-xs text-zinc-400 underline cursor-pointer"
             onClick={() => setVisible(!visible)}
           >
@@ -151,22 +157,18 @@ export default function CredentialsForm({
           name="password"
           type={visible ? "text" : "password"}
           required
+          disabled={working}
           onChange={validate}
-          className="mt-1 block w-full appearance-none rounded-md border border-zinc-600 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm"
+          className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm"
         />
-        {/* {type === "login" && <p className="text-right pt-0.5 text-xs text-zinc-400">
-          <Link href="/forgot-password" className="underline">
-            Forgot password?
-          </Link>
-        </p>} */}
       </div>
       <button
         type="submit"
         disabled={working}
-        className={`${working ? "cursor-not-allowed" : ""} ${loading
-          ? "bg-[#1a1a1c] border border-[#1a1a1c] cursor-not-allowed"
-          : "bg-sky-800 hover:bg-sky-900 hover:text-zinc-400 border border-black"
-          } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none`}
+        className={`${working ? "cursor-not-allowed hover:bg-sky-600" : ""} ${loading
+          ? "bg-stone-900 border border-stone-900 cursor-not-allowed"
+          : "bg-sky-600 hover:bg-sky-700 border border-black"
+          } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all`}
       >
         {loading ? (
           <LoadingDots color="#808080" />
@@ -186,8 +188,8 @@ export default function CredentialsForm({
       </p>
       {type === "login" ? (
         <>
-          <p className="text-center text-sm text-zinc-200">
-            <Link href="/forgot-password" className="hover:underline">
+          <p className="text-center text-sm">
+            <Link href="/forgot-password" className="font-semibold text-zinc-200 hover:underline">
               Forgot password?
             </Link>
           </p>
@@ -204,7 +206,7 @@ export default function CredentialsForm({
           <p className="text-center text-sm text-zinc-400">
             Already have an account?{" "}
             <Link href="/login" className="font-semibold text-zinc-200 hover:underline">
-              Sign in
+              Log in
             </Link>{" "}
             instead.
           </p>

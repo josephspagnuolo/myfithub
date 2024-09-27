@@ -22,8 +22,8 @@ export default async function PasswordResetPage({
     <main className="flex grow items-center justify-center flex-col">
       {thisToken ? (
         <>
-          <div className="w-full max-w-md overflow-hidden rounded-2xl border border-zinc-600 shadow-xl bg-[#1a1a1c] mx-3">
-            <div className="flex flex-col items-center justify-center space-y-2 border-b border-zinc-600 px-4 py-4 pt-5 text-center sm:px-16">
+          <div className="w-full max-w-md overflow-hidden rounded-2xl border border-zinc-800 shadow-xl bg-stone-900 mx-3">
+            <div className="flex flex-col items-center justify-center space-y-2 border-b border-zinc-800 px-4 py-4 pt-5 text-center sm:px-16">
               <Image
                 src="/logo.png"
                 priority

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
@@ -22,7 +26,7 @@ body {
   }
 
   .card-content {
-    @apply relative w-[calc(100%-1.5px)] h-[calc(100%-1.5px)] top-[0.75px] lg:top-[0.85px] left-[0.75px] rounded-full bg-zinc-900;
+    @apply relative w-[calc(100%-1.5px)] h-[calc(100%-1.5px)] top-[0.75px] lg:top-[0.85px] left-[0.75px] rounded-full bg-stone-900;
   }
 
   .thin-scroll {

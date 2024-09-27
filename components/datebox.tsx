@@ -74,7 +74,7 @@ export default function DateBox({
                   <span className="text-balance text-base">{howmany > 0 ? title + ":" : title}</span>
                   {howmany > 0 && <ul className="flex justify-center items-center flex-col-reverse text-sm pb-1">
                     {workoutsThatDay.map(workout => (
-                      <li key={workout.id} className="text-sky-600 hover:text-sky-700">
+                      <li key={workout.id} className="text-sky-500 hover:text-sky-700">
                         <Link href={`/dashboard/workout/${workout.id}`}>{workout.name}</Link>
                       </li>
                     ))}
@@ -101,7 +101,7 @@ export default function DateBox({
               <span className="text-balance text-base">{howmany > 0 ? title + ":" : title}</span>
               {howmany > 0 && <ul className="flex justify-center items-center flex-col-reverse text-sm pb-1">
                 {workoutsThatDay.map(workout => (
-                  <li key={workout.id} className="text-sky-600 hover:text-sky-700">
+                  <li key={workout.id} className="text-sky-500 hover:text-sky-700">
                     <Link href={`/dashboard/workout/${workout.id}`}>{workout.name}</Link>
                   </li>
                 ))}
@@ -125,7 +125,7 @@ export default function DateBox({
             <span className="text-balance text-base">{howmany > 0 ? title + ":" : title}</span>
             {howmany > 0 && <ul className="flex justify-center items-center flex-col-reverse text-sm pb-1">
               {workoutsThatDay.map(workout => (
-                <li key={workout.id} className="text-sky-600 hover:text-sky-700">
+                <li key={workout.id} className="text-sky-500 hover:text-sky-700">
                   <Link href={`/dashboard/workout/${workout.id}`}>{workout.name}</Link>
                 </li>
               ))}

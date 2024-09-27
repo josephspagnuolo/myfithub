@@ -25,12 +25,13 @@ export default function AddSet({
           setLoading(true);
           if ((repsInputValue === "") && (weightInputValue === "") && (hrsInputValue === "") && (minsInputValue === "") && (secondsInputValue === "")) {
             console.log("empty")
-            toast("Please enter the set info", {
+            toast("Please enter any of the set info", {
               id: "add-set",
               icon: '⚠️',
             });
             setLoading(false);
           } else {
+            const toastId = toast.loading("Adding...");
             fetch(`/api/exercise/${id}`, {
               method: "POST",
               headers: {
@@ -46,20 +47,22 @@ export default function AddSet({
             }).then(async (res) => {
               if (res.status === 200) {
                 const { set } = await res.json()
-                setTimeout(() => {
-                  setRepsInputValue("");
-                  setWeightInputValue("");
-                  setHrsInputValue("");
-                  setMinsInputValue("");
-                  setSecondsInputValue("");
-                  router.refresh();
-                  toast.success("Great set!");
-                  setLoading(false);
-                }, 2000);
+                setRepsInputValue("");
+                setWeightInputValue("");
+                setHrsInputValue("");
+                setMinsInputValue("");
+                setSecondsInputValue("");
+                router.refresh();
+                toast.success("Great set!", {
+                  id: toastId
+                });
               } else {
                 const { error } = await res.json();
-                toast.error("There was an error...");
+                toast.error(error, {
+                  id: toastId
+                });
               }
+              setLoading(false);
             });
           }
         }}
@@ -72,10 +75,11 @@ export default function AddSet({
             value={repsInputValue}
             type="text"
             inputMode="numeric"
-            pattern="\d*"
+            pattern="[1-9]\d*"
             maxLength={3}
             placeholder="12"
-            className="w-[56px] appearance-none rounded-md border border-zinc-600 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
+            title="From 1 to 999"
+            className="w-[56px] appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
           />
           <label className="mt-1 mx-2 text-sm" htmlFor="reps">reps</label>
         </div>
@@ -86,10 +90,11 @@ export default function AddSet({
             value={weightInputValue}
             type="text"
             inputMode="numeric"
-            pattern="\d*"
+            pattern="[1-9]\d*|0"
             maxLength={4}
             placeholder="225"
-            className="w-[61px] appearance-none rounded-md border border-zinc-600 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
+            title="From 0 to 9999"
+            className="w-[61px] appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
           />
           <label className="mt-1.5 mx-2 text-sm" htmlFor="weight">lbs&nbsp;</label>
         </div>
@@ -97,9 +102,9 @@ export default function AddSet({
           type="submit"
           disabled={loading}
           className={`${loading
-            ? "bg-[#1a1a1c] border border-[#1a1a1c] cursor-not-allowed"
-            : "bg-sky-800 hover:bg-sky-900 hover:text-zinc-400 border border-black"
-            } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none sm:hidden`}
+            ? "bg-stone-900 border border-stone-900 cursor-not-allowed"
+            : "bg-sky-600 hover:bg-sky-700 border border-black"
+            } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all sm:hidden`}
         >
           {loading ? (
             <LoadingDots color="#808080" />
@@ -115,10 +120,11 @@ export default function AddSet({
               value={hrsInputValue}
               type="text"
               inputMode="numeric"
-              pattern="\d*"
+              pattern="[1-9]\d*|0"
               maxLength={2}
               placeholder="2"
-              className="w-[48px] appearance-none rounded-md border border-zinc-600 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
+              title="From 0 to 99"
+              className="w-[48px] appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
             />
             <label className="mt-1.5 mx-2 text-sm" htmlFor="hrs">hrs</label>
           </div>
@@ -132,7 +138,8 @@ export default function AddSet({
               pattern="^([1-5]?[0-9]|59)$"
               maxLength={2}
               placeholder="45"
-              className="w-[48px] appearance-none rounded-md border border-zinc-600 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
+              title="From 0 to 59"
+              className="w-[48px] appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
             />
             <label className="mt-1.5 mx-2 text-sm" htmlFor="mins">min</label>
           </div>
@@ -146,7 +153,8 @@ export default function AddSet({
               pattern="^([1-5]?[0-9]|59)$"
               maxLength={2}
               placeholder="30"
-              className="-ml-1 w-[48px] appearance-none rounded-md border border-zinc-600 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
+              title="From 0 to 59"
+              className="-ml-1 w-[48px] appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25"
             />
             <label className="mt-1.5 mx-2 text-sm" htmlFor="seconds">sec</label>
           </div>
@@ -155,8 +163,8 @@ export default function AddSet({
           type="submit"
           disabled={loading}
           className={`${loading
-            ? "bg-[#1a1a1c] border border-[#1a1a1c] cursor-not-allowed"
-            : "bg-sky-800 hover:bg-sky-900 hover:text-zinc-400 border border-black"} h-10 w-full sm:flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none hidden`}
+            ? "bg-stone-900 border border-stone-900 cursor-not-allowed"
+            : "bg-sky-600 hover:bg-sky-700 border border-black"} h-10 w-full sm:flex items-center justify-center rounded-md text-md font-semibold transition-all hidden`}
         >
           {loading ? (
             <LoadingDots color="#808080" />

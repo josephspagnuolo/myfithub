@@ -1,6 +1,6 @@
-import ClosingButton from "./closingbutton";
-import DeleteExerciseButton from "./delete-exercise";
-import PastExercisesButton from "./past-exercises-button";
+import ClosingButton from "@/components/closingbutton";
+import DeleteExerciseButton from "@/components/delete-exercise";
+import PastExercisesButton from "@/components/past-exercises-button";
 import prisma from "@/lib/prisma";
 
 export default async function ExpandableExerciseBox({
@@ -33,16 +33,16 @@ export default async function ExpandableExerciseBox({
   return (
     <>
       <input id={ex.id} type="checkbox" disabled value="bar1" name="accordion" className="peer hidden" defaultChecked={defaultChecked} />
-      <span className="flex justify-between">
-        <div>
+      <div className="flex justify-between">
+        <span>
           {ex.name}
-        </div>
+        </span>
         <div className="flex flex-row space-x-2">
-          <PastExercisesButton name={ex.name} pastExsWithSets={pastExsWithSets.reverse()} />
           <ClosingButton id={ex.id} defaultChecked={defaultChecked} />
+          <PastExercisesButton name={ex.name} pastExsWithSets={pastExsWithSets.sort((a, b) => b.createdAt.valueOf() - a.createdAt.valueOf())} />
           <DeleteExerciseButton id={ex.id} />
         </div>
-      </span>
+      </div>
     </>
   );
 }

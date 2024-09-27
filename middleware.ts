@@ -16,6 +16,8 @@ export default async function middleware(req: NextRequest) {
 
   if (!session && path.includes("dashboard")) {
     return NextResponse.redirect(new URL("/login", req.url));
+  } else if (!session && path.includes("settings")) {
+    return NextResponse.redirect(new URL("/login", req.url));
   } else if (session && (path === "/login" || path === "/register")) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }

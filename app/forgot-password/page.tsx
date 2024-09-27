@@ -12,8 +12,8 @@ export default function ForgotPassword() {
   const router = useRouter();
   return (
     <main className="flex grow items-center justify-center">
-      <div className="w-full max-w-md overflow-hidden rounded-2xl border border-zinc-600 shadow-xl bg-[#1a1a1c] mx-3">
-        <div className="flex flex-col items-center justify-center space-y-2 border-b border-zinc-600 px-4 py-4 pt-5 text-center sm:px-16">
+      <div className="w-full max-w-md overflow-hidden rounded-2xl border border-zinc-800 shadow-xl bg-stone-900 mx-3">
+        <div className="flex flex-col items-center justify-center space-y-2 border-b border-zinc-800 px-4 py-4 pt-5 text-center sm:px-16">
           <Link href="/">
             <Image
               src="/logo.png"
@@ -29,7 +29,7 @@ export default function ForgotPassword() {
             Enter your email address to reset your password
           </p>
         </div>
-        <form className="flex flex-col space-y-3 px-4 py-5 sm:px-16"
+        <form className="flex flex-col space-y-3 p-6"
           onSubmit={(e) => {
             e.preventDefault();
             setLoading(true);
@@ -64,16 +64,16 @@ export default function ForgotPassword() {
               type="email"
               autoComplete="email"
               required
-              className="mt-1 block w-full appearance-none rounded-md border border-zinc-600 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm"
+              className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm"
             />
           </div>
           <button
             type="submit"
             disabled={loading}
             className={`${loading
-              ? "bg-[#1a1a1c] border border-[#1a1a1c] cursor-not-allowed"
-              : "bg-sky-800 hover:bg-sky-900 hover:text-zinc-400 border border-black"
-              } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all focus:outline-none`}
+              ? "bg-stone-900 border border-stone-900 cursor-not-allowed"
+              : "bg-sky-600 hover:bg-sky-700 border border-black"
+              } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all`}
           >
             {loading ? (
               <LoadingDots color="#808080" />
