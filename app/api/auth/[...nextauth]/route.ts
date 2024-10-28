@@ -7,8 +7,8 @@ import { compare } from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
   pages: {
-    signIn: '/login',
-    error: '/register',
+    signIn: "/login",
+    error: "/register",
   },
   providers: [
     GithubProvider({
@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials.password)
@@ -31,40 +31,35 @@ export const authOptions: NextAuthOptions = {
 
         const user = await prisma.user.findUnique({
           where: {
-            email: credentials.email
+            email: credentials.email,
           },
         });
-        // if user doesn't exist or password doesn't match
-        if (!user)
-          throw new Error("Invalid email or password");
 
-        if (!user.password)
-          throw new Error("Invalid account");
+        if (!user) throw new Error("Invalid email or password");
+
+        if (!user.password) throw new Error("Invalid account");
 
         if (!(await compare(credentials.password, user.password)))
           throw new Error("Invalid email or password");
 
-        if (!user.active)
-          throw new Error("Please verify your email");
+        if (!user.active) throw new Error("Please verify your email");
 
         return {
           id: user.id,
           name: user.name,
           email: user.email,
-        }
+        };
       },
     }),
   ],
   callbacks: {
     async session({ token, session }) {
-      if (token?.sub && session?.user)
-        session.user.id = token.sub;
+      if (token?.sub && session?.user) session.user.id = token.sub;
       return session;
     },
     async jwt({ token, trigger }) {
       if (trigger === "signIn") {
-        if (!token.email || !token.sub)
-          throw new Error("Invalid account");
+        if (!token.email || !token.sub) throw new Error("Invalid account");
 
         const user = await prisma.user.findFirst({
           where: {
@@ -85,7 +80,7 @@ export const authOptions: NextAuthOptions = {
             },
             update: {
               email: token.email,
-            }
+            },
           });
           token.sub = providerUser.id;
         } else if (user.providerId !== null) {
@@ -103,7 +98,7 @@ export const authOptions: NextAuthOptions = {
                 email: token.email,
                 image: token.picture,
                 providerId: token.sub,
-              }
+              },
             });
             token.sub = providerUser.id;
           }
@@ -125,7 +120,7 @@ export const authOptions: NextAuthOptions = {
                   image: token.picture,
                   providerId: token.sub,
                   active: true,
-                }
+                },
               });
               token.sub = user.id;
             } else {
@@ -140,7 +135,7 @@ export const authOptions: NextAuthOptions = {
                 },
                 data: {
                   email: token.email,
-                }
+                },
               });
               token.sub = providerUser.id;
             }

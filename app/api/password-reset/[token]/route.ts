@@ -2,11 +2,14 @@ import prisma from "@/lib/prisma";
 import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request, {
-  params,
-}: {
-  params: { token: string };
-}) {
+export async function POST(
+  req: Request,
+  {
+    params,
+  }: {
+    params: { token: string };
+  },
+) {
   const token = params.token;
   const { password } = await req.json();
   const passwordResetToken = await prisma.passwordResetToken.findUnique({
@@ -18,7 +21,10 @@ export async function POST(req: Request, {
   });
 
   if (!passwordResetToken)
-    return NextResponse.json({ error: "Error resetting password" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Error resetting password" },
+      { status: 400 },
+    );
 
   const encrypted = await hash(password, 12);
 

@@ -2,9 +2,9 @@
 
 import { BsThreeDots } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
-import { useState } from 'react';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Modal from '@mui/joy/Modal';
+import { Dispatch, SetStateAction, useState } from "react";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Modal from "@mui/joy/Modal";
 import { FaRegTrashAlt } from "react-icons/fa";
 import LoadingDots from "@/components/loading-dots";
 import { deleteWorkout, editWorkoutTitle } from "@/lib/actions";
@@ -13,7 +13,8 @@ import toast from "react-hot-toast";
 import LogoSVG from "@/components/logo-svg";
 
 export default function WorkoutMenuButton({
-  id, title
+  id,
+  title,
 }: {
   id: string;
   title: string;
@@ -33,56 +34,79 @@ export default function WorkoutMenuButton({
         <div className="relative inline-block">
           <button
             onClick={toggleDropdown}
-            className="flex justify-center items-center w-10 h-10 rounded-md relative hover:bg-zinc-800 transition-all"
+            className="relative flex h-10 w-10 items-center justify-center rounded-md transition-all hover:bg-zinc-800"
           >
             <BsThreeDots size={20} />
           </button>
-          <div className={`${isOpen ? 'absolute top-11 right-0 flex justify-center flex-col w-32 z-50' : 'hidden'}`}>
-            <div className="flex flex-col bg-black rounded-md z-10 border border-zinc-800 overflow-clip p-1">
+          <div
+            className={`${isOpen ? "absolute right-0 top-11 z-50 flex w-36 flex-col justify-center" : "hidden"}`}
+          >
+            <div className="z-10 flex flex-col overflow-clip rounded-md border border-zinc-800 bg-black p-1">
               <ViewWorkoutButton id={id} />
-              <EditWorkoutTitleButton id={id} title={title} />
-              <DeleteWorkoutButton id={id} />
+              <EditWorkoutTitleButton
+                id={id}
+                title={title}
+                setDropdownClosed={setIsOpen}
+              />
+              <DeleteWorkoutButton id={id} setDropdownClosed={setIsOpen} />
             </div>
           </div>
         </div>
-      </ClickAwayListener >
+      </ClickAwayListener>
     </>
   );
 }
 
-function ViewWorkoutButton({
-  id
-}: {
-  id: string;
-}) {
+function ViewWorkoutButton({ id }: { id: string }) {
   return (
-    <Link href={`/dashboard/workout/${id}`} className="flex flex-row items-center p-2.5 py-1.5 rounded-[5px] hover:bg-zinc-800 transition-all">
-      <LogoSVG className="h-5 w-5 mt-px" />
-      <span className="ml-3 mb-px">View</span>
+    <Link
+      href={`/dashboard/workout/${id}`}
+      className="flex flex-row items-center rounded-[5px] p-2.5 py-[5.5px] transition-all hover:bg-zinc-800"
+    >
+      <LogoSVG className="mt-px h-5 w-5" />
+      <span className="mb-px ml-2">View</span>
     </Link>
   );
 }
 
 function EditWorkoutTitleButton({
-  id, title
+  id,
+  title,
+  setDropdownClosed,
 }: {
   id: string;
   title: string;
+  setDropdownClosed: Dispatch<SetStateAction<boolean>>;
 }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   return (
     <>
-      <button className="flex flex-row items-center p-2.5 py-1.5 rounded-[5px] hover:bg-zinc-800 transition-all"
-        onClick={() => setOpen(true)}
+      <button
+        className="flex flex-row items-center rounded-[5px] p-2.5 py-1.5 transition-all hover:bg-zinc-800"
+        onClick={() => {
+          setOpen(true);
+          setDropdownClosed(false);
+        }}
       >
-        <MdEdit size={20} className="mt-px" />
-        <span className="ml-3">Edit Title</span>
+        <MdEdit size={20} className="mb-px mt-px" />
+        <span className="ml-2">Edit Title</span>
       </button>
-      <Modal disableRestoreFocus open={open} onClose={() => { if (!loading) setOpen(false) }} className="flex justify-center items-center backdrop-blur-0 bg-black/50">
-        <div className="fixed grid w-5/6 sm:w-full sm:max-w-md p-6 rounded-lg bg-black border border-zinc-800">
-          <span className="text-lg font-medium text-center sm:text-left">Edit Workout Title</span>
-          <span className="text-sm text-zinc-400 pt-1 leading-tight text-center sm:text-left">This will change the name of the selected workout.</span>
+      <Modal
+        disableRestoreFocus
+        open={open}
+        onClose={() => {
+          if (!loading) setOpen(false);
+        }}
+        className="flex items-center justify-center bg-black/50 backdrop-blur-0"
+      >
+        <div className="fixed grid w-5/6 rounded-lg border border-zinc-800 bg-black p-6 sm:w-full sm:max-w-md">
+          <span className="text-center text-lg font-medium sm:text-left">
+            Edit Workout Title
+          </span>
+          <span className="pt-1 text-center text-sm leading-tight text-zinc-400 sm:text-left">
+            This will change the name of the selected workout.
+          </span>
           <form
             onSubmit={async (e) => {
               e.preventDefault();
@@ -95,10 +119,7 @@ function EditWorkoutTitleButton({
             className="flex flex-col space-y-4 pt-6"
           >
             <div>
-              <label
-                htmlFor="content"
-                className="block text-xs text-zinc-400"
-              >
+              <label htmlFor="content" className="block text-xs text-zinc-400">
                 Workout Name
               </label>
               <input
@@ -110,30 +131,41 @@ function EditWorkoutTitleButton({
                 autoFocus
                 required
                 defaultValue={title}
-                className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25" />
+                className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+              />
             </div>
-            <div className="sm:self-end sm:justify-end sm:w-20">
+            <div className="sm:w-20 sm:justify-end sm:self-end">
               <button
                 type="submit"
                 disabled={loading}
-                className={`${loading
-                  ? "bg-black border border-black cursor-not-allowed"
-                  : "bg-sky-600 hover:bg-sky-700 border border-black"
-                  } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all`}
+                className={`${
+                  loading
+                    ? "cursor-not-allowed border border-black bg-black"
+                    : "border border-black bg-sky-600 hover:bg-sky-700"
+                } text-md flex h-10 w-full items-center justify-center rounded-md font-semibold transition-all`}
               >
-                {loading ? (
-                  <LoadingDots color="#808080" />
-                ) : (
-                  <p>Save</p>
-                )}
+                {loading ? <LoadingDots color="#808080" /> : <p>Save</p>}
               </button>
             </div>
           </form>
-          <button className="absolute right-3 top-3 p-1 rounded-md hover:bg-zinc-800"
+          <button
+            className="absolute right-3 top-3 rounded-md p-1 hover:bg-zinc-800"
             onClick={() => setOpen(false)}
           >
-            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-4 w-4">
-              <path d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path>
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+            >
+              <path
+                d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+              ></path>
             </svg>
           </button>
         </div>
@@ -143,30 +175,50 @@ function EditWorkoutTitleButton({
 }
 
 function DeleteWorkoutButton({
-  id
+  id,
+  setDropdownClosed,
 }: {
   id: string;
+  setDropdownClosed: Dispatch<SetStateAction<boolean>>;
 }) {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <button className="flex flex-row items-center p-2.5 py-1.5 rounded-[5px] hover:bg-zinc-800 transition-all text-red-600"
-        onClick={() => setOpen(true)}
+      <button
+        className="flex flex-row items-center rounded-[5px] p-2.5 py-1.5 text-red-600 transition-all hover:bg-zinc-800"
+        onClick={() => {
+          setOpen(true);
+          setDropdownClosed(false);
+        }}
       >
         <FaRegTrashAlt size={20} strokeWidth={8} className="mt-px" />
-        <span className="ml-3">Delete</span>
+        <span className="ml-2">Delete</span>
       </button>
-      <Modal open={open} onClose={(event, reason: string) => { if (reason !== "backdropClick") setOpen(false) }} className="flex justify-center items-center backdrop-blur-0 bg-black/50">
-        <div className="flex flex-col justify-center text-center w-5/6 sm:w-full sm:max-w-lg p-6 rounded-lg bg-black border border-zinc-800">
-          <span className="text-lg font-medium sm:text-left">Are you sure?</span>
-          <span className="text-sm text-zinc-400 pt-1 leading-tight sm:text-left">This action cannot be undone. This will permanently delete this workout from all records.</span>
-          <div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 space-y-2 space-y-reverse sm:space-y-0 mt-4">
-            <button className="border border-zinc-800 hover:bg-zinc-800 h-10 w-full sm:w-20 flex items-center justify-center rounded-md text-md font-semibold transition-all"
+      <Modal
+        open={open}
+        onClose={(event, reason: string) => {
+          if (reason !== "backdropClick") setOpen(false);
+        }}
+        className="flex items-center justify-center bg-black/50 backdrop-blur-0"
+      >
+        <div className="flex w-5/6 flex-col justify-center rounded-lg border border-zinc-800 bg-black p-6 text-center sm:w-full sm:max-w-lg">
+          <span className="text-lg font-medium sm:text-left">
+            Are you sure?
+          </span>
+          <span className="pt-1 text-sm leading-tight text-zinc-400 sm:text-left">
+            This action cannot be undone. This will permanently delete this
+            workout from all records.
+          </span>
+          <div className="mt-4 flex flex-col-reverse space-y-2 space-y-reverse sm:flex-row sm:justify-end sm:space-x-2 sm:space-y-0">
+            <button
+              className="text-md flex h-10 w-full items-center justify-center rounded-md border border-zinc-800 font-semibold transition-all hover:bg-zinc-800 sm:w-20"
               onClick={() => setOpen(false)}
             >
               Cancel
             </button>
-            <button type="submit" className="bg-red-800 hover:bg-red-900 border border-black h-10 w-full sm:w-20 flex items-center justify-center rounded-md text-md font-semibold transition-all"
+            <button
+              type="submit"
+              className="text-md flex h-10 w-full items-center justify-center rounded-md border border-black bg-red-800 font-semibold transition-all hover:bg-red-900 sm:w-20"
               onClick={() => {
                 deleteWorkout(id);
                 toast.success("Workout deleted.");

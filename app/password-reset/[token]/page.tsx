@@ -2,9 +2,10 @@ import PasswordResetForm from "@/components/password-reset-form";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import Image from "next/image";
+import Card from "@/components/card";
 
 export default async function PasswordResetPage({
-  params
+  params,
 }: {
   params: { token: string };
 }) {
@@ -15,48 +16,50 @@ export default async function PasswordResetPage({
       token,
       createdAt: { gt: new Date(Date.now() - 1000 * 60 * 60) },
       resetAt: null,
-    }
+    },
   });
 
   return (
-    <main className="flex grow items-center justify-center flex-col">
-      {thisToken ? (
-        <>
-          <div className="w-full max-w-md overflow-hidden rounded-2xl border border-zinc-800 shadow-xl bg-stone-900 mx-3">
-            <div className="flex flex-col items-center justify-center space-y-2 border-b border-zinc-800 px-4 py-4 pt-5 text-center sm:px-16">
+    <main className="flex grow justify-center">
+      <div className="flex w-full max-w-5xl grow flex-col items-center justify-center space-y-5 p-4">
+        {thisToken ? (
+          <div className="flex w-full max-w-md">
+            <Card>
+              <div className="-mx-6 flex flex-col items-center justify-center space-y-2 border-b border-zinc-800 pb-3 text-center">
+                <Image
+                  src="/logo-transparent.png"
+                  priority
+                  alt="MyFitHub Logo"
+                  width={60}
+                  height={34}
+                  className="h-[34px] w-[60px]"
+                />
+                <h3 className="text-xl font-semibold">Password Reset</h3>
+                <p className="text-sm text-zinc-400">
+                  Enter your new password for your MyFitHub account
+                </p>
+              </div>
+              <PasswordResetForm token={token} />
+            </Card>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center">
+            <Link href="/">
               <Image
-                src="/logo.png"
+                src="/logo-transparent.png"
                 priority
                 alt="MyFitHub Logo"
-                className="h-10 w-10 rounded-full"
-                width={20}
-                height={20}
+                width={60}
+                height={34}
+                className="h-[34px] w-[60px]"
               />
-              <h3 className="text-xl font-semibold">Password Reset</h3>
-              <p className="text-sm text-zinc-400">
-                Enter your new password for your MyFitHub account
-              </p>
-            </div>
-            <PasswordResetForm token={token} />
+            </Link>
+            <span className="text-sm text-zinc-400">
+              Error! You should not be here...
+            </span>
           </div>
-        </>
-      ) : (
-        <>
-          <Link href="/">
-            <Image
-              src="/logo.png"
-              priority
-              alt="MyFitHub Logo"
-              className="h-16 w-16 rounded-full"
-              width={20}
-              height={20}
-            />
-          </Link>
-          <span className="text-zinc-400 text-sm">
-            Error! You should not be here...
-          </span>
-        </>
-      )}
+        )}
+      </div>
     </main>
   );
 }

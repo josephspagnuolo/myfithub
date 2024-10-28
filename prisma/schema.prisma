@@ -41,7 +41,7 @@ model PasswordResetToken {
   resetAt   DateTime?
   createdAt DateTime  @default(now())
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
@@ -63,6 +63,7 @@ model Exercise {
   id        String   @id @default(cuid())
   workoutId String
   name      String
+  notes     String?
   createdAt DateTime @default(now())
 
   sets ExerciseSet[]

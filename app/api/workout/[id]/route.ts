@@ -3,11 +3,14 @@ import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export async function POST(req: Request, {
-  params,
-}: {
-  params: { id: string };
-}) {
+export async function POST(
+  req: Request,
+  {
+    params,
+  }: {
+    params: { id: string };
+  },
+) {
   const { id } = params;
   const session = await getServerSession(authOptions);
   if (!session || !session.user || !session.user.id)
@@ -18,13 +21,18 @@ export async function POST(req: Request, {
     where: {
       id,
     },
+    include: {
+      exercises: true,
+    },
   });
   if (workout) {
     const exercise = await prisma.exercise.create({
       data: {
         name,
         workoutId: id,
-        createdAt: workout.createdAt,
+        createdAt: new Date(
+          workout.createdAt.getTime() + workout.exercises.length,
+        ),
       },
     });
     return NextResponse.json({ exercise: exercise });

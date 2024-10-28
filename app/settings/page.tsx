@@ -1,4 +1,5 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import Card from "@/components/card";
 import DeleteAccountButton from "@/components/delete-account";
 import EditAccountButton from "@/components/edit-account";
 import prisma from "@/lib/prisma";
@@ -17,25 +18,31 @@ export default async function Settings() {
       email: true,
       image: true,
       providerId: true,
-    }
+    },
   });
 
   if (!user) {
     return (
-      <main className="flex flex-col grow">
-        <span className="text-zinc-400 text-sm">Please sign in or refresh the page.</span>
+      <main className="flex grow flex-col">
+        <span className="text-sm text-zinc-400">
+          Please sign in or refresh the page.
+        </span>
       </main>
     );
   }
 
   return (
-    <main className="flex flex-col grow">
-      <div className="flex flex-col w-full grow space-y-5 items-center p-4">
-        <span className="text-3xl font-medium text-left w-full max-w-[950px] pb-2.5">Your Settings</span>
-        <div className="w-full max-w-[950px] overflow-hidden rounded-2xl border border-zinc-800 shadow-xl bg-stone-900 flex flex-col space-y-3 p-6">
-          <div className="flex flex-col mb-3">
+    <main className="flex grow justify-center">
+      <div className="flex w-full max-w-5xl grow flex-col items-center space-y-5 p-4">
+        <span className="w-full pb-2.5 text-left text-3xl font-medium">
+          Your Settings
+        </span>
+        <Card>
+          <div className="mb-2 flex flex-col -space-y-0.5">
             <span className="text-lg font-semibold">Account</span>
-            <span className="text-zinc-400 text-sm">Your current account details are shown here</span>
+            <span className="text-sm text-zinc-400">
+              Your current account details are shown here
+            </span>
           </div>
           <div className="flex flex-col">
             <span className="text-xs text-zinc-400">Name</span>
@@ -46,20 +53,25 @@ export default async function Settings() {
             <span>{user?.email}</span>
           </div>
           <div className="pt-2">
-            <EditAccountButton id={user?.id} name={user?.name || ""} />
+            <EditAccountButton
+              id={userId}
+              name={user?.name || ""}
+              email={user?.email || ""}
+            />
           </div>
-        </div>
-        <div className="w-full max-w-[950px] overflow-hidden rounded-2xl border border-zinc-800 shadow-xl bg-stone-900 flex flex-col space-y-3 p-6">
-          <div className="flex flex-col mb-3">
+        </Card>
+        <Card>
+          <div className="mb-2 flex flex-col -space-y-0.5">
             <span className="text-lg font-semibold">Delete account</span>
-            <span className="text-zinc-400 text-sm">You may permanently delete your MyFitHub account if you wish</span>
+            <span className="text-sm text-zinc-400">
+              You may permanently delete your MyFitHub account if you wish
+            </span>
           </div>
           <div>
             <DeleteAccountButton id={userId} />
           </div>
-        </div>
+        </Card>
       </div>
     </main>
   );
 }
-

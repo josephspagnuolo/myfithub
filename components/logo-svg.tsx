@@ -1,13 +1,19 @@
-export default function LogoSVG({
-  className
-}: {
-  className: string;
-}) {
+export default function LogoSVG({ className }: { className: string }) {
   return (
-    <svg width="500" height="500" viewBox="20 21 459 460" xmlns="http://www.w3.org/2000/svg" className={className}>
-      <g transform="translate(0.000000,500.000000) scale(0.100000,-0.100000)"
-        fill="#fff" stroke="none">
-        <path d="M3595 3670 c-11 -5 -31 -21 -45 -36 l-25 -27 -5 -476 c-3 -262 -7
+    <svg
+      width="500"
+      height="500"
+      viewBox="20 21 459 460"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <g
+        transform="translate(0.000000,500.000000) scale(0.100000,-0.100000)"
+        fill="#fff"
+        stroke="none"
+      >
+        <path
+          d="M3595 3670 c-11 -5 -31 -21 -45 -36 l-25 -27 -5 -476 c-3 -262 -7
         -478 -8 -479 -1 -2 -458 -3 -1016 -3 -956 0 -1014 10 -1021 18 -3 9 -5 218 -4
         463 l2 446 -22 32 c-38 52 -50 55 -266 59 -225 4 -266 -2 -310 -48 l-30 -31
         -3 -470 c0 -295 0 -469 0 -469 -16 0 -20 96 -20 253 0 225 -2 256 -18 280
@@ -23,7 +29,8 @@ export default function LogoSVG({
         240 80 0 c77 0 81 2 90 27 15 39 13 288 -2 303 -7 7 -43 12 -90 12 l-78 5 0 8
         -5 253 -5 254 -10 25 -12 13 -13 10 -15 10 -25 10 -117 0
         c-129 -1 -152 -8 -184 -56 -17 -27 -19 -49 -19 -271 0 -220 -7 -291 -24 -230
-        -3 12 -6 226 -6 475 l0 452 -10 25 -10 15 -10 13 -13 13 -25 10 -234 2 c-128 1 -242 -2 -258 -6z"/>
+        -3 12 -6 226 -6 475 l0 452 -10 25 -10 15 -10 13 -13 13 -25 10 -234 2 c-128 1 -242 -2 -258 -6z"
+        />
       </g>
     </svg>
   );

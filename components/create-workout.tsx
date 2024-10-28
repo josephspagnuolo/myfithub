@@ -4,13 +4,14 @@ import { useState } from "react";
 import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Card from "@/components/card";
 
 export default function CreateWorkout() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   return (
-    <>
-      <div className="w-full max-w-md overflow-hidden rounded-2xl border border-zinc-800 shadow-xl bg-stone-900">
+    <div className="flex w-full max-w-md">
+      <Card>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -26,11 +27,12 @@ export default function CreateWorkout() {
               }),
             }).then(async (res) => {
               if (res.status === 200) {
-                const { workout } = await res.json()
+                const { workout } = await res.json();
                 toast.success("Great workout!", {
                   id: toastId,
                 });
                 router.push(`/dashboard/workout/${workout.id}`);
+                router.refresh();
               } else {
                 const { error } = await res.json();
                 toast.error(error, {
@@ -39,13 +41,10 @@ export default function CreateWorkout() {
               }
             });
           }}
-          className="flex flex-col space-y-4 px-4 py-8 sm:px-16"
+          className="flex flex-col space-y-4 py-1"
         >
           <div>
-            <label
-              htmlFor="content"
-              className="block text-xs text-zinc-400"
-            >
+            <label htmlFor="content" className="block text-xs text-zinc-400">
               Workout Name
             </label>
             <input
@@ -55,25 +54,22 @@ export default function CreateWorkout() {
               placeholder="Chest Day"
               maxLength={22}
               required
-              className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none focus:ring-black sm:text-sm placeholder-opacity-25" />
+              className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+            />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className={`${loading
-              ? "bg-stone-900 border border-stone-900 cursor-not-allowed"
-              : "bg-sky-600 hover:bg-sky-700 border border-black"
-              } h-10 w-full flex items-center justify-center rounded-md text-md font-semibold transition-all`}
+            className={`${
+              loading
+                ? "cursor-not-allowed border border-zinc-900 bg-zinc-900"
+                : "border border-black bg-sky-600 hover:bg-sky-700"
+            } text-md flex h-10 w-full items-center justify-center rounded-md font-semibold transition-all`}
           >
-            {loading ? (
-              <LoadingDots color="#808080" />
-            ) : (
-              <p>Create Workout</p>
-            )}
+            {loading ? <LoadingDots color="#808080" /> : <p>Create Workout</p>}
           </button>
         </form>
-      </div>
-    </>
+      </Card>
+    </div>
   );
 }
-

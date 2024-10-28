@@ -12,20 +12,20 @@ export default function SignOut() {
   const router = useRouter();
   return (
     <button
-      className={`${loading ? "" : "hover:bg-zinc-800"} flex items-center rounded-md text-center p-2 transition-all w-full`}
+      className={`${loading ? "" : "hover:bg-zinc-800"} flex w-full items-center rounded-md p-2 text-center transition-all`}
       disabled={loading}
       onClick={async () => {
         setLoading(true);
-        const toastId = toast.loading("Signing out...")
+        const toastId = toast.loading("Signing out...");
         const data = await signOut({ redirect: false, callbackUrl: "/" });
         router.push(data.url);
         router.refresh();
         toast.success("Signed out successfully!", {
-          id: toastId
+          id: toastId,
         });
       }}
     >
-      <div className="flex items-center h-[22px]">
+      <div className="flex h-[22px] items-center">
         {loading ? (
           <LoadingDots color="#808080" />
         ) : (

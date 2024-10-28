@@ -7,8 +7,8 @@ import UserDropdown from "@/components/user-dropdown";
 export default async function NavBar() {
   const session = await getServerSession(authOptions);
   return (
-    <nav className="flex justify-center p-3 pl-2.5">
-      <div className="flex justify-between w-full max-w-[950px]">
+    <nav className="flex justify-center">
+      <div className="flex w-full max-w-5xl justify-between p-3 pl-2.5">
         <div>
           <Link href="/" className="flex flex-row gap-2 py-0.5">
             <Image
@@ -16,19 +16,33 @@ export default async function NavBar() {
               alt="MyFitHub Logo"
               width={60}
               height={34}
-              className="w-[60px] h-[34px]"
+              className="h-[34px] w-[60px]"
             />
-            {!session && <div className="font-semibold leading-8">My<span className="text-sky-500 font-extrabold text-lg px-px">Fit</span>Hub</div>}
+            {!session && (
+              <div className="font-semibold leading-8">
+                My
+                <span className="px-px text-lg font-extrabold text-sky-500">
+                  Fit
+                </span>
+                Hub
+              </div>
+            )}
           </Link>
         </div>
         {session && session.user ? (
           <UserDropdown user={session.user} />
         ) : (
           <div className="flex space-x-2">
-            <Link href="/login" className="hover:bg-zinc-800 flex items-center justify-center text-md font-semibold transition-all rounded-md px-3.5 my-[0.5px]">
+            <Link
+              href="/login"
+              className="text-md my-[0.5px] flex items-center justify-center rounded-md px-3.5 font-semibold transition-all hover:bg-zinc-800"
+            >
               Log In
             </Link>
-            <Link href="/register" className="bg-sky-600 hover:bg-sky-700 border border-black h-full px-2.5 flex items-center justify-center rounded-md text-md font-semibold transition-all">
+            <Link
+              href="/register"
+              className="text-md flex h-full items-center justify-center rounded-md border border-black bg-sky-600 px-2.5 font-semibold transition-all hover:bg-sky-700"
+            >
               Sign Up
             </Link>
           </div>

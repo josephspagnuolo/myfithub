@@ -20,7 +20,7 @@ export async function POST(req: Request) {
       data: {
         content,
         userId: user.id,
-        createdAt: new Date()
+        createdAt: new Date(),
       },
     });
     return NextResponse.json({ workout: workout });

@@ -21,16 +21,19 @@ export async function POST(req: Request) {
     const token = await prisma.passwordResetToken.create({
       data: {
         userId: existingUser.id,
-        token: `${randomUUID()}${randomUUID()}`.replace(/-/g, ''),
+        token: `${randomUUID()}${randomUUID()}`.replace(/-/g, ""),
       },
     });
     try {
       const userEmail = email as string;
       const emailData = await resend.emails.send({
-        from: 'MyFitHub <security@mail.myfithub.link>',
+        from: "MyFitHub <security@mail.myfithub.link>",
         to: userEmail,
         subject: "MyFitHub Password Reset Request",
-        react: ForgotPasswordEmailTemplate({ name: existingUser.name as string, token: token.token }) as React.ReactElement,
+        react: ForgotPasswordEmailTemplate({
+          name: existingUser.name as string,
+          token: token.token,
+        }) as React.ReactElement,
       });
       return NextResponse.json({ data: emailData, existingUser });
     } catch (error) {

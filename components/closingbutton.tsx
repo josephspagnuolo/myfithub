@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { FaRegCaretSquareDown } from "react-icons/fa";
+import { GoDash, GoPlus } from "react-icons/go";
 
 export default function ClosingButton({
-  id, defaultChecked
+  id,
+  defaultChecked,
 }: {
   id: string;
   defaultChecked: boolean;
@@ -20,8 +21,15 @@ export default function ClosingButton({
   }
 
   return (
-    <button className="text-zinc-200 hover:text-zinc-400" onClick={handleClick}>
-      <FaRegCaretSquareDown size={22} className={`${checked ? 'rotate-180' : 'rotate-0'}`} />
+    <button
+      className="relative mt-1 flex h-10 w-10 items-center justify-center rounded-md transition-all hover:bg-zinc-800"
+      onClick={handleClick}
+    >
+      {checked ? (
+        <GoDash size={29} strokeWidth={1.2} className="pb-[3px]" />
+      ) : (
+        <GoPlus size={28} strokeWidth={1} />
+      )}
     </button>
   );
 }
