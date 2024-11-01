@@ -340,9 +340,7 @@ function EditExerciseNotesButton({
                 name="notes"
                 type="text"
                 placeholder="Focus on range of motion"
-                maxLength={22}
                 autoFocus
-                required
                 defaultValue={notes}
                 className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
               />
