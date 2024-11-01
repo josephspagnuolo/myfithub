@@ -23,6 +23,8 @@ export default function AddExercise({
   const [value, setValue] = useState<string | null>(null);
   const [distanceValue, setDistanceValue] = useState("");
   const [inputValue, setInputValue] = useState("");
+  const [notes, setNotes] = useState("");
+  const [showNotesInput, setShowNotesInput] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const submit = async () => {
@@ -74,6 +76,7 @@ export default function AddExercise({
       },
       body: JSON.stringify({
         name: value !== "Distance Run" ? value : distanceValue + "k " + value,
+        notes: notes === "" ? null : notes,
       }),
     }).then(async (res) => {
       if (res.status === 200) {
@@ -112,8 +115,12 @@ export default function AddExercise({
         open={open}
         className="flex items-center justify-center bg-black/50 backdrop-blur-0"
         onClose={() => {
-          if (!loading) setOpen(false);
-          if (!loading) setValue(null);
+          if (!loading) {
+            setOpen(false);
+            setValue(null);
+            setNotes("");
+            setShowNotesInput(false);
+          }
         }}
       >
         <div className="fixed grid w-5/6 rounded-lg border border-zinc-800 bg-black p-6 sm:w-full sm:max-w-md">
@@ -139,6 +146,8 @@ export default function AddExercise({
                   setValue(newValue);
                   setIsOpen(false);
                   setDistanceValue("");
+                  setNotes("");
+                  setShowNotesInput(false);
                 }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
@@ -176,46 +185,79 @@ export default function AddExercise({
                 }}
                 className="relative z-0 mt-1 w-full border border-zinc-800 bg-black focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
               />
-              {value === "Distance Run" && (
-                <form
-                  onSubmit={submit}
-                  className="-mb-4 flex flex-col space-y-4"
-                >
-                  <div>
-                    <label
-                      htmlFor="distance"
-                      className="mt-3 block text-xs text-zinc-400"
+              {value && (
+                <form onSubmit={submit} className="-mb-4 flex flex-col">
+                  {value === "Distance Run" && (
+                    <div>
+                      <label
+                        htmlFor="distance"
+                        className="mt-3 block text-xs text-zinc-400"
+                      >
+                        Run Distance (km)
+                      </label>
+                      <Input
+                        id="distance"
+                        required
+                        placeholder="3.5"
+                        value={distanceValue}
+                        title="From 0.01 to 99.99 (2 decimals)"
+                        onChange={(e) => {
+                          setDistanceValue(e.target.value);
+                        }}
+                        slotProps={{
+                          input: {
+                            autoComplete: "off",
+                            inputMode: "decimal",
+                            pattern:
+                              "[1-9]0.d+|[1-9]d{0,1}?|[1-9]{1,2}(.[0-9]{1,2})|0(.[0-9]{1,2})$",
+                            minLength: 1,
+                            maxLength: 5,
+                            title: "From 0.01 to 99.99 (2 decimals)",
+                          },
+                        }}
+                        sx={{
+                          "--Input-focusedThickness": "0rem",
+                          "--Input-placeholderOpacity": 0.25,
+                        }}
+                        className="relative z-0 mt-1 w-full border border-zinc-800 bg-black focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
+                      />
+                    </div>
+                  )}
+                  {showNotesInput && (
+                    <div>
+                      <label
+                        htmlFor="notes"
+                        className="mt-3 block text-xs text-zinc-400"
+                      >
+                        Exercise Notes (Optional)
+                      </label>
+                      <Input
+                        id="notes"
+                        placeholder="Focus on range of motion"
+                        value={notes}
+                        onChange={(e) => {
+                          setNotes(e.target.value);
+                        }}
+                        sx={{
+                          "--Input-focusedThickness": "0rem",
+                          "--Input-placeholderOpacity": 0.25,
+                        }}
+                        className="relative z-0 mt-1 w-full border border-zinc-800 bg-black focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
+                      />
+                    </div>
+                  )}
+                  <div className="mt-1.5 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={() => setShowNotesInput((prev) => !prev)}
+                      className="rounded-md p-1 px-2 text-xs hover:bg-zinc-800"
                     >
-                      Run Distance (km)
-                    </label>
-                    <Input
-                      id="distance"
-                      required
-                      placeholder="3.5"
-                      value={distanceValue}
-                      title="From 0.01 to 99.99 (2 decimals)"
-                      onChange={(e) => {
-                        setDistanceValue(e.target.value);
-                      }}
-                      slotProps={{
-                        input: {
-                          autoComplete: "off",
-                          inputMode: "decimal",
-                          pattern:
-                            "[1-9]0.d+|[1-9]d{0,1}?|[1-9]{1,2}(.[0-9]{1,2})|0(.[0-9]{1,2})$",
-                          minLength: 1,
-                          maxLength: 5,
-                          title: "From 0.01 to 99.99 (2 decimals)",
-                        },
-                      }}
-                      sx={{
-                        "--Input-focusedThickness": "0rem",
-                        "--Input-placeholderOpacity": 0.25,
-                      }}
-                      className="relative z-0 mt-1 w-full border border-zinc-800 bg-black focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
-                    />
+                      {showNotesInput
+                        ? "- Hide Exercise Notes"
+                        : "+ Add Exercise Notes"}
+                    </button>
                   </div>
-                  <div className="sm:w-20 sm:justify-end sm:self-end">
+                  <div className="mt-4 sm:w-20 sm:justify-end sm:self-end">
                     <button
                       type="submit"
                       disabled={loading}
@@ -235,7 +277,7 @@ export default function AddExercise({
               <button
                 onClick={submit}
                 disabled={loading}
-                className={`${value === "Distance Run" ? "hidden" : ""} ${
+                className={`${value ? "hidden" : ""} ${
                   loading
                     ? "cursor-not-allowed border border-black bg-black"
                     : "border border-black bg-sky-600 hover:bg-sky-700"
@@ -248,8 +290,12 @@ export default function AddExercise({
           <button
             className="absolute right-3 top-3 rounded-md p-1 hover:bg-zinc-800"
             onClick={() => {
-              if (!loading) setOpen(false);
-              if (!loading) setValue(null);
+              if (!loading) {
+                setOpen(false);
+                setValue(null);
+                setNotes("");
+                setShowNotesInput(false);
+              }
             }}
           >
             <svg

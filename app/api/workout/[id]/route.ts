@@ -16,7 +16,7 @@ export async function POST(
   if (!session || !session.user || !session.user.id)
     return NextResponse.json({ error: "Not Authenticated" }, { status: 400 });
 
-  const { name } = await req.json();
+  const { name, notes } = await req.json();
   const workout = await prisma.workout.findUnique({
     where: {
       id,
@@ -26,12 +26,16 @@ export async function POST(
     },
   });
   if (workout) {
+    const lastTime = workout.exercises
+      .at(workout.exercises.length)
+      ?.createdAt?.getTime();
     const exercise = await prisma.exercise.create({
       data: {
         name,
+        notes,
         workoutId: id,
         createdAt: new Date(
-          workout.createdAt.getTime() + workout.exercises.length,
+          lastTime ? lastTime + 1 : workout.createdAt.getTime(),
         ),
       },
     });
