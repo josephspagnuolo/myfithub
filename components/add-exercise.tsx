@@ -124,13 +124,13 @@ export default function AddExercise({
         }}
       >
         <div className="fixed grid w-5/6 rounded-lg border border-zinc-800 bg-black p-6 sm:w-full sm:max-w-md">
-          <span className="text-center text-lg font-medium sm:text-left">
-            Add an Exercise
-          </span>
-          <span className="pt-1 text-center text-sm leading-tight text-zinc-400 sm:text-left">
-            This will add the selected exercise to the workout.
-          </span>
-          <div className="flex flex-col space-y-4 pt-6">
+          <div className="mb-2 flex flex-col -space-y-0.5 text-center sm:text-left">
+            <span className="text-lg font-semibold">Add an Exercise</span>
+            <span className="text-sm text-zinc-400">
+              This will add the selected exercise to the workout.
+            </span>
+          </div>
+          <div className="mt-3 flex flex-col space-y-4">
             <CssVarsProvider defaultMode="dark" />
             <div>
               <label htmlFor="exercise" className="block text-xs text-zinc-400">

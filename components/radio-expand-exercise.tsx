@@ -1,8 +1,6 @@
 import ClosingButton from "@/components/closingbutton";
-import DeleteExerciseButton from "@/components/delete-exercise";
-import PastExercisesButton from "@/components/past-exercises-button";
 import prisma from "@/lib/prisma";
-import ExerciseMenuButton from "./exercise-menu-button";
+import ExerciseMenuButton from "@/components/exercise-menu-button";
 
 export default async function ExpandableExerciseBox({
   ex,

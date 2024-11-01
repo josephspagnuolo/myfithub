@@ -24,14 +24,14 @@ export default function DeleteExerciseButton({ id }: { id: string }) {
         className="flex items-center justify-center bg-black/50 backdrop-blur-0"
       >
         <div className="flex w-5/6 flex-col justify-center rounded-lg border border-zinc-800 bg-black p-6 text-center sm:w-full sm:max-w-lg">
-          <span className="text-lg font-medium sm:text-left">
-            Are you sure?
-          </span>
-          <span className="pt-1 text-sm leading-tight text-zinc-400 sm:text-left">
-            This action cannot be undone. This will permanently remove this
-            exercise from this workout.
-          </span>
-          <div className="mt-4 flex flex-col-reverse space-y-2 space-y-reverse sm:flex-row sm:justify-end sm:space-x-2 sm:space-y-0">
+          <div className="mb-2 flex flex-col -space-y-0.5 text-center sm:text-left">
+            <span className="text-lg font-semibold">Are you sure?</span>
+            <span className="text-sm text-zinc-400">
+              This action cannot be undone. This will permanently remove this
+              exercise from this workout.
+            </span>
+          </div>
+          <div className="mt-3 flex flex-col-reverse space-y-2 space-y-reverse sm:flex-row sm:justify-end sm:space-x-2 sm:space-y-0">
             <button
               className="text-md flex h-10 w-full items-center justify-center rounded-md border border-zinc-800 font-semibold transition-all hover:bg-zinc-800 sm:w-20"
               onClick={() => setOpen(false)}

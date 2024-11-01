@@ -29,14 +29,14 @@ export default function DeleteAccountButton({ id }: { id: string }) {
         className="flex items-center justify-center bg-black/50 backdrop-blur-0"
       >
         <div className="flex w-5/6 flex-col justify-center rounded-lg border border-zinc-800 bg-black p-6 text-center sm:w-full sm:max-w-lg">
-          <span className="text-lg font-medium sm:text-left">
-            Are you sure?
-          </span>
-          <span className="pt-1 text-sm leading-tight text-zinc-400 sm:text-left">
-            This action cannot be undone. This will permanently delete your
-            MyFitHub account and all associated data from our records.
-          </span>
-          <div className="mt-3 text-sm text-zinc-400 sm:text-left">
+          <div className="mb-2 flex flex-col -space-y-0.5 text-center sm:text-left">
+            <span className="text-lg font-semibold">Are you sure?</span>
+            <span className="text-sm text-zinc-400">
+              This action cannot be undone. This will permanently delete your
+              MyFitHub account and all associated data from our records.
+            </span>
+          </div>
+          <div className="mt-3 text-sm sm:text-left">
             <label htmlFor="confirm">
               Please type <span className="font-semibold">CONFIRM</span> to
               complete this action.

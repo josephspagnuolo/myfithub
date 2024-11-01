@@ -36,12 +36,12 @@ export default function EditAccountButton({
         className="flex items-center justify-center bg-black/50 backdrop-blur-0"
       >
         <div className="fixed grid w-5/6 rounded-lg border border-zinc-800 bg-black p-6 sm:w-full sm:max-w-md">
-          <span className="text-center text-lg font-medium sm:text-left">
-            Edit Details
-          </span>
-          <span className="pt-1 text-center text-sm leading-tight text-zinc-400 sm:text-left">
-            This will change your account information.
-          </span>
+          <div className="mb-2 flex flex-col -space-y-0.5 text-center sm:text-left">
+            <span className="text-lg font-semibold">Edit Details</span>
+            <span className="text-sm text-zinc-400">
+              This will change your account information.
+            </span>
+          </div>
           <form
             onSubmit={async (e) => {
               e.preventDefault();
@@ -51,7 +51,7 @@ export default function EditAccountButton({
               setLoading(false);
               setOpen(false);
             }}
-            className="flex flex-col space-y-4 pt-6"
+            className="mt-3 flex flex-col space-y-4"
           >
             <div>
               <label htmlFor="nametext" className="block text-xs text-zinc-400">
