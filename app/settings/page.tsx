@@ -2,8 +2,10 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Card from "@/components/card";
 import DeleteAccountButton from "@/components/delete-account";
 import EditAccountButton from "@/components/edit-account";
+import EditProfileButton from "@/components/edit-profile";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
+import Image from "next/image";
 
 export default async function Settings() {
   const session = await getServerSession(authOptions);
@@ -37,6 +39,30 @@ export default async function Settings() {
         <span className="w-full pb-2.5 text-left text-3xl font-medium">
           Your Settings
         </span>
+        <Card>
+          <div className="mb-2 flex flex-col -space-y-0.5">
+            <span className="text-lg font-semibold">Profile</span>
+            <span className="text-sm text-zinc-400">
+              Your current profile details are shown here
+            </span>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-xs text-zinc-400">Image</span>
+            <div className="flex">
+              <Image
+                src={user.image ? user.image : "/user.png"}
+                alt="Profile Image"
+                width={180}
+                height={180}
+                className="h-[180px] w-[180px] rounded-full object-cover object-center"
+                priority
+              />
+              <div className="flex -translate-x-12 items-end pb-2">
+                <EditProfileButton id={userId} image={user?.image || ""} />
+              </div>
+            </div>
+          </div>
+        </Card>
         <Card>
           <div className="mb-2 flex flex-col -space-y-0.5">
             <span className="text-lg font-semibold">Account</span>

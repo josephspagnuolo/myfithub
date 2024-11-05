@@ -1,54 +1,57 @@
 "use client";
 
-import { BsThreeDots } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
-import { Dispatch, SetStateAction, useState } from "react";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
+import { useState, useRef, ChangeEvent, Dispatch, SetStateAction } from "react";
 import Modal from "@mui/joy/Modal";
-import { FaRegTrashAlt } from "react-icons/fa";
 import LoadingDots from "@/components/loading-dots";
-import { deleteWorkout, editWorkoutTitle } from "@/lib/actions";
-import Link from "next/link";
+import { editProfile, removeProfileImage } from "@/lib/actions";
 import toast from "react-hot-toast";
-import LogoSVG from "@/components/logo-svg";
+import Image from "next/image";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { HiUpload } from "react-icons/hi";
 
-export default function WorkoutMenuButton({
+export default function EditProfileButton({
   id,
-  title,
+  image,
 }: {
   id: string;
-  title: string;
+  image: string;
 }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   const closeDropdown = () => {
-    setIsOpen(false);
+    setIsDropdownOpen(false);
   };
   return (
     <>
       <ClickAwayListener onClickAway={closeDropdown}>
         <div className="relative inline-block">
           <button
+            type="button"
             onClick={toggleDropdown}
-            className="relative flex h-10 w-10 items-center justify-center rounded-md transition-all hover:bg-zinc-800"
+            className="rounded-full bg-sky-600 p-2 transition-all hover:bg-sky-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
-            <BsThreeDots size={20} />
+            <MdEdit size={20} />
           </button>
           <div
-            className={`${isOpen ? "absolute right-0 top-11 z-50 flex w-36 flex-col justify-center" : "hidden"}`}
+            className={`${isDropdownOpen ? "absolute bottom-10 left-0 z-50 flex w-36 flex-col justify-center" : "hidden"}`}
           >
             <div className="z-10 flex flex-col overflow-clip rounded-md border border-zinc-800 bg-black p-1">
-              <ViewWorkoutButton id={id} />
-              <EditWorkoutTitleButton
+              <UploadImageButton
                 id={id}
-                title={title}
-                setDropdownClosed={setIsOpen}
+                image={image}
+                setDropdownClosed={setIsDropdownOpen}
               />
-              <DeleteWorkoutButton id={id} setDropdownClosed={setIsOpen} />
+              <RemoveImageButton
+                id={id}
+                image={image}
+                setDropdownClosed={setIsDropdownOpen}
+              />
             </div>
           </div>
         </div>
@@ -57,81 +60,94 @@ export default function WorkoutMenuButton({
   );
 }
 
-function ViewWorkoutButton({ id }: { id: string }) {
-  return (
-    <Link
-      href={`/dashboard/workout/${id}`}
-      className="flex flex-row items-center rounded-[5px] p-2.5 py-[5.5px] transition-all hover:bg-zinc-800"
-    >
-      <LogoSVG className="mt-px h-5 w-5" />
-      <span className="mb-px ml-2">View</span>
-    </Link>
-  );
-}
-
-function EditWorkoutTitleButton({
+function UploadImageButton({
   id,
-  title,
+  image,
   setDropdownClosed,
 }: {
   id: string;
-  title: string;
+  image: string;
   setDropdownClosed: Dispatch<SetStateAction<boolean>>;
 }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const fileFromInput = e.target.files?.[0];
+    if (fileFromInput) {
+      setOpen(true);
+      setFile(fileFromInput);
+      const objectUrl = URL.createObjectURL(fileFromInput);
+      setPreview(objectUrl);
+    }
+  };
+
+  const imgSrc = image === "" ? "/user.png" : image;
   return (
     <>
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/png, image/jpeg"
+        onChange={handleFileChange}
+        className="hidden"
+      />
       <button
+        type="button"
         className="flex flex-row items-center rounded-[5px] p-2.5 py-1.5 transition-all hover:bg-zinc-800"
         onClick={() => {
-          setOpen(true);
+          inputRef.current?.click();
           setDropdownClosed(false);
         }}
       >
-        <MdEdit size={20} className="mb-px mt-px" />
-        <span className="ml-2">Edit Title</span>
+        <HiUpload size={20} />
+        <span className="ml-2 -translate-y-px text-base font-normal">
+          Upload
+        </span>
       </button>
       <Modal
         disableRestoreFocus
         open={open}
         onClose={() => {
-          if (!loading) setOpen(false);
+          if (!loading) {
+            setOpen(false);
+            setPreview(null);
+          }
         }}
         className="flex items-center justify-center bg-black/50 backdrop-blur-0"
       >
         <div className="fixed grid w-5/6 rounded-lg border border-zinc-800 bg-black p-6 sm:w-full sm:max-w-md">
           <div className="mb-2 flex flex-col -space-y-0.5 text-center sm:text-left">
-            <span className="text-lg font-semibold">Edit Workout Title</span>
+            <span className="text-lg font-semibold">Profile Image</span>
             <span className="text-sm text-zinc-400">
-              This will change the name of the selected workout.
+              This will change the image associated with your profile.
             </span>
           </div>
           <form
             onSubmit={async (e) => {
               e.preventDefault();
               setLoading(true);
-              await editWorkoutTitle(id, e.currentTarget.content.value);
-              toast.success("Workout title has been changed.");
+              if (file) {
+                const formData = new FormData();
+                formData.append("file", file);
+                await editProfile(id, image, formData);
+              }
+              toast.success("Your profile details have been saved.");
               setLoading(false);
               setOpen(false);
             }}
             className="mt-3 flex flex-col space-y-4"
           >
-            <div>
-              <label htmlFor="content" className="block text-xs text-zinc-400">
-                Workout Name
-              </label>
-              <input
-                id="content"
-                name="content"
-                type="text"
-                placeholder="Chest Day"
-                maxLength={22}
-                autoFocus
-                required
-                defaultValue={title}
-                className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+            <div className="flex justify-center">
+              <Image
+                alt="Profile Image"
+                src={preview ? preview : imgSrc}
+                width={180}
+                height={180}
+                className="h-[180px] w-[180px] rounded-full object-cover object-center"
               />
             </div>
             <div className="sm:w-20 sm:justify-end sm:self-end">
@@ -151,7 +167,10 @@ function EditWorkoutTitleButton({
           <button
             className="absolute right-3 top-3 rounded-md p-1 hover:bg-zinc-800"
             onClick={() => {
-              if (!loading) setOpen(false);
+              if (!loading) {
+                setOpen(false);
+                setPreview(null);
+              }
             }}
           >
             <svg
@@ -176,17 +195,20 @@ function EditWorkoutTitleButton({
   );
 }
 
-function DeleteWorkoutButton({
+function RemoveImageButton({
   id,
+  image,
   setDropdownClosed,
 }: {
   id: string;
+  image: string;
   setDropdownClosed: Dispatch<SetStateAction<boolean>>;
 }) {
   const [open, setOpen] = useState(false);
   return (
     <>
       <button
+        type="button"
         className="flex flex-row items-center rounded-[5px] p-2.5 py-1.5 text-red-600 transition-all hover:bg-zinc-800"
         onClick={() => {
           setOpen(true);
@@ -194,7 +216,7 @@ function DeleteWorkoutButton({
         }}
       >
         <FaRegTrashAlt size={20} strokeWidth={8} className="mt-px" />
-        <span className="ml-2">Delete</span>
+        <span className="ml-2 text-base font-[480]">Remove</span>
       </button>
       <Modal
         open={open}
@@ -207,8 +229,8 @@ function DeleteWorkoutButton({
           <div className="mb-2 flex flex-col -space-y-0.5 text-center sm:text-left">
             <span className="text-lg font-semibold">Are you sure?</span>
             <span className="text-sm text-zinc-400">
-              This action cannot be undone. This will permanently delete this
-              workout from all records.
+              This action cannot be undone. This will permanently delete the
+              image associated with your profile.
             </span>
           </div>
           <div className="mt-3 flex flex-col-reverse space-y-2 space-y-reverse sm:flex-row sm:justify-end sm:space-x-2 sm:space-y-0">
@@ -222,8 +244,8 @@ function DeleteWorkoutButton({
               type="submit"
               className="text-md flex h-10 w-full items-center justify-center rounded-md border border-black bg-red-800 font-semibold transition-all hover:bg-red-900 sm:w-20"
               onClick={() => {
-                deleteWorkout(id);
-                toast.success("Workout deleted.");
+                removeProfileImage(id, image);
+                toast.success("Profile image removed.");
                 setOpen(false);
               }}
             >
