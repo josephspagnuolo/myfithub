@@ -41,9 +41,10 @@ export default function UserDropdown({
           >
             <Image
               src={user.image ? user.image : "/user.png"}
-              alt="User Image"
+              alt="Profile Image"
               width={38}
               height={38}
+              className="h-[38px] w-[38px] rounded-full object-cover object-center"
             />
           </button>
           <div

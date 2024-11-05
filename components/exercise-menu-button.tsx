@@ -361,7 +361,9 @@ function EditExerciseNotesButton({
           </form>
           <button
             className="absolute right-3 top-3 rounded-md p-1 hover:bg-zinc-800"
-            onClick={() => setOpen(false)}
+            onClick={() => {
+              if (!loading) setOpen(false);
+            }}
           >
             <svg
               width="15"
