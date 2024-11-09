@@ -86,6 +86,7 @@ export const authOptions: NextAuthOptions = {
         } else if (user.providerId !== null) {
           if (user.providerId === token.sub) {
             token.sub = user.id;
+            token.picture = user.image;
           } else {
             await prisma.user.delete({
               where: {
