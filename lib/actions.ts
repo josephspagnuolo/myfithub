@@ -146,16 +146,3 @@ export async function deleteExercise(id: string) {
   }
   revalidatePath("/dashboard/workout", "layout");
 }
-
-export async function showSets(id: string) {
-  const exercise = await prisma.exercise.findFirst({
-    where: {
-      id: id,
-    },
-    select: {
-      sets: true,
-      createdAt: true,
-    },
-  });
-  return exercise ? exercise.sets : [];
-}
