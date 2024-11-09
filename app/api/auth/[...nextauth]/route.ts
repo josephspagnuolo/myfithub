@@ -88,20 +88,15 @@ export const authOptions: NextAuthOptions = {
             token.sub = user.id;
             token.picture = user.image;
           } else {
-            await prisma.user.delete({
+            const changeProviderUser = await prisma.user.update({
               where: {
                 email: token.email,
               },
-            });
-            const providerUser = await prisma.user.create({
               data: {
-                name: token.name,
-                email: token.email,
-                image: token.picture,
                 providerId: token.sub,
               },
             });
-            token.sub = providerUser.id;
+            token.sub = changeProviderUser.id;
           }
         } else {
           if (token.picture) {
@@ -116,9 +111,7 @@ export const authOptions: NextAuthOptions = {
                   email: token.email,
                 },
                 data: {
-                  name: token.name,
                   password: null,
-                  image: token.picture,
                   providerId: token.sub,
                   active: true,
                 },
