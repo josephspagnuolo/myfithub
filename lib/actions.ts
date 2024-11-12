@@ -22,17 +22,17 @@ export async function editProfile(
     .upload(newName, image, {
       contentType: "image/*",
     });
+  if (error) {
+    console.log("An error occurred while uploading your image:", error.message);
+    return null;
+  }
   const editedProfile = prisma.user.update({
     where: {
       id,
     },
     data: {
       image:
-        process.env.SUPABASE_URL! +
-        process.env.IMAGE_PREFIX +
-        process.env.BUCKET_NAME +
-        "/" +
-        newName,
+        process.env.SUPABASE_URL! + process.env.IMAGE_PREFIX + data?.fullPath,
     },
   });
   try {
