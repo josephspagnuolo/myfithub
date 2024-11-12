@@ -206,10 +206,10 @@ async function ExpandableExerciseBox({
   });
   const subheading =
     ex.sets.length === 0
-      ? `No sets - ${ex.notes || "No additional notes"}`
+      ? `No sets • ${ex.notes || "No additional notes"}`
       : ex.sets.length === 1
-        ? `1 set - ${ex.notes || "No additional notes"}`
-        : `${ex.sets.length} sets - ${ex.notes || "No additional notes"}`;
+        ? `1 set • ${ex.notes || "No additional notes"}`
+        : `${ex.sets.length} sets • ${ex.notes || "No additional notes"}`;
   return (
     <>
       <div className="flex justify-between">
