@@ -157,6 +157,7 @@ async function ExerciseBox({
       <ShowSets sets={thisExercise.sets} />
       <div className="invisible grid grid-rows-[0fr] overflow-hidden transition-all duration-500 ease-in-out peer-checked:visible peer-checked:grid-rows-[1fr]">
         <div className="overflow-hidden">
+          {thisExercise.sets.length === 0 && <div className="h-2"></div>}
           <AddSet id={id} />
         </div>
       </div>
