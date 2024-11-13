@@ -36,15 +36,15 @@ export default async function AllWorkouts() {
               .map((workout) => (
                 <Card key={workout.id}>
                   <div className="flex justify-between">
-                    <div className="flex flex-col">
-                      <div>
+                    <div className="flex flex-col -space-y-0.5">
+                      <span className="text-lg font-semibold">
                         <Link
-                          className="text-lg font-semibold hover:underline"
+                          className="hover:underline"
                           href={`/dashboard/workout/${workout.id}`}
                         >
                           {workout.content}
                         </Link>
-                      </div>
+                      </span>
                       <span className="text-sm text-zinc-400">
                         {workout.createdAt.toLocaleString("en-US", {
                           timeZone: "America/New_York",
