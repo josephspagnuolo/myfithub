@@ -146,7 +146,12 @@ async function ExerciseBox({
     <div className="space-y-0">
       <ExpandableExerciseBox
         ex={thisExercise}
-        defaultChecked={index === currentExsList.length - 1}
+        defaultChecked={
+          index === currentExsList.length - 1 &&
+          thisExercise.sets.length === 0 &&
+          new Date().getTime() - thisExercise.createdAt.getTime() <=
+            12 * 60 * 60 * 1000
+        }
         pastExs={allExercises.filter(
           (pastEx) =>
             pastEx.name === thisExercise.name &&
