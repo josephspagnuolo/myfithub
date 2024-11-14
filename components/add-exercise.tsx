@@ -80,13 +80,13 @@ export default function AddExercise({
       }),
     }).then(async (res) => {
       if (res.status === 200) {
-        setValue(null);
         const { exercise } = await res.json();
+        setValue(null);
+        setOpen(false);
+        router.refresh();
         toast.success("Great exercise!", {
           id: toastId,
         });
-        router.refresh();
-        setOpen(false);
       } else {
         const { error } = await res.json();
         toast.error(error, {
