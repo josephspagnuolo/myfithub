@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   return (
-    <main className="flex grow">
+    <main className="flex grow overflow-clip">
       <div className="flex w-screen flex-col items-center justify-center px-3 py-12">
         <div className="min flex h-[72dvh] min-h-96 flex-col items-center justify-center pb-8">
           <a
@@ -47,18 +47,31 @@ export default async function Home() {
             </Link>
           </div>
         </div>
-        <div className="mt-24 w-full max-w-5xl p-4">
-          <Image
-            src="/dash-image.png"
-            alt="MyFitHub Dashboard preview"
-            width={1600}
-            height={975}
-            layout="responsive"
-            className="rounded-lg border border-zinc-800 py-6 shadow-lg"
-          />
+        <div className="relative mt-24 w-full max-w-5xl p-4">
+          <div className="absolute -top-8 left-1/2 -z-10 h-[75%] w-[75%] -translate-x-1/2 rounded-lg bg-gradient-to-t from-sky-500/20 to-transparent blur-2xl" />
+          <div className="absolute -top-8 left-1/2 -z-10 h-[60%] w-[65%] -translate-x-1/4 rounded-lg bg-gradient-to-tr from-sky-500/20 to-transparent blur-2xl" />
+          <div className="absolute -top-8 left-1/2 -z-10 h-[60%] w-[65%] -translate-x-3/4 rounded-lg bg-gradient-to-tl from-sky-500/20 to-transparent blur-2xl" />
+          <div className="absolute -top-6 left-1/2 -z-10 h-[50%] w-[85%] -translate-x-3/4 rounded-lg bg-gradient-to-l from-sky-500/25 to-transparent blur-2xl" />
+          <div className="absolute -top-6 left-1/2 -z-10 h-[50%] w-[85%] -translate-x-1/4 rounded-lg bg-gradient-to-r from-sky-500/25 to-transparent blur-2xl" />
+          <div className="flex flex-col rounded-lg border border-zinc-800 shadow-lg">
+            <div className="h-6 rounded-t-lg bg-black"></div>
+            <Image
+              src="/dash-image.png"
+              alt="MyFitHub Dashboard preview"
+              width={1600}
+              height={975}
+              className=""
+            />
+            <div className="h-6 rounded-b-lg bg-black"></div>
+          </div>
+          <div className="absolute -bottom-8 left-1/2 -z-10 h-[75%] w-[75%] -translate-x-1/2 rounded-lg bg-gradient-to-b from-sky-500/20 to-transparent blur-2xl" />
+          <div className="absolute -bottom-8 left-1/2 -z-10 h-[60%] w-[65%] -translate-x-1/4 rounded-lg bg-gradient-to-br from-sky-500/20 to-transparent blur-2xl" />
+          <div className="absolute -bottom-8 left-1/2 -z-10 h-[60%] w-[65%] -translate-x-3/4 rounded-lg bg-gradient-to-bl from-sky-500/20 to-transparent blur-2xl" />
+          <div className="absolute -bottom-6 left-1/2 -z-10 h-[50%] w-[85%] -translate-x-3/4 rounded-lg bg-gradient-to-l from-sky-500/25 to-transparent blur-2xl" />
+          <div className="absolute -bottom-6 left-1/2 -z-10 h-[50%] w-[85%] -translate-x-1/4 rounded-lg bg-gradient-to-r from-sky-500/25 to-transparent blur-2xl" />{" "}
         </div>
-        <div className="my-24 max-w-3xl text-center">
-          <h2 className="mt-4 text-3xl font-bold text-white">
+        <div className="mb-[16dvh] mt-[25dvh] max-w-3xl text-center">
+          <h2 className="text-3xl font-bold">
             Your Ultimate Fitness Companion
           </h2>
           <p className="mt-2 text-zinc-400">
@@ -69,9 +82,7 @@ export default async function Home() {
               <div className="flex justify-center">
                 <IoMdFitness className="mb-1 text-3xl text-sky-600" />
               </div>
-              <h3 className="text-lg font-semibold text-white">
-                Track Progress
-              </h3>
+              <h3 className="text-lg font-semibold">Track Progress</h3>
               <p className="mt-1 text-sm text-zinc-400">
                 Log workouts, monitor improvement, and achieve your goals.
               </p>
@@ -80,9 +91,7 @@ export default async function Home() {
               <div className="flex justify-center">
                 <MdLeaderboard className="mb-1 text-3xl text-sky-600" />
               </div>
-              <h3 className="text-lg font-semibold text-white">
-                Visualize Results
-              </h3>
+              <h3 className="text-lg font-semibold">Visualize Results</h3>
               <p className="mt-1 text-sm text-zinc-400">
                 Analyze trends and get insights with data-driven visualizations.
               </p>
@@ -91,9 +100,7 @@ export default async function Home() {
               <div className="flex justify-center">
                 <MdGroup className="mb-1 text-3xl text-sky-600" />
               </div>
-              <h3 className="text-lg font-semibold text-white">
-                Join the Community
-              </h3>
+              <h3 className="text-lg font-semibold">Join the Community</h3>
               <p className="mt-1 text-sm text-zinc-400">
                 Connect with others, share progress, and stay motivated
                 together.
