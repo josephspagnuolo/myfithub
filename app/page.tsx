@@ -60,7 +60,6 @@ export default async function Home() {
               alt="MyFitHub Dashboard preview"
               width={1600}
               height={975}
-              className=""
             />
             <div className="h-6 rounded-b-lg bg-black"></div>
           </div>
