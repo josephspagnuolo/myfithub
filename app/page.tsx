@@ -49,7 +49,7 @@ export default async function Home() {
         </div>
         <div className="mt-24 w-full max-w-5xl p-4">
           <Image
-            src="/dashboard-image.png"
+            src="/dash-image.png"
             alt="MyFitHub Dashboard preview"
             width={1600}
             height={975}
