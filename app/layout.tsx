@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "black",
-}
+};
 
 export default async function RootLayout({
   children,
@@ -32,17 +32,23 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-black text-zinc-50 flex flex-col min-h-svh leading-snug">
+      <body className="flex min-h-svh flex-col bg-black leading-snug text-zinc-50">
         <Toaster />
         <NavBar />
         {children}
-        <footer className="bottom-2.5 flex justify-center items-center text-zinc-400 text-xs py-4">
-          <div className="flex justify-center flex-col-reverse space-y-1 space-y-reverse md:space-y-0 md:flex-row md:space-x-5">
+        <footer className="bottom-2.5 flex items-center justify-center py-4 text-xs text-zinc-400">
+          <div className="flex flex-col-reverse justify-center space-y-1 space-y-reverse md:flex-row md:space-x-5 md:space-y-0">
             <p>&copy; 2024 MyFitHub.link - All rights reserved.</p>
-            <div className="flex justify-center flex-row space-x-5">
+            <div className="flex flex-row justify-center space-x-5">
               <Link href="/terms">Terms</Link>
               <Link href="/privacy">Privacy</Link>
-              <a href="https://github.com/josephspagnuolo/myfithub" target="_blank" className="flex items-end"><FaGithub size={14} /></a>
+              <a
+                href="https://github.com/josephspagnuolo/myfithub"
+                target="_blank"
+                className="flex items-end"
+              >
+                <FaGithub size={14} />
+              </a>
             </div>
           </div>
         </footer>

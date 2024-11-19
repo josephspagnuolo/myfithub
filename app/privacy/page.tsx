@@ -73,11 +73,8 @@ export default async function Privacy() {
             7. Contact Us <br />
             If you have any questions about our Privacy Policy, please contact
             us at{" "}
-            <a
-              href="mailto:myfithub.link@gmail.com"
-              className="hover:underline"
-            >
-              myfithub.link@gmail.com
+            <a href="mailto:support@myfithub.link" className="hover:underline">
+              support@myfithub.link
             </a>{" "}
             and we will get back to you as soon as possible.
           </p>
