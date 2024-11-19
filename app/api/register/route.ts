@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
-import { VerifyEmailTemplate } from "@/components/verify-email-template";
+import VerifyEmailTemplate from "@/components/emails/verify-email-template";
 import { Resend } from "resend";
 import { randomUUID } from "crypto";
 
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
         react: VerifyEmailTemplate({
           name: user.name as string,
           token: token.token,
-        }) as React.ReactElement,
+        }),
       });
       return NextResponse.json({ data: emailData, user });
     } catch (error) {

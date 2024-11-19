@@ -16,7 +16,7 @@ export default async function Home() {
   return (
     <main className="flex grow overflow-clip">
       <div className="flex w-screen flex-col items-center justify-center px-3 py-12">
-        <div className="min flex h-[72dvh] min-h-96 flex-col items-center justify-center pb-8">
+        <div className="min flex h-[75svh] min-h-96 flex-col items-center justify-center pb-8">
           <a
             href="https://github.com/josephspagnuolo/myfithub"
             target="_blank"

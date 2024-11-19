@@ -2,7 +2,8 @@ import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { randomUUID } from "crypto";
-import { ForgotPasswordEmailTemplate } from "@/components/forgot-password-email-template";
+import ForgotPasswordEmailTemplate from "@/components/emails/forgot-password-email-template";
+import { render } from "@react-email/components";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -26,6 +27,15 @@ export async function POST(req: Request) {
     });
     try {
       const userEmail = email as string;
+      const plainText = await render(
+        ForgotPasswordEmailTemplate({
+          name: existingUser.name as string,
+          token: token.token,
+        }),
+        {
+          plainText: true,
+        },
+      );
       const emailData = await resend.emails.send({
         from: "MyFitHub <security@mail.myfithub.link>",
         to: userEmail,
@@ -33,7 +43,8 @@ export async function POST(req: Request) {
         react: ForgotPasswordEmailTemplate({
           name: existingUser.name as string,
           token: token.token,
-        }) as React.ReactElement,
+        }),
+        text: plainText,
       });
       return NextResponse.json({ data: emailData, existingUser });
     } catch (error) {
