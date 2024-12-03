@@ -176,6 +176,13 @@ export default function AddExercise({
                 open={isOpen}
                 sx={{
                   height: "40px",
+                  backgroundColor: "black",
+                  "--tw-border-opacity": 1,
+                  borderColor: "rgb(39 39 42 / var(--tw-border-opacity))",
+                  "--tw-shadow": "0 0 #0000",
+                  "--tw-shadow-colored": "0 0 #0000",
+                  boxShadow:
+                    "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
                   "&::before": {
                     transform: "scaleX(0)",
                   },
@@ -185,7 +192,7 @@ export default function AddExercise({
                     },
                   },
                 }}
-                className="relative z-0 mt-1 w-full border border-zinc-800 bg-black focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
+                className="mt-1 w-full focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
               />
               {value && (
                 <form onSubmit={submit} className="-mb-4 flex flex-col">
@@ -222,6 +229,7 @@ export default function AddExercise({
                           "--Input-focusedThickness": "0rem",
                           "--Input-placeholderOpacity": 0.25,
                           height: "40px",
+                          backgroundColor: "black",
                           "--tw-border-opacity": 1,
                           borderColor:
                             "rgb(39 39 42 / var(--tw-border-opacity))",
@@ -230,7 +238,7 @@ export default function AddExercise({
                           boxShadow:
                             "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
                         }}
-                        className="mt-1 w-full border border-zinc-800 shadow-none focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
+                        className="mt-1 w-full focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
                       />
                     </div>
                   )}
@@ -254,6 +262,7 @@ export default function AddExercise({
                           "--Input-focusedThickness": "0rem",
                           "--Input-placeholderOpacity": 0.25,
                           height: "40px",
+                          backgroundColor: "black",
                           "--tw-border-opacity": 1,
                           borderColor:
                             "rgb(39 39 42 / var(--tw-border-opacity))",
@@ -262,7 +271,7 @@ export default function AddExercise({
                           boxShadow:
                             "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
                         }}
-                        className="mt-1 w-full border border-zinc-800 shadow-none focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
+                        className="mt-1 w-full focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
                       />
                     </div>
                   )}
