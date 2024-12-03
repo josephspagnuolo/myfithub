@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import Card from "@/components/card";
+import Input from "@mui/joy/Input";
+import { CssVarsProvider } from "@mui/joy";
 
 export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
@@ -63,13 +65,32 @@ export default function ForgotPassword() {
                 <label htmlFor="email" className="block text-xs text-zinc-400">
                   Email Address
                 </label>
-                <input
+                <CssVarsProvider defaultMode="dark" />
+                <Input
                   id="email"
                   name="email"
                   type="email"
+                  placeholder="someone@example.com"
                   autoComplete="email"
                   required
-                  className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+                  disabled={loading}
+                  slotProps={{
+                    input: {
+                      inputMode: "email",
+                    },
+                  }}
+                  sx={{
+                    "--Input-focusedThickness": "0rem",
+                    "--Input-placeholderOpacity": 0.25,
+                    height: "40px",
+                    "--tw-border-opacity": 1,
+                    borderColor: "rgb(39 39 42 / var(--tw-border-opacity))",
+                    "--tw-shadow": "0 0 #0000",
+                    "--tw-shadow-colored": "0 0 #0000",
+                    boxShadow:
+                      "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
+                  }}
+                  className="mt-1 w-full border border-zinc-800 shadow-none focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
                 />
               </div>
               <button

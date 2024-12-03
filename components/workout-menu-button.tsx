@@ -11,6 +11,8 @@ import { deleteWorkout, editWorkoutTitle } from "@/lib/actions";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import LogoSVG from "@/components/logo-svg";
+import Input from "@mui/joy/Input";
+import { CssVarsProvider } from "@mui/joy";
 
 export default function WorkoutMenuButton({
   id,
@@ -122,16 +124,33 @@ function EditWorkoutTitleButton({
               <label htmlFor="content" className="block text-xs text-zinc-400">
                 Workout Name
               </label>
-              <input
+              <CssVarsProvider defaultMode="dark" />
+              <Input
                 id="content"
                 name="content"
                 type="text"
                 placeholder="Chest Day"
-                maxLength={22}
                 autoFocus
                 required
+                disabled={loading}
                 defaultValue={title}
-                className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+                slotProps={{
+                  input: {
+                    maxLength: 22,
+                  },
+                }}
+                sx={{
+                  "--Input-focusedThickness": "0rem",
+                  "--Input-placeholderOpacity": 0.25,
+                  height: "40px",
+                  "--tw-border-opacity": 1,
+                  borderColor: "rgb(39 39 42 / var(--tw-border-opacity))",
+                  "--tw-shadow": "0 0 #0000",
+                  "--tw-shadow-colored": "0 0 #0000",
+                  boxShadow:
+                    "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
+                }}
+                className="mt-1 w-full border border-zinc-800 shadow-none focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
               />
             </div>
             <div className="sm:w-20 sm:justify-end sm:self-end">

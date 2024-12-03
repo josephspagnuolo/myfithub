@@ -4,6 +4,9 @@ import { useState } from "react";
 import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Input from "@mui/joy/Input";
+import { CssVarsProvider } from "@mui/joy";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function PasswordResetForm({ token }: { token: string }) {
   const [loading, setLoading] = useState(false);
@@ -68,24 +71,52 @@ export default function PasswordResetForm({ token }: { token: string }) {
       }}
     >
       <div>
-        <div className="flex justify-between">
+        <div className="flex">
           <label htmlFor="password" className="block text-xs text-zinc-400">
             Password
           </label>
-          <label
-            className="block cursor-pointer text-xs text-zinc-400 underline"
-            onClick={() => setVisible(!visible)}
-          >
-            {visible ? "Hide Password" : "Show Password"}
-          </label>
         </div>
-        <input
+        <CssVarsProvider defaultMode="dark" />
+        <Input
           id="password"
           name="password"
           type={visible ? "text" : "password"}
           required
+          disabled={loading}
           onChange={validate}
-          className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+          sx={{
+            "--Input-focusedThickness": "0rem",
+            "--Input-placeholderOpacity": 0.25,
+            "--Input-paddingInline": "6.5px",
+            pl: "12px",
+            height: "40px",
+            "--tw-border-opacity": 1,
+            borderColor: "rgb(39 39 42 / var(--tw-border-opacity))",
+            "--tw-shadow": "0 0 #0000",
+            "--tw-shadow-colored": "0 0 #0000",
+            boxShadow:
+              "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
+          }}
+          endDecorator={
+            <button
+              type="button"
+              className="mt-[0.75px] rounded-md p-1 px-1.5 text-zinc-50 hover:bg-zinc-800"
+              onClick={() => {
+                setVisible(!visible);
+                const input = document.getElementById(
+                  "password",
+                ) as HTMLInputElement;
+                setTimeout(() => {
+                  input.focus();
+                  const valueLength = input.value.length;
+                  input.setSelectionRange(valueLength, valueLength);
+                }, 0);
+              }}
+            >
+              {visible ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+            </button>
+          }
+          className="mt-1 w-full border border-zinc-800 shadow-none focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
         />
       </div>
       <button

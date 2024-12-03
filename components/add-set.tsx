@@ -75,12 +75,13 @@ export default function AddSet({ id }: { id: string }) {
             onChange={(e) => setRepsInputValue(e.target.value)}
             value={repsInputValue}
             type="text"
+            disabled={loading}
             inputMode="numeric"
             pattern="[1-9]\d*"
             maxLength={3}
             placeholder="12"
             title="From 1 to 999"
-            className="w-[56px] appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+            className="w-[56px] appearance-none rounded-md border border-zinc-800 px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-none focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
           />
           <label className="mx-2 mt-1 text-sm" htmlFor="reps">
             reps
@@ -92,12 +93,13 @@ export default function AddSet({ id }: { id: string }) {
             onChange={(e) => setWeightInputValue(e.target.value)}
             value={weightInputValue}
             type="text"
+            disabled={loading}
             inputMode="numeric"
             pattern="[1-9]\d*|0"
             maxLength={4}
             placeholder="225"
             title="From 0 to 9999"
-            className="w-[61px] appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+            className="w-[61px] appearance-none rounded-md border border-zinc-800 px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-none focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
           />
           <label className="mx-2 mt-1.5 text-sm" htmlFor="weight">
             lbs&nbsp;
@@ -121,12 +123,13 @@ export default function AddSet({ id }: { id: string }) {
               onChange={(e) => setHrsInputValue(e.target.value)}
               value={hrsInputValue}
               type="text"
+              disabled={loading}
               inputMode="numeric"
               pattern="[1-9]\d*|0"
               maxLength={2}
               placeholder="2"
               title="From 0 to 99"
-              className="w-[48px] appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+              className="w-[48px] appearance-none rounded-md border border-zinc-800 px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-none focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
             />
             <label className="mx-2 mt-1.5 text-sm" htmlFor="hrs">
               hrs
@@ -138,12 +141,13 @@ export default function AddSet({ id }: { id: string }) {
               onChange={(e) => setMinsInputValue(e.target.value)}
               value={minsInputValue}
               type="text"
+              disabled={loading}
               inputMode="numeric"
               pattern="^([1-5]?[0-9]|59)$"
               maxLength={2}
               placeholder="45"
               title="From 0 to 59"
-              className="w-[48px] appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+              className="w-[48px] appearance-none rounded-md border border-zinc-800 px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-none focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
             />
             <label className="mx-2 mt-1.5 text-sm" htmlFor="mins">
               min
@@ -155,12 +159,13 @@ export default function AddSet({ id }: { id: string }) {
               onChange={(e) => setSecondsInputValue(e.target.value)}
               value={secondsInputValue}
               type="text"
+              disabled={loading}
               inputMode="numeric"
               pattern="^([1-5]?[0-9]|59)$"
               maxLength={2}
               placeholder="30"
               title="From 0 to 59"
-              className="-ml-1 w-[48px] appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+              className="-ml-1 w-[48px] appearance-none rounded-md border border-zinc-800 px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-none focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
             />
             <label className="mx-2 mt-1.5 text-sm" htmlFor="seconds">
               sec
