@@ -6,6 +6,9 @@ import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Input from "@mui/joy/Input";
+import { CssVarsProvider } from "@mui/joy";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function CredentialsForm({
   type,
@@ -116,13 +119,26 @@ export default function CredentialsForm({
           <label htmlFor="nametext" className="block text-xs text-zinc-400">
             Name
           </label>
-          <input
+          <Input
             id="nametext"
             name="nametext"
             type="text"
+            placeholder="Your Name"
             required
             disabled={working}
-            className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+            sx={{
+              "--Input-focusedThickness": "0rem",
+              "--Input-placeholderOpacity": 0.25,
+              height: "40px",
+              backgroundColor: "black",
+              "--tw-border-opacity": 1,
+              borderColor: "rgb(39 39 42 / var(--tw-border-opacity))",
+              "--tw-shadow": "0 0 #0000",
+              "--tw-shadow-colored": "0 0 #0000",
+              boxShadow:
+                "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
+            }}
+            className="mt-1 w-full border border-zinc-800 shadow-none focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
           />
         </div>
       ) : (
@@ -132,38 +148,94 @@ export default function CredentialsForm({
         <label htmlFor="email" className="block text-xs text-zinc-400">
           Email Address
         </label>
-        <input
+        <Input
           id="email"
           name="email"
           type="email"
+          placeholder="someone@example.com"
           autoComplete="email"
-          inputMode="email"
           required
           disabled={working}
-          className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+          slotProps={{
+            input: {
+              inputMode: "email",
+            },
+          }}
+          sx={{
+            "--Input-focusedThickness": "0rem",
+            "--Input-placeholderOpacity": 0.25,
+            height: "40px",
+            "--tw-border-opacity": 1,
+            borderColor: "rgb(39 39 42 / var(--tw-border-opacity))",
+            "--tw-shadow": "0 0 #0000",
+            "--tw-shadow-colored": "0 0 #0000",
+            boxShadow:
+              "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
+          }}
+          className="mt-1 w-full border border-zinc-800 shadow-none focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
         />
       </div>
       <div>
-        <div className="flex justify-between">
-          <label htmlFor="password" className="text-xs text-zinc-400">
-            Password
-          </label>
-          <button
-            type="button"
-            className="cursor-pointer text-xs text-zinc-400 underline"
-            onClick={() => setVisible(!visible)}
-          >
-            {visible ? "Hide Password" : "Show Password"}
-          </button>
-        </div>
-        <input
+        <CssVarsProvider defaultMode="dark" />
+        {type === "login" ? (
+          <div className="flex justify-between">
+            <label htmlFor="password" className="text-xs text-zinc-400">
+              Password
+            </label>
+            <Link
+              href="/forgot-password"
+              className="text-xs text-zinc-400 hover:underline"
+            >
+              Forgot password?
+            </Link>
+          </div>
+        ) : (
+          <div className="flex">
+            <label htmlFor="password" className="text-xs text-zinc-400">
+              Password
+            </label>
+          </div>
+        )}
+        <Input
           id="password"
           name="password"
           type={visible ? "text" : "password"}
           required
           disabled={working}
           onChange={validate}
-          className="mt-1 block w-full appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+          sx={{
+            "--Input-focusedThickness": "0rem",
+            "--Input-placeholderOpacity": 0.25,
+            "--Input-paddingInline": "6.5px",
+            pl: "12px",
+            height: "40px",
+            "--tw-border-opacity": 1,
+            borderColor: "rgb(39 39 42 / var(--tw-border-opacity))",
+            "--tw-shadow": "0 0 #0000",
+            "--tw-shadow-colored": "0 0 #0000",
+            boxShadow:
+              "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
+          }}
+          endDecorator={
+            <button
+              type="button"
+              className="mt-[0.75px] rounded-md p-1 px-1.5 text-zinc-50 hover:bg-zinc-800"
+              onClick={() => {
+                setVisible(!visible);
+                const input = document.getElementById(
+                  "password",
+                ) as HTMLInputElement;
+                setTimeout(() => {
+                  input.focus();
+                  const valueLength = input.value.length;
+                  input.setSelectionRange(valueLength, valueLength);
+                }, 0);
+              }}
+            >
+              {visible ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+            </button>
+          }
+          className="mt-1 w-full border border-zinc-800 shadow-none focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
         />
       </div>
       <button
@@ -199,39 +271,27 @@ export default function CredentialsForm({
         {"."}
       </p>
       {type === "login" ? (
-        <>
-          <p className="text-center text-sm">
-            <Link
-              href="/forgot-password"
-              className="font-semibold text-zinc-200 hover:underline"
-            >
-              Forgot password?
-            </Link>
-          </p>
-          <p className="text-center text-sm text-zinc-400">
-            Don&apos;t have an account?{" "}
-            <Link
-              href="/register"
-              className="font-semibold text-zinc-200 hover:underline"
-            >
-              Sign up
-            </Link>{" "}
-            for free.
-          </p>
-        </>
+        <p className="text-center text-sm text-zinc-400">
+          Don&apos;t have an account?{" "}
+          <Link
+            href="/register"
+            className="font-semibold text-zinc-200 hover:underline"
+          >
+            Sign up
+          </Link>{" "}
+          for free.
+        </p>
       ) : (
-        <>
-          <p className="text-center text-sm text-zinc-400">
-            Already have an account?{" "}
-            <Link
-              href="/login"
-              className="font-semibold text-zinc-200 hover:underline"
-            >
-              Log in
-            </Link>{" "}
-            instead.
-          </p>
-        </>
+        <p className="text-center text-sm text-zinc-400">
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="font-semibold text-zinc-200 hover:underline"
+          >
+            Log in
+          </Link>{" "}
+          instead.
+        </p>
       )}
     </form>
   );

@@ -174,6 +174,7 @@ export default function AddExercise({
                 }
                 open={isOpen}
                 sx={{
+                  height: "40px",
                   "&::before": {
                     transform: "scaleX(0)",
                   },
@@ -218,8 +219,16 @@ export default function AddExercise({
                         sx={{
                           "--Input-focusedThickness": "0rem",
                           "--Input-placeholderOpacity": 0.25,
+                          height: "40px",
+                          "--tw-border-opacity": 1,
+                          borderColor:
+                            "rgb(39 39 42 / var(--tw-border-opacity))",
+                          "--tw-shadow": "0 0 #0000",
+                          "--tw-shadow-colored": "0 0 #0000",
+                          boxShadow:
+                            "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
                         }}
-                        className="relative z-0 mt-1 w-full border border-zinc-800 bg-black focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
+                        className="mt-1 w-full border border-zinc-800 shadow-none focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
                       />
                     </div>
                   )}
@@ -241,8 +250,16 @@ export default function AddExercise({
                         sx={{
                           "--Input-focusedThickness": "0rem",
                           "--Input-placeholderOpacity": 0.25,
+                          height: "40px",
+                          "--tw-border-opacity": 1,
+                          borderColor:
+                            "rgb(39 39 42 / var(--tw-border-opacity))",
+                          "--tw-shadow": "0 0 #0000",
+                          "--tw-shadow-colored": "0 0 #0000",
+                          boxShadow:
+                            "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
                         }}
-                        className="relative z-0 mt-1 w-full border border-zinc-800 bg-black focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
+                        className="mt-1 w-full border border-zinc-800 shadow-none focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
                       />
                     </div>
                   )}
