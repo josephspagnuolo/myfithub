@@ -142,6 +142,7 @@ export default function AddExercise({
                 required
                 placeholder="Add..."
                 value={value}
+                disabled={loading}
                 onChange={(e, newValue) => {
                   setValue(newValue);
                   setIsOpen(false);
@@ -201,6 +202,7 @@ export default function AddExercise({
                         required
                         placeholder="3.5"
                         value={distanceValue}
+                        disabled={loading}
                         title="From 0.01 to 99.99 (2 decimals)"
                         onChange={(e) => {
                           setDistanceValue(e.target.value);
@@ -244,6 +246,7 @@ export default function AddExercise({
                         id="notes"
                         placeholder="Focus on range of motion"
                         value={notes}
+                        disabled={loading}
                         onChange={(e) => {
                           setNotes(e.target.value);
                         }}

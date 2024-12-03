@@ -83,6 +83,7 @@ export default function ForgotPassword() {
                     "--Input-focusedThickness": "0rem",
                     "--Input-placeholderOpacity": 0.25,
                     height: "40px",
+                    backgroundColor: "black",
                     "--tw-border-opacity": 1,
                     borderColor: "rgb(39 39 42 / var(--tw-border-opacity))",
                     "--tw-shadow": "0 0 #0000",
