@@ -67,7 +67,7 @@ export default function AddSet({ id }: { id: string }) {
             });
           }
         }}
-        className="grid grid-cols-3 grid-rows-2 items-end gap-y-2 p-1 sm:grid-cols-6 sm:grid-rows-1"
+        className="grid grid-cols-3 grid-rows-2 items-end gap-y-2 p-0.5 sm:grid-cols-6 sm:grid-rows-1"
       >
         <div>
           <input
@@ -81,9 +81,9 @@ export default function AddSet({ id }: { id: string }) {
             maxLength={3}
             placeholder="12"
             title="From 1 to 999"
-            className="w-[56px] appearance-none rounded-md border border-zinc-800 px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-none focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+            className="w-[56px] appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-none focus:outline-none focus:ring-2 focus:ring-sky-600 disabled:opacity-40"
           />
-          <label className="mx-2 mt-1 text-sm" htmlFor="reps">
+          <label className="ml-1 mr-2 mt-1 text-sm" htmlFor="reps">
             reps
           </label>
         </div>
@@ -99,9 +99,9 @@ export default function AddSet({ id }: { id: string }) {
             maxLength={4}
             placeholder="225"
             title="From 0 to 9999"
-            className="w-[61px] appearance-none rounded-md border border-zinc-800 px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-none focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+            className="w-[61px] appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-none focus:outline-none focus:ring-2 focus:ring-sky-600 disabled:opacity-40"
           />
-          <label className="mx-2 mt-1.5 text-sm" htmlFor="weight">
+          <label className="ml-1 mr-2 mt-1.5 text-sm" htmlFor="weight">
             lbs&nbsp;
           </label>
         </div>
@@ -129,9 +129,9 @@ export default function AddSet({ id }: { id: string }) {
               maxLength={2}
               placeholder="2"
               title="From 0 to 99"
-              className="w-[48px] appearance-none rounded-md border border-zinc-800 px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-none focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+              className="w-[48px] appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-none focus:outline-none focus:ring-2 focus:ring-sky-600 disabled:opacity-40"
             />
-            <label className="mx-2 mt-1.5 text-sm" htmlFor="hrs">
+            <label className="ml-1 mr-2 mt-1.5 text-sm" htmlFor="hrs">
               hrs
             </label>
           </div>
@@ -147,9 +147,9 @@ export default function AddSet({ id }: { id: string }) {
               maxLength={2}
               placeholder="45"
               title="From 0 to 59"
-              className="w-[48px] appearance-none rounded-md border border-zinc-800 px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-none focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+              className="w-[48px] appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-none focus:outline-none focus:ring-2 focus:ring-sky-600 disabled:opacity-40"
             />
-            <label className="mx-2 mt-1.5 text-sm" htmlFor="mins">
+            <label className="ml-1 mr-2 mt-1.5 text-sm" htmlFor="mins">
               min
             </label>
           </div>
@@ -165,9 +165,9 @@ export default function AddSet({ id }: { id: string }) {
               maxLength={2}
               placeholder="30"
               title="From 0 to 59"
-              className="-ml-1 w-[48px] appearance-none rounded-md border border-zinc-800 px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-none focus:outline-none focus:ring-2 focus:ring-sky-600 sm:text-sm"
+              className="-ml-1 w-[48px] appearance-none rounded-md border border-zinc-800 bg-black px-3 py-2 placeholder-zinc-400 placeholder-opacity-25 shadow-none focus:outline-none focus:ring-2 focus:ring-sky-600 disabled:opacity-40"
             />
-            <label className="mx-2 mt-1.5 text-sm" htmlFor="seconds">
+            <label className="ml-1 mr-2 mt-1.5 text-sm" htmlFor="seconds">
               sec
             </label>
           </div>

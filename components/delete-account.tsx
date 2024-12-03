@@ -55,6 +55,7 @@ export default function DeleteAccountButton({ id }: { id: string }) {
                 "--Input-focusedThickness": "0rem",
                 "--Input-placeholderOpacity": 0.25,
                 height: "40px",
+                backgroundColor: "black",
                 "--tw-border-opacity": 1,
                 borderColor: "rgb(39 39 42 / var(--tw-border-opacity))",
                 "--tw-shadow": "0 0 #0000",
@@ -62,7 +63,7 @@ export default function DeleteAccountButton({ id }: { id: string }) {
                 boxShadow:
                   "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
               }}
-              className="mt-1 w-full border border-zinc-800 shadow-none focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
+              className="mt-1 w-full focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
             />
           </div>
           <div className="mt-4 flex flex-col-reverse space-y-2 space-y-reverse sm:flex-row sm:justify-end sm:space-x-2 sm:space-y-0">

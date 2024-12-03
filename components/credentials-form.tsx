@@ -138,7 +138,7 @@ export default function CredentialsForm({
               boxShadow:
                 "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
             }}
-            className="mt-1 w-full border border-zinc-800 shadow-none focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
+            className="mt-1 w-full focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
           />
         </div>
       ) : (
@@ -173,7 +173,7 @@ export default function CredentialsForm({
             boxShadow:
               "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
           }}
-          className="mt-1 w-full border border-zinc-800 shadow-none focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
+          className="mt-1 w-full focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
         />
       </div>
       <div>
