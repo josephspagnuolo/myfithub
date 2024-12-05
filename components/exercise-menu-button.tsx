@@ -326,10 +326,25 @@ function EditExerciseNotesButton({
             onSubmit={async (e) => {
               e.preventDefault();
               setLoading(true);
-              await editExerciseNotes(id, e.currentTarget.notes.value);
-              toast.success("Exercise notes have been changed.");
+              toast.remove("edit-exercise");
+              toast.loading("Saving...", {
+                id: "edit-exercise",
+              });
+              const res = await editExerciseNotes(
+                id,
+                e.currentTarget.notes.value,
+              );
+              if (res === "error") {
+                toast.error("There was an error editing your exercise notes.", {
+                  id: "edit-exercise",
+                });
+              } else {
+                toast.success("Your exercise notes have been changed.", {
+                  id: "edit-exercise",
+                });
+                setOpen(false);
+              }
               setLoading(false);
-              setOpen(false);
             }}
             className="mt-3 flex flex-col space-y-4"
           >
@@ -411,6 +426,7 @@ function DeleteExerciseButton({
   setDropdownClosed: Dispatch<SetStateAction<boolean>>;
 }) {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   return (
     <>
       <button
@@ -426,7 +442,7 @@ function DeleteExerciseButton({
       <Modal
         open={open}
         onClose={(event, reason: string) => {
-          if (reason !== "backdropClick") setOpen(false);
+          if (reason !== "backdropClick" && !loading) setOpen(false);
         }}
         className="flex items-center justify-center bg-black/50 backdrop-blur-0"
       >
@@ -448,10 +464,24 @@ function DeleteExerciseButton({
             <button
               type="submit"
               className="text-md flex h-10 w-full items-center justify-center rounded-md border border-black bg-red-800 font-semibold transition-all hover:bg-red-900 sm:w-20"
-              onClick={() => {
-                deleteExercise(id);
-                toast.success("Exercise deleted.");
-                setOpen(false);
+              onClick={async () => {
+                setLoading(true);
+                toast.remove("delete-exercise");
+                toast.loading("Deleting...", {
+                  id: "delete-exercise",
+                });
+                const res = await deleteExercise(id);
+                if (res === "error") {
+                  toast.error("There was an error deleting your exercise.", {
+                    id: "delete-exercise",
+                  });
+                } else {
+                  toast.success("Your exercise has been deleted.", {
+                    id: "delete-exercise",
+                  });
+                  setOpen(false);
+                }
+                setLoading(false);
               }}
             >
               Delete

@@ -1,12 +1,11 @@
 "use client";
 
-import { FaRegTrashAlt } from "react-icons/fa";
 import Modal from "@mui/joy/Modal";
 import { useState } from "react";
 import { deleteAccount } from "@/lib/actions";
 import toast from "react-hot-toast";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Input from "@mui/joy/Input";
 import { CssVarsProvider } from "@mui/joy";
 
@@ -26,7 +25,7 @@ export default function DeleteAccountButton({ id }: { id: string }) {
       <Modal
         open={open}
         onClose={(event, reason: string) => {
-          if (reason !== "backdropClick") setOpen(false);
+          if (reason !== "backdropClick" && !loading) setOpen(false);
         }}
         className="flex items-center justify-center bg-black/50 backdrop-blur-0"
       >
@@ -79,18 +78,28 @@ export default function DeleteAccountButton({ id }: { id: string }) {
               className="text-md flex h-10 w-full items-center justify-center rounded-md border border-black bg-red-800 font-semibold transition-all hover:bg-red-900 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-red-800 sm:w-20"
               onClick={async () => {
                 setLoading(true);
-                const toastId = toast.loading("Deleting...");
-                deleteAccount(id);
-                const data = await signOut({
-                  redirect: false,
-                  callbackUrl: "/",
+                toast.remove("delete-account");
+                toast.loading("Deleting...", {
+                  id: "delete-account",
                 });
-                router.push(data.url);
-                router.refresh();
-                toast.success("Your account has been deleted.", {
-                  id: toastId,
-                  duration: 10000,
-                });
+                const res = await deleteAccount(id);
+                if (res === "error") {
+                  toast.error("There was an error deleting your account.", {
+                    id: "delete-account",
+                  });
+                  setLoading(false);
+                } else {
+                  const data = await signOut({
+                    redirect: false,
+                    callbackUrl: "/",
+                  });
+                  router.replace(data.url);
+                  router.refresh();
+                  toast.success("Your account has been deleted.", {
+                    id: "delete-account",
+                    duration: 10000,
+                  });
+                }
               }}
             >
               Delete

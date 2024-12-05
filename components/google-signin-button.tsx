@@ -22,6 +22,7 @@ export default function GitHubSigninButton({
   const error = searchParams.get("error");
 
   useEffect(() => {
+    router.prefetch("/dashboard");
     if (error === "Callback") {
       toast.error("Log in unsuccessful", { id: "1" });
       setTimeout(() => {

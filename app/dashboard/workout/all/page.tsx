@@ -25,8 +25,16 @@ export default async function AllWorkouts() {
           Your Workouts
         </span>
         {workouts.length === 0 ? (
-          <div className="flex grow items-center">
-            <span className="text-sm text-zinc-400">No workouts so far...</span>
+          <div className="flex h-full grow flex-col items-center justify-center pb-3">
+            <span className="mb-2 text-center text-sm text-zinc-400">
+              Nothing so far...
+            </span>
+            <Link
+              href="/dashboard/workout"
+              className="text-md flex h-10 items-center justify-center rounded-md border border-black bg-sky-600 px-6 font-semibold transition-all hover:bg-sky-700"
+            >
+              <span>New Workout</span>
+            </Link>
           </div>
         ) : (
           <>

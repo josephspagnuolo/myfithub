@@ -48,10 +48,22 @@ export default function EditAccountButton({
             onSubmit={async (e) => {
               e.preventDefault();
               setLoading(true);
-              await editAccount(id, e.currentTarget.nametext.value);
-              toast.success("Your account details have been saved.");
+              toast.remove("edit-account");
+              toast.loading("Saving...", {
+                id: "edit-account",
+              });
+              const res = await editAccount(id, e.currentTarget.nametext.value);
+              if (res === "error") {
+                toast.error("There was an error editing your account.", {
+                  id: "edit-account",
+                });
+              } else {
+                toast.success("Your account details have been saved.", {
+                  id: "edit-account",
+                });
+                setOpen(false);
+              }
               setLoading(false);
-              setOpen(false);
             }}
             className="mt-3 flex flex-col space-y-4"
           >

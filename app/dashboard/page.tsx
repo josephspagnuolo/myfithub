@@ -113,7 +113,7 @@ async function DashboardCards() {
             </span>
           </div>
           {workouts.length === 0 ? (
-            <div className="flex h-full grow flex-col items-center justify-center">
+            <div className="flex h-full grow flex-col items-center justify-center pb-3">
               <span className="mb-2 text-center text-sm text-zinc-400">
                 Nothing so far...
               </span>
@@ -172,7 +172,7 @@ async function DashboardCards() {
             </span>
           </div>
           {filtered.length === 0 ? (
-            <div className="flex h-full grow flex-col items-center justify-center">
+            <div className="flex h-full grow flex-col items-center justify-center pb-3">
               <span className="text-center text-sm text-zinc-400">
                 Start tracking to see...
               </span>

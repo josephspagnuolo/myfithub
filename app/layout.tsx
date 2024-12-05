@@ -33,7 +33,15 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="flex min-h-svh flex-col bg-black leading-snug text-zinc-50">
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            style: {
+              color: "#fafafa",
+              backgroundColor: "#18181b",
+              border: "1px solid #27272a",
+            },
+          }}
+        />
         <NavBar />
         {children}
         <footer className="bottom-2.5 flex items-center justify-center py-4 text-xs text-zinc-400">
