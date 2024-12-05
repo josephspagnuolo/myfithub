@@ -3,12 +3,20 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import supabase from "@/lib/supabase";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function editProfile(
   id: string,
   currentImage: string,
   formData: FormData,
 ) {
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user || !session.user.id || session.user.id !== id) {
+    console.log("An error occurred while editing your profile.");
+    return "error";
+  }
+
   const bucketName = process.env.BUCKET_NAME!;
 
   if (currentImage.includes(process.env.SUPABASE_URL!)) {
@@ -24,7 +32,7 @@ export async function editProfile(
     });
   if (error) {
     console.log("An error occurred while uploading your image:", error.message);
-    return null;
+    return "error";
   }
   const editedProfile = prisma.user.update({
     where: {
@@ -39,11 +47,18 @@ export async function editProfile(
     await prisma.$transaction([editedProfile]);
   } catch (error) {
     console.log("An error occurred while editing your profile:", error);
+    return "error";
   }
   revalidatePath("/", "layout");
 }
 
 export async function removeProfileImage(id: string, currentImage: string) {
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user || !session.user.id || session.user.id !== id) {
+    console.log("An error occurred while removing your profile image.");
+    return "error";
+  }
+
   const bucketName = process.env.BUCKET_NAME!;
 
   if (currentImage.includes(process.env.SUPABASE_URL!)) {
@@ -63,11 +78,18 @@ export async function removeProfileImage(id: string, currentImage: string) {
     await prisma.$transaction([removedProfileImage]);
   } catch (error) {
     console.log("An error occurred while removing your profile image:", error);
+    return "error";
   }
   revalidatePath("/", "layout");
 }
 
 export async function editAccount(id: string, name: string) {
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user || !session.user.id || session.user.id !== id) {
+    console.log("An error occurred while editing your account.");
+    return "error";
+  }
+
   const editedAccount = prisma.user.update({
     where: {
       id,
@@ -80,33 +102,57 @@ export async function editAccount(id: string, name: string) {
     await prisma.$transaction([editedAccount]);
   } catch (error) {
     console.log("An error occurred while editing your account:", error);
+    return "error";
   }
   revalidatePath("/", "layout");
 }
 
 export async function deleteAccount(id: string) {
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user || !session.user.id || session.user.id !== id) {
+    console.log("An error occurred while deleting your account.");
+    return "error";
+  }
+
   const deletedAccount = prisma.user.delete({ where: { id } });
   try {
     await prisma.$transaction([deletedAccount]);
   } catch (error) {
     console.log("An error occurred while deleting your account:", error);
+    return "error";
   }
 }
 
 export async function deleteWorkout(id: string) {
-  const deletedWorkout = prisma.workout.delete({ where: { id } });
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user || !session.user.id) {
+    console.log("An error occurred while deleting the workout.");
+    return "error";
+  }
+
+  const deletedWorkout = prisma.workout.delete({
+    where: { id, user: session.user },
+  });
   try {
     await prisma.$transaction([deletedWorkout]);
   } catch (error) {
     console.log("An error occurred while deleting the workout:", error);
+    return "error";
   }
   revalidatePath("/dashboard", "layout");
 }
 
 export async function editWorkoutTitle(id: string, content: string) {
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user || !session.user.id) {
+    console.log("An error occurred while editing the workout title.");
+    return "error";
+  }
+
   const editedWorkoutTitle = prisma.workout.update({
     where: {
       id,
+      user: session.user,
     },
     data: {
       content,
@@ -116,11 +162,18 @@ export async function editWorkoutTitle(id: string, content: string) {
     await prisma.$transaction([editedWorkoutTitle]);
   } catch (error) {
     console.log("An error occurred while editing the workout title:", error);
+    return "error";
   }
   revalidatePath("/dashboard", "layout");
 }
 
 export async function editExerciseNotes(id: string, notes: string) {
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user || !session.user.id) {
+    console.log("An error occurred while editing the exercise notes.");
+    return "error";
+  }
+
   const editedExerciseNotes = prisma.exercise.update({
     where: {
       id,
@@ -133,16 +186,24 @@ export async function editExerciseNotes(id: string, notes: string) {
     await prisma.$transaction([editedExerciseNotes]);
   } catch (error) {
     console.log("An error occurred while editing the exercise notes:", error);
+    return "error";
   }
-  revalidatePath("/dashboard", "layout");
+  revalidatePath("/dashboard/workout", "layout");
 }
 
 export async function deleteExercise(id: string) {
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user || !session.user.id) {
+    console.log("An error occurred while deleting the exercise.");
+    return "error";
+  }
+
   const deletedExercise = prisma.exercise.delete({ where: { id } });
   try {
     await prisma.$transaction([deletedExercise]);
   } catch (error) {
     console.log("An error occurred while deleting the exercise:", error);
+    return "error";
   }
   revalidatePath("/dashboard/workout", "layout");
 }

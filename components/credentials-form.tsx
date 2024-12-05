@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
 import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
@@ -22,6 +22,10 @@ export default function CredentialsForm({
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    router.prefetch("/dashboard");
+  }, [router]);
 
   function validate() {
     if (type === "register") {

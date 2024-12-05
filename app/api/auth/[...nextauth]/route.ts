@@ -142,7 +142,7 @@ export const authOptions: NextAuthOptions = {
           },
         });
         token.name = user?.name;
-        if (user?.image) token.picture = user?.image;
+        token.picture = user?.image;
       }
       return token;
     },
