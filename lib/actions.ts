@@ -167,6 +167,53 @@ export async function editWorkoutTitle(id: string, content: string) {
   revalidatePath("/dashboard", "layout");
 }
 
+export async function addExercise(
+  id: string,
+  name: string,
+  notes: string | null,
+) {
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user || !session.user.id) {
+    console.log("An error occurred while adding the exercise.");
+    return "error";
+  }
+
+  const workout = await prisma.workout.findUnique({
+    where: {
+      id,
+      user: session.user,
+    },
+    include: {
+      exercises: true,
+    },
+  });
+  if (workout) {
+    const lastTime = workout.exercises
+      .at(workout.exercises.length)
+      ?.createdAt?.getTime();
+    const addedExercise = prisma.exercise.create({
+      data: {
+        name,
+        notes,
+        workoutId: id,
+        createdAt: new Date(
+          lastTime ? lastTime + 1 : workout.createdAt.getTime(),
+        ),
+      },
+    });
+    try {
+      await prisma.$transaction([addedExercise]);
+    } catch (error) {
+      console.log("An error occurred while adding the exercise:", error);
+      return "error";
+    }
+    revalidatePath("/dashboard/workout", "layout");
+  } else {
+    console.log("An error occurred while adding the exercise.");
+    return "error";
+  }
+}
+
 export async function editExerciseNotes(id: string, notes: string) {
   const session = await getServerSession(authOptions);
   if (!session || !session.user || !session.user.id) {
@@ -206,4 +253,47 @@ export async function deleteExercise(id: string) {
     return "error";
   }
   revalidatePath("/dashboard/workout", "layout");
+}
+
+export async function addExerciseSet(
+  id: string,
+  reps: string | null,
+  weight: string | null,
+  timehrs: string | null,
+  timemins: string | null,
+  timeseconds: string | null,
+) {
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user || !session.user.id) {
+    console.log("An error occurred while adding the set.");
+    return "error";
+  }
+
+  const exercise = await prisma.exercise.findUnique({
+    where: {
+      id,
+    },
+  });
+  if (exercise) {
+    const addedExerciseSet = prisma.exerciseSet.create({
+      data: {
+        reps,
+        weight,
+        timehrs,
+        timemins,
+        timeseconds,
+        exerciseId: id,
+      },
+    });
+    try {
+      await prisma.$transaction([addedExerciseSet]);
+    } catch (error) {
+      console.log("An error occurred while adding the set:", error);
+      return "error";
+    }
+    revalidatePath("/dashboard/workout", "layout");
+  } else {
+    console.log("An error occurred while adding the set.");
+    return "error";
+  }
 }

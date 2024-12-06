@@ -3,11 +3,10 @@
 import { useState } from "react";
 import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { addExerciseSet } from "@/lib/actions";
 
 export default function AddSet({ id }: { id: string }) {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   const [repsInputValue, setRepsInputValue] = useState("");
   const [weightInputValue, setWeightInputValue] = useState("");
   const [hrsInputValue, setHrsInputValue] = useState("");
@@ -16,7 +15,7 @@ export default function AddSet({ id }: { id: string }) {
   return (
     <>
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
           setLoading(true);
           if (
@@ -32,39 +31,33 @@ export default function AddSet({ id }: { id: string }) {
             });
             setLoading(false);
           } else {
-            const toastId = toast.loading("Adding...");
-            fetch(`/api/exercise/${id}`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                reps: repsInputValue,
-                weight: weightInputValue,
-                timehrs: hrsInputValue,
-                timemins: minsInputValue,
-                timeseconds: secondsInputValue,
-              }),
-            }).then(async (res) => {
-              if (res.status === 200) {
-                const { set } = await res.json();
-                setRepsInputValue("");
-                setWeightInputValue("");
-                setHrsInputValue("");
-                setMinsInputValue("");
-                setSecondsInputValue("");
-                router.refresh();
-                toast.success("Great set!", {
-                  id: toastId,
-                });
-              } else {
-                const { error } = await res.json();
-                toast.error(error, {
-                  id: toastId,
-                });
-              }
-              setLoading(false);
+            toast.remove("add-set");
+            toast.loading("Adding...", {
+              id: "add-set",
             });
+            const res = await addExerciseSet(
+              id,
+              repsInputValue,
+              weightInputValue,
+              hrsInputValue,
+              minsInputValue,
+              secondsInputValue,
+            );
+            if (res === "error") {
+              toast.error("There was an error adding your set.", {
+                id: "add-set",
+              });
+            } else {
+              toast.success("Great exercise!", {
+                id: "add-set",
+              });
+              setRepsInputValue("");
+              setWeightInputValue("");
+              setHrsInputValue("");
+              setMinsInputValue("");
+              setSecondsInputValue("");
+            }
+            setLoading(false);
           }
         }}
         className="grid grid-cols-3 grid-rows-2 items-end gap-y-2 p-0.5 sm:grid-cols-6 sm:grid-rows-1"
