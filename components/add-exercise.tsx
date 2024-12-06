@@ -3,13 +3,13 @@
 import { useState } from "react";
 import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import { listOfAllExercises } from "@/lib/list-of-all-exercises";
 import Autocomplete from "@mui/joy/Autocomplete";
 import { CssVarsProvider } from "@mui/joy";
 import Modal from "@mui/joy/Modal";
 import { GoPlus } from "react-icons/go";
 import Input from "@mui/joy/Input";
+import { addExercise } from "@/lib/actions";
 
 export default function AddExercise({
   id,
@@ -19,7 +19,6 @@ export default function AddExercise({
   currentExsList: string[];
 }) {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   const [value, setValue] = useState<string | null>(null);
   const [distanceValue, setDistanceValue] = useState("");
   const [inputValue, setInputValue] = useState("");
@@ -27,7 +26,7 @@ export default function AddExercise({
   const [showNotesInput, setShowNotesInput] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [open, setOpen] = useState(false);
-  const submit = async () => {
+  async function submit() {
     setLoading(true);
     if (value == null) {
       const input = document.getElementById("exercise");
@@ -68,34 +67,27 @@ export default function AddExercise({
         return;
       }
     }
-    const toastId = toast.loading("Adding...");
-    fetch(`/api/workout/${id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: value !== "Distance Run" ? value : distanceValue + "k " + value,
-        notes: notes === "" ? null : notes,
-      }),
-    }).then(async (res) => {
-      if (res.status === 200) {
-        const { exercise } = await res.json();
-        setValue(null);
-        setOpen(false);
-        router.refresh();
-        toast.success("Great exercise!", {
-          id: toastId,
-        });
-      } else {
-        const { error } = await res.json();
-        toast.error(error, {
-          id: toastId,
-        });
-      }
-      setLoading(false);
+    toast.remove("add-exercise");
+    toast.loading("Adding...", {
+      id: "add-exercise",
     });
-  };
+    const name =
+      value !== "Distance Run" ? value : distanceValue + "k " + value;
+    const notesVar = notes === "" ? null : notes;
+    const res = await addExercise(id, name, notesVar);
+    if (res === "error") {
+      toast.error("There was an error adding your exercise.", {
+        id: "add-exercise",
+      });
+    } else {
+      toast.success("Great exercise!", {
+        id: "add-exercise",
+      });
+      setValue(null);
+      setOpen(false);
+    }
+    setLoading(false);
+  }
   return (
     <>
       <button
@@ -195,7 +187,13 @@ export default function AddExercise({
                 className="mt-1 w-full focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
               />
               {value && (
-                <form onSubmit={submit} className="-mb-4 flex flex-col">
+                <form
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    await submit();
+                  }}
+                  className="-mb-4 flex flex-col"
+                >
                   {value === "Distance Run" && (
                     <div>
                       <label
