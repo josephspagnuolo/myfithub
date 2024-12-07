@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Card from "@/components/card";
 import Input from "@mui/joy/Input";
 import { CssVarsProvider } from "@mui/joy";
+import { createWorkout } from "@/lib/actions";
 
 export default function CreateWorkout() {
   const [loading, setLoading] = useState(false);
@@ -15,33 +16,26 @@ export default function CreateWorkout() {
     <div className="flex w-full max-w-md">
       <Card>
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
             setLoading(true);
-            const toastId = toast.loading("Creating...");
-            fetch("/api/workout", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                content: e.currentTarget.content.value,
-              }),
-            }).then(async (res) => {
-              if (res.status === 200) {
-                const { workout } = await res.json();
-                toast.success("Great workout!", {
-                  id: toastId,
-                });
-                router.push(`/dashboard/workout/${workout.id}`);
-                router.refresh();
-              } else {
-                const { error } = await res.json();
-                toast.error(error, {
-                  id: toastId,
-                });
-              }
+            toast.remove("create-workout");
+            toast.loading("Creating...", {
+              id: "create-workout",
             });
+            const res = await createWorkout(e.currentTarget.content.value);
+            if (res === "error") {
+              toast.error("There was an error creating your workout.", {
+                id: "create-workout",
+              });
+              setLoading(false);
+            } else {
+              toast.success("Great workout!", {
+                id: "create-workout",
+              });
+              router.push(`/dashboard/workout/${res}`);
+              router.refresh();
+            }
           }}
           className="flex flex-col space-y-4 py-1"
         >

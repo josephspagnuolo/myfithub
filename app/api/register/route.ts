@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import VerifyEmailTemplate from "@/components/emails/verify-email-template";
 import { Resend } from "resend";
 import { randomUUID } from "crypto";
+import { render } from "@react-email/components";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -35,6 +36,15 @@ export async function POST(req: Request) {
     });
     try {
       const userEmail = email as string;
+      const plainText = await render(
+        VerifyEmailTemplate({
+          name: user.name as string,
+          token: token.token,
+        }),
+        {
+          plainText: true,
+        },
+      );
       const emailData = await resend.emails.send({
         from: "MyFitHub <security@mail.myfithub.link>",
         to: userEmail,
@@ -43,6 +53,7 @@ export async function POST(req: Request) {
           name: user.name as string,
           token: token.token,
         }),
+        text: plainText,
       });
       return NextResponse.json({ data: emailData, user });
     } catch (error) {
