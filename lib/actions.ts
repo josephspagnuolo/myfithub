@@ -212,7 +212,7 @@ export async function addExercise(
   });
   if (workout) {
     const lastTime = workout.exercises
-      .at(workout.exercises.length)
+      .at(workout.exercises.length - 1)
       ?.createdAt?.getTime();
     const addedExercise = prisma.exercise.create({
       data: {

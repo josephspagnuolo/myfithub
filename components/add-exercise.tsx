@@ -162,6 +162,19 @@ export default function AddExercise({
                   }
                 }}
                 options={listOfAllExercises}
+                filterOptions={(options, state) => {
+                  const startsWithMatches: string[] = [];
+                  const containsMatches: string[] = [];
+                  options.forEach((option) => {
+                    const input = state.inputValue.toLowerCase().trim();
+                    if (option.toLowerCase().startsWith(input)) {
+                      startsWithMatches.push(option);
+                    } else if (option.toLowerCase().includes(input)) {
+                      containsMatches.push(option);
+                    }
+                  });
+                  return [...startsWithMatches, ...containsMatches];
+                }}
                 getOptionDisabled={(option) =>
                   currentExsList.includes(option.toString())
                 }
