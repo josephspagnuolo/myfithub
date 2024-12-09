@@ -184,7 +184,7 @@ function PastSetsButton({
           <span className="overflow-hidden overflow-ellipsis text-nowrap pb-6 text-lg">
             Recent Lifts: <span className="font-bold">{name}</span>
           </span>
-          <div className="thin-scroll flex max-h-60 flex-col space-y-6 overflow-y-auto align-top">
+          <div className="thin-scroll -mr-3.5 flex max-h-60 flex-col space-y-6 overflow-y-auto align-top">
             {pastExsWithSets.length === 0 ? (
               <span className="pb-1 text-sm text-zinc-400">
                 Nothing to show...
@@ -192,7 +192,7 @@ function PastSetsButton({
             ) : (
               <>
                 {pastExsWithSets.map((ex, index) => (
-                  <div className="flex flex-col" key={ex.name + index}>
+                  <div className="mr-3.5 flex flex-col" key={ex.name + index}>
                     <span className="-mb-0.5 text-sm">
                       {daysAgo(ex.createdAt) === 1
                         ? daysAgo(ex.createdAt) + " day ago "
@@ -217,7 +217,7 @@ function PastSetsButton({
                         </span>
                       ) : (
                         <>
-                          <ul className="flex flex-col space-y-1 divide-y-[1px]">
+                          <ul className="flex flex-col space-y-1 divide-y-[1px] divide-zinc-800">
                             {ex.sets.map((set, idx) => (
                               <li className="pb-1 pt-1.5" key={set.id}>
                                 <span className="pr-1 text-2xl font-light text-zinc-400">
