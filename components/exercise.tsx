@@ -153,8 +153,8 @@ function Sets({
                     : `${set.timeseconds} seconds`
                   : "";
   }
-  if (sets.length === 0) return null;
   const [parent, enableAnimations] = useAutoAnimate();
+  if (sets.length === 0) return null;
   return (
     <>
       <div className="flex w-full flex-col overflow-hidden pt-3">
