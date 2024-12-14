@@ -1,13 +1,11 @@
 "use client";
 
-import Modal from "@mui/joy/Modal";
 import { useState } from "react";
 import { deleteAccount } from "@/lib/actions";
 import toast from "react-hot-toast";
 import { signOut } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
-import Input from "@mui/joy/Input";
-import { CssVarsProvider } from "@mui/joy";
+import { Modal, Input } from "@mui/joy";
 
 export default function DeleteAccountButton({ id }: { id: string }) {
   const [open, setOpen] = useState(false);
@@ -23,11 +21,14 @@ export default function DeleteAccountButton({ id }: { id: string }) {
         <span>Delete your account</span>
       </button>
       <Modal
+        aria-labelledby="Delete account"
+        aria-describedby="This will permanently delete your
+              MyFitHub account and all associated data from our records."
         open={open}
         onClose={(event, reason: string) => {
           if (reason !== "backdropClick" && !loading) setOpen(false);
         }}
-        className="flex items-center justify-center bg-black/50 backdrop-blur-0"
+        className="flex items-center justify-center"
       >
         <div className="flex w-5/6 flex-col justify-center rounded-lg border border-zinc-800 bg-black p-6 text-center sm:w-full sm:max-w-lg">
           <div className="mb-2 flex flex-col -space-y-0.5 text-center sm:text-left">
@@ -42,7 +43,6 @@ export default function DeleteAccountButton({ id }: { id: string }) {
               Please type <span className="font-semibold">CONFIRM</span> to
               complete this action.
             </label>
-            <CssVarsProvider defaultMode="dark" />
             <Input
               id="confirm"
               autoComplete="off"

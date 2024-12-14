@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Input from "@mui/joy/Input";
-import { CssVarsProvider } from "@mui/joy";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function CredentialsForm({
@@ -181,7 +180,6 @@ export default function CredentialsForm({
         />
       </div>
       <div>
-        <CssVarsProvider defaultMode="dark" />
         {type === "login" ? (
           <div className="flex justify-between">
             <label htmlFor="password" className="text-xs text-zinc-400">

@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import NavBar from "@/components/navbar";
 import { FaGithub } from "react-icons/fa";
+import { CssVarsProvider } from "@mui/joy/styles";
 
 const title = "MyFitHub";
 const description =
@@ -43,7 +44,7 @@ export default async function RootLayout({
           }}
         />
         <NavBar />
-        {children}
+        <CssVarsProvider defaultMode="dark">{children}</CssVarsProvider>
         <footer className="bottom-2.5 flex items-center justify-center py-4 text-xs text-zinc-400">
           <div className="flex flex-col-reverse justify-center space-y-1 space-y-reverse md:flex-row md:space-x-5 md:space-y-0">
             <p>&copy; 2024 MyFitHub.link - All rights reserved.</p>

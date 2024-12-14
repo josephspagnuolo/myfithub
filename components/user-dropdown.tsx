@@ -50,7 +50,7 @@ export default function UserDropdown({
           <div
             className={`${isOpen ? "absolute -right-px top-12 z-50 flex w-60 flex-col justify-center" : "hidden"}`}
           >
-            <div className="z-10 flex flex-col divide-y divide-zinc-800 rounded-lg border border-zinc-800 bg-black">
+            <div className="z-10 flex flex-col divide-y divide-zinc-800 rounded-lg border border-zinc-800 bg-black shadow-[0px_4px_8px_2px_rgba(0,0,0,0.5)]">
               <div className="p-3.5">
                 <p className="text-sm text-zinc-400">Signed in as</p>
                 <span>{user.name}</span>
@@ -92,9 +92,9 @@ export default function UserDropdown({
           </div>
         </div>
       </ClickAwayListener>
-      <div
-        className={`${isOpen ? "fixed bottom-0 left-0 right-0 top-0 z-40 bg-zinc-950/75 backdrop-blur-0" : "hidden"}`}
-      ></div>
+      {/* <div
+        className={`${isOpen ? "fixed bottom-0 left-0 right-0 top-0 z-40" : "hidden"}`}
+      ></div> */}
     </>
   );
 }

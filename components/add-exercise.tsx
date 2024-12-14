@@ -4,11 +4,8 @@ import { useState } from "react";
 import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
 import { listOfAllExercises } from "@/lib/list-of-all-exercises";
-import Autocomplete from "@mui/joy/Autocomplete";
-import { CssVarsProvider } from "@mui/joy";
-import Modal from "@mui/joy/Modal";
+import { Modal, Input, Autocomplete } from "@mui/joy";
 import { GoPlus } from "react-icons/go";
-import Input from "@mui/joy/Input";
 import { addExercise } from "@/lib/actions";
 
 export default function AddExercise({
@@ -103,9 +100,11 @@ export default function AddExercise({
         </div>
       </button>
       <Modal
+        aria-labelledby="Add Exercise"
+        aria-describedby="This will add the selected exercise to the workout."
         disableRestoreFocus
         open={open}
-        className="flex items-center justify-center bg-black/50 backdrop-blur-0"
+        className="flex items-center justify-center"
         onClose={() => {
           if (!loading) {
             setOpen(false);
@@ -123,7 +122,6 @@ export default function AddExercise({
             </span>
           </div>
           <div className="mt-3 flex flex-col space-y-4">
-            <CssVarsProvider defaultMode="dark" />
             <div>
               <label htmlFor="exercise" className="block text-xs text-zinc-400">
                 Exercise Name

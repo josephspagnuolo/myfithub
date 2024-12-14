@@ -2,17 +2,22 @@
 
 import { BsThreeDots } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
-import { Dispatch, SetStateAction, useState } from "react";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import Modal from "@mui/joy/Modal";
+import { useRef, useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import LoadingDots from "@/components/loading-dots";
 import { deleteWorkout, editWorkoutTitle } from "@/lib/actions";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import LogoSVG from "@/components/logo-svg";
-import Input from "@mui/joy/Input";
-import { CssVarsProvider } from "@mui/joy";
+import {
+  Dropdown,
+  MenuButton,
+  Menu,
+  MenuItem,
+  Modal,
+  Input,
+  IconButton,
+} from "@mui/joy";
 
 export default function WorkoutMenuButton({
   id,
@@ -21,41 +26,30 @@ export default function WorkoutMenuButton({
   id: string;
   title: string;
 }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const closeDropdown = () => {
-    setIsOpen(false);
-  };
   return (
-    <>
-      <ClickAwayListener onClickAway={closeDropdown}>
-        <div className="relative inline-block">
-          <button
-            onClick={toggleDropdown}
-            className="relative flex h-10 w-10 items-center justify-center rounded-md transition-all hover:bg-zinc-800"
-          >
-            <BsThreeDots size={20} />
-          </button>
-          <div
-            className={`${isOpen ? "absolute right-0 top-11 z-50 flex w-36 flex-col justify-center" : "hidden"}`}
-          >
-            <div className="z-10 flex flex-col overflow-clip rounded-md border border-zinc-800 bg-black p-1">
-              <ViewWorkoutButton id={id} />
-              <EditWorkoutTitleButton
-                id={id}
-                title={title}
-                setDropdownClosed={setIsOpen}
-              />
-              <DeleteWorkoutButton id={id} setDropdownClosed={setIsOpen} />
-            </div>
-          </div>
-        </div>
-      </ClickAwayListener>
-    </>
+    <Dropdown>
+      <MenuButton
+        slots={{ root: IconButton }}
+        className="h-10 w-10 items-center justify-center border-none p-0 transition-all *:text-zinc-50 hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+      >
+        <BsThreeDots size={20} />
+      </MenuButton>
+      <Menu
+        keepMounted
+        placement="bottom-end"
+        className="flex w-36 flex-col rounded-md border border-zinc-800 bg-black p-1 text-zinc-50"
+      >
+        <MenuItem className="rounded-md border-0 p-0 *:text-zinc-50 focus-within:outline-none focus-visible:outline-none focus-visible:outline-offset-0">
+          <ViewWorkoutButton id={id} />
+        </MenuItem>
+        <MenuItem className="rounded-md border-0 p-0 *:text-zinc-50 focus-within:outline-none focus-visible:outline-none focus-visible:outline-offset-0">
+          <EditWorkoutTitleButton id={id} title={title} />
+        </MenuItem>
+        <MenuItem className="rounded-md border-0 p-0 focus-within:outline-none focus-visible:outline-none focus-visible:outline-offset-0">
+          <DeleteWorkoutButton id={id} />
+        </MenuItem>
+      </Menu>
+    </Dropdown>
   );
 }
 
@@ -63,7 +57,7 @@ function ViewWorkoutButton({ id }: { id: string }) {
   return (
     <Link
       href={`/dashboard/workout/${id}`}
-      className="flex flex-row items-center rounded-[5px] p-2.5 py-[5.5px] transition-all hover:bg-zinc-800"
+      className="flex w-full flex-row items-center rounded-[5px] p-2.5 py-[5.5px] transition-all hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
     >
       <LogoSVG className="mt-px h-5 w-5" />
       <span className="mb-px ml-2">View</span>
@@ -71,36 +65,29 @@ function ViewWorkoutButton({ id }: { id: string }) {
   );
 }
 
-function EditWorkoutTitleButton({
-  id,
-  title,
-  setDropdownClosed,
-}: {
-  id: string;
-  title: string;
-  setDropdownClosed: Dispatch<SetStateAction<boolean>>;
-}) {
+function EditWorkoutTitleButton({ id, title }: { id: string; title: string }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   return (
     <>
       <button
-        className="flex flex-row items-center rounded-[5px] p-2.5 py-1.5 transition-all hover:bg-zinc-800"
+        className="flex w-full flex-row items-center rounded-[5px] p-2.5 py-1.5 transition-all hover:bg-zinc-800"
         onClick={() => {
           setOpen(true);
-          setDropdownClosed(false);
         }}
       >
         <MdEdit size={20} className="mb-px mt-px" />
         <span className="ml-2">Edit Title</span>
       </button>
       <Modal
+        aria-labelledby="Edit Title"
+        aria-describedby="This will change the name of the selected workout."
         disableRestoreFocus
         open={open}
         onClose={() => {
           if (!loading) setOpen(false);
         }}
-        className="flex items-center justify-center bg-black/50 backdrop-blur-0"
+        className="flex items-center justify-center"
       >
         <div className="fixed grid w-5/6 rounded-lg border border-zinc-800 bg-black p-6 sm:w-full sm:max-w-md">
           <div className="mb-2 flex flex-col -space-y-0.5 text-center sm:text-left">
@@ -139,7 +126,6 @@ function EditWorkoutTitleButton({
               <label htmlFor="content" className="block text-xs text-zinc-400">
                 Workout Name
               </label>
-              <CssVarsProvider defaultMode="dark" />
               <Input
                 id="content"
                 name="content"
@@ -211,33 +197,28 @@ function EditWorkoutTitleButton({
   );
 }
 
-function DeleteWorkoutButton({
-  id,
-  setDropdownClosed,
-}: {
-  id: string;
-  setDropdownClosed: Dispatch<SetStateAction<boolean>>;
-}) {
+function DeleteWorkoutButton({ id }: { id: string }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   return (
     <>
       <button
-        className="flex flex-row items-center rounded-[5px] p-2.5 py-1.5 text-red-600 transition-all hover:bg-zinc-800"
+        className="flex w-full flex-row items-center rounded-[5px] p-2.5 py-1.5 text-red-600 transition-all hover:bg-zinc-800"
         onClick={() => {
           setOpen(true);
-          setDropdownClosed(false);
         }}
       >
         <FaRegTrashAlt size={20} strokeWidth={8} className="mt-px" />
         <span className="ml-2">Delete</span>
       </button>
       <Modal
+        aria-labelledby="Delete Workout"
+        aria-describedby="This will permanently delete this workout from all records."
         open={open}
         onClose={(event, reason: string) => {
           if (reason !== "backdropClick" && !loading) setOpen(false);
         }}
-        className="flex items-center justify-center bg-black/50 backdrop-blur-0"
+        className="flex items-center justify-center"
       >
         <div className="flex w-5/6 flex-col justify-center rounded-lg border border-zinc-800 bg-black p-6 text-center sm:w-full sm:max-w-lg">
           <div className="mb-2 flex flex-col -space-y-0.5 text-center sm:text-left">
