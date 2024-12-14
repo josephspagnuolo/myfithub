@@ -5,7 +5,6 @@ import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Input from "@mui/joy/Input";
-import { CssVarsProvider } from "@mui/joy";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function PasswordResetForm({ token }: { token: string }) {
@@ -76,7 +75,6 @@ export default function PasswordResetForm({ token }: { token: string }) {
             Password
           </label>
         </div>
-        <CssVarsProvider defaultMode="dark" />
         <Input
           id="password"
           name="password"

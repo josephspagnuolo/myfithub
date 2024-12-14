@@ -1,15 +1,21 @@
 "use client";
 
 import { MdEdit } from "react-icons/md";
-import { useState, useRef, ChangeEvent, Dispatch, SetStateAction } from "react";
-import Modal from "@mui/joy/Modal";
+import { useState, useRef, ChangeEvent } from "react";
 import LoadingDots from "@/components/loading-dots";
 import { editProfile, removeProfileImage } from "@/lib/actions";
 import toast from "react-hot-toast";
 import Image from "next/image";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { HiUpload } from "react-icons/hi";
+import {
+  Dropdown,
+  MenuButton,
+  Menu,
+  MenuItem,
+  Modal,
+  IconButton,
+} from "@mui/joy";
 
 export default function EditProfileButton({
   id,
@@ -18,57 +24,38 @@ export default function EditProfileButton({
   id: string;
   image: string;
 }) {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const closeDropdown = () => {
-    setIsDropdownOpen(false);
-  };
   return (
-    <>
-      <ClickAwayListener onClickAway={closeDropdown}>
-        <div className="relative inline-block">
-          <button
-            type="button"
-            onClick={toggleDropdown}
-            className="rounded-full bg-sky-600 p-2 transition-all hover:bg-sky-700"
-          >
-            <MdEdit size={20} />
-          </button>
-          <div
-            className={`${isDropdownOpen ? "absolute bottom-10 left-0 z-50 flex w-36 flex-col justify-center" : "hidden"}`}
-          >
-            <div className="z-10 flex flex-col overflow-clip rounded-md border border-zinc-800 bg-black p-1">
-              <UploadImageButton
-                id={id}
-                image={image}
-                setDropdownClosed={setIsDropdownOpen}
-              />
-              <RemoveImageButton
-                id={id}
-                image={image}
-                setDropdownClosed={setIsDropdownOpen}
-              />
-            </div>
-          </div>
-        </div>
-      </ClickAwayListener>
-    </>
+    <Dropdown>
+      <MenuButton
+        slots={{ root: IconButton }}
+        sx={{
+          width: "36px",
+          height: "36px",
+          padding: "8px",
+          backgroundColor: "rgb(2, 132, 199)",
+          borderRadius: "9999px",
+        }}
+        className="border-none transition-all *:text-zinc-50 hover:bg-sky-700 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+      >
+        <MdEdit size={20} />
+      </MenuButton>
+      <Menu
+        keepMounted
+        placement="top-start"
+        className="flex w-36 flex-col rounded-md border border-zinc-800 bg-black p-1 text-zinc-50"
+      >
+        <MenuItem className="rounded-md border-0 p-0 *:text-zinc-50">
+          <UploadImageButton id={id} image={image} />
+        </MenuItem>
+        <MenuItem className="rounded-md border-0 p-0">
+          <RemoveImageButton id={id} image={image} />
+        </MenuItem>
+      </Menu>
+    </Dropdown>
   );
 }
 
-function UploadImageButton({
-  id,
-  image,
-  setDropdownClosed,
-}: {
-  id: string;
-  image: string;
-  setDropdownClosed: Dispatch<SetStateAction<boolean>>;
-}) {
+function UploadImageButton({ id, image }: { id: string; image: string }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
@@ -97,10 +84,9 @@ function UploadImageButton({
       />
       <button
         type="button"
-        className="flex flex-row items-center rounded-[5px] p-2.5 py-1.5 transition-all hover:bg-zinc-800"
+        className="flex w-full flex-row items-center rounded-[5px] p-2.5 py-1.5 transition-all hover:bg-zinc-800"
         onClick={() => {
           inputRef.current?.click();
-          setDropdownClosed(false);
         }}
       >
         <HiUpload size={20} />
@@ -109,6 +95,8 @@ function UploadImageButton({
         </span>
       </button>
       <Modal
+        aria-labelledby="Profile Image"
+        aria-describedby="This will change the image associated with your profile."
         disableRestoreFocus
         open={open}
         onClose={() => {
@@ -117,7 +105,7 @@ function UploadImageButton({
             setPreview(null);
           }
         }}
-        className="flex items-center justify-center bg-black/50 backdrop-blur-0"
+        className="flex items-center justify-center"
       >
         <div className="fixed grid w-5/6 rounded-lg border border-zinc-800 bg-black p-6 sm:w-full sm:max-w-md">
           <div className="mb-2 flex flex-col -space-y-0.5 text-center sm:text-left">
@@ -211,36 +199,29 @@ function UploadImageButton({
   );
 }
 
-function RemoveImageButton({
-  id,
-  image,
-  setDropdownClosed,
-}: {
-  id: string;
-  image: string;
-  setDropdownClosed: Dispatch<SetStateAction<boolean>>;
-}) {
+function RemoveImageButton({ id, image }: { id: string; image: string }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   return (
     <>
       <button
         type="button"
-        className="flex flex-row items-center rounded-[5px] p-2.5 py-1.5 text-red-600 transition-all hover:bg-zinc-800"
+        className="flex w-full flex-row items-center rounded-[5px] p-2.5 py-1.5 text-red-600 transition-all hover:bg-zinc-800"
         onClick={() => {
           setOpen(true);
-          setDropdownClosed(false);
         }}
       >
         <FaRegTrashAlt size={20} strokeWidth={8} className="mt-px" />
         <span className="ml-2 text-base font-[480]">Remove</span>
       </button>
       <Modal
+        aria-labelledby="Remove Profile Image"
+        aria-describedby="This will permanently delete the image associated with your profile."
         open={open}
         onClose={(event, reason: string) => {
           if (reason !== "backdropClick" && !loading) setOpen(false);
         }}
-        className="flex items-center justify-center bg-black/50 backdrop-blur-0"
+        className="flex items-center justify-center"
       >
         <div className="flex w-5/6 flex-col justify-center rounded-lg border border-zinc-800 bg-black p-6 text-center sm:w-full sm:max-w-lg">
           <div className="mb-2 flex flex-col -space-y-0.5 text-center sm:text-left">

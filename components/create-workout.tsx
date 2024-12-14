@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Card from "@/components/card";
 import Input from "@mui/joy/Input";
-import { CssVarsProvider } from "@mui/joy";
 import { createWorkout } from "@/lib/actions";
 
 export default function CreateWorkout() {
@@ -43,7 +42,6 @@ export default function CreateWorkout() {
             <label htmlFor="content" className="block text-xs text-zinc-400">
               Workout Name
             </label>
-            <CssVarsProvider defaultMode="dark" />
             <Input
               id="content"
               name="content"

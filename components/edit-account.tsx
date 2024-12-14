@@ -2,12 +2,10 @@
 
 import { MdEdit } from "react-icons/md";
 import { useState } from "react";
-import Modal from "@mui/joy/Modal";
 import LoadingDots from "@/components/loading-dots";
 import { editAccount } from "@/lib/actions";
 import toast from "react-hot-toast";
-import Input from "@mui/joy/Input";
-import { CssVarsProvider } from "@mui/joy";
+import { Modal, Input } from "@mui/joy";
 
 export default function EditAccountButton({
   id,
@@ -30,12 +28,14 @@ export default function EditAccountButton({
         <span className="ml-3">Edit Details</span>
       </button>
       <Modal
+        aria-labelledby="Edit Details"
+        aria-describedby="This will change your account information."
         disableRestoreFocus
         open={open}
         onClose={() => {
           if (!loading) setOpen(false);
         }}
-        className="flex items-center justify-center bg-black/50 backdrop-blur-0"
+        className="flex items-center justify-center"
       >
         <div className="fixed grid w-5/6 rounded-lg border border-zinc-800 bg-black p-6 sm:w-full sm:max-w-md">
           <div className="mb-2 flex flex-col -space-y-0.5 text-center sm:text-left">
@@ -71,7 +71,6 @@ export default function EditAccountButton({
               <label htmlFor="nametext" className="block text-xs text-zinc-400">
                 Your Name
               </label>
-              <CssVarsProvider defaultMode="dark" />
               <Input
                 id="nametext"
                 name="nametext"

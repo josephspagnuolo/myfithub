@@ -63,9 +63,9 @@ export default function ExerciseComponent({
             onClick={() => setNewSetOpen((prev) => !prev)}
           >
             {newSetOpen ? (
-              <GoDash size={29} strokeWidth={1.2} className="pb-[3px]" />
+              <GoDash size={30} strokeWidth={1.3} className="pb-[3px]" />
             ) : (
-              <GoPlus size={28} strokeWidth={1} />
+              <GoPlus size={28} strokeWidth={1.2} />
             )}
           </button>
           <ExerciseMenuButton
