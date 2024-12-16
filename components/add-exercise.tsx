@@ -4,7 +4,7 @@ import { useState } from "react";
 import LoadingDots from "@/components/loading-dots";
 import toast from "react-hot-toast";
 import { listOfAllExercises } from "@/lib/list-of-all-exercises";
-import { Modal, Input, Autocomplete } from "@mui/joy";
+import { Modal, Input, Autocomplete, AutocompleteOption } from "@mui/joy";
 import { GoPlus } from "react-icons/go";
 import { addExercise } from "@/lib/actions";
 
@@ -84,6 +84,42 @@ export default function AddExercise({
       setOpen(false);
     }
     setLoading(false);
+  }
+  function validateDistance() {
+    const input = document.getElementById("distance");
+    const validityState = (input as HTMLInputElement).validity;
+    (input as HTMLInputElement).setCustomValidity("");
+    if ((input as HTMLInputElement).value.length < 1) {
+      (input as HTMLInputElement).setCustomValidity(
+        "Please fill out this field.",
+      );
+    } else if (
+      (input as HTMLInputElement).value.includes(" ") ||
+      !/[0-9]/.test((input as HTMLInputElement).value) ||
+      (input as HTMLInputElement).value.split(".").length - 1 > 1
+    ) {
+      (input as HTMLInputElement).setCustomValidity(
+        "From 0.01 to 99.99 (up to 2 decimals)",
+      );
+    } else if (
+      (input as HTMLInputElement).value.length > 2 &&
+      !(input as HTMLInputElement).value.includes(".")
+    ) {
+      (input as HTMLInputElement).setCustomValidity(
+        "From 0.01 to 99.99 (up to 2 decimals)",
+      );
+    } else if (
+      (input as HTMLInputElement).value.split(".")[1]?.length > 2 ||
+      (input as HTMLInputElement).value.split(".")[0]?.includes("00") ||
+      parseFloat((input as HTMLInputElement).value) > 99.99 ||
+      parseFloat((input as HTMLInputElement).value) < 0.01
+    ) {
+      (input as HTMLInputElement).setCustomValidity(
+        "From 0.01 to 99.99 (up to 2 decimals)",
+      );
+    } else {
+      (input as HTMLInputElement).setCustomValidity("");
+    }
   }
   return (
     <>
@@ -195,6 +231,17 @@ export default function AddExercise({
                     },
                   },
                 }}
+                renderOption={(props, option) => (
+                  <AutocompleteOption
+                    {...props}
+                    sx={{
+                      marginX: "6px",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    {option}
+                  </AutocompleteOption>
+                )}
                 className="mt-1 w-full focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
               />
               {value && (
@@ -219,19 +266,19 @@ export default function AddExercise({
                         placeholder="3.5"
                         value={distanceValue}
                         disabled={loading}
-                        title="From 0.01 to 99.99 (2 decimals)"
+                        title="From 0.01 to 99.99 (up to 2 decimals)"
                         onChange={(e) => {
+                          validateDistance();
                           setDistanceValue(e.target.value);
                         }}
                         slotProps={{
                           input: {
                             autoComplete: "off",
                             inputMode: "decimal",
-                            pattern:
-                              "[1-9]0.d+|[1-9]d{0,1}?|[1-9]{1,2}(.[0-9]{1,2})|0(.[0-9]{1,2})$",
+                            pattern: "^[0-9.]+$",
                             minLength: 1,
                             maxLength: 5,
-                            title: "From 0.01 to 99.99 (2 decimals)",
+                            title: "From 0.01 to 99.99 (up to 2 decimals)",
                           },
                         }}
                         sx={{

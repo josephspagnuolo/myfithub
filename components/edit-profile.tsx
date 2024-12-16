@@ -1,7 +1,14 @@
 "use client";
 
 import { MdEdit } from "react-icons/md";
-import { useState, useRef, ChangeEvent } from "react";
+import {
+  useState,
+  useRef,
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  RefObject,
+} from "react";
 import LoadingDots from "@/components/loading-dots";
 import { editProfile, removeProfileImage } from "@/lib/actions";
 import toast from "react-hot-toast";
@@ -24,43 +31,93 @@ export default function EditProfileButton({
   id: string;
   image: string;
 }) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [removeModalOpen, setRemoveModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   return (
-    <Dropdown>
-      <MenuButton
-        slots={{ root: IconButton }}
-        sx={{
-          width: "36px",
-          height: "36px",
-          padding: "8px",
-          backgroundColor: "rgb(2, 132, 199)",
-          borderRadius: "9999px",
-        }}
-        className="border-none transition-all *:text-zinc-50 hover:bg-sky-700 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
-      >
-        <MdEdit size={20} />
-      </MenuButton>
-      <Menu
-        keepMounted
-        placement="top-start"
-        className="flex w-36 flex-col rounded-md border border-zinc-800 bg-black p-1 text-zinc-50"
-      >
-        <MenuItem className="rounded-md border-0 p-0 *:text-zinc-50">
-          <UploadImageButton id={id} image={image} />
-        </MenuItem>
-        <MenuItem className="rounded-md border-0 p-0">
-          <RemoveImageButton id={id} image={image} />
-        </MenuItem>
-      </Menu>
-    </Dropdown>
+    <>
+      <Dropdown>
+        <MenuButton
+          slots={{ root: IconButton }}
+          sx={{
+            width: "36px",
+            height: "36px",
+            padding: "8px",
+            backgroundColor: "rgb(2, 132, 199)",
+            borderRadius: "9999px",
+            "&:hover": {
+              backgroundColor: "#0369a1",
+            },
+          }}
+          className="border-none transition-all *:text-zinc-50 hover:bg-sky-700 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+        >
+          <MdEdit size={20} />
+        </MenuButton>
+        <Menu
+          placement="top-start"
+          className="flex w-36 flex-col rounded-md border border-zinc-800 bg-black p-1 text-zinc-50"
+        >
+          <MenuItem
+            className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+            onClick={() => {
+              inputRef.current?.click();
+            }}
+          >
+            <HiUpload size={20} />
+            <span className="ml-1.5 -translate-y-px">Upload</span>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setRemoveModalOpen(true);
+            }}
+            className="items-center rounded-[5px] px-2 *:text-red-600 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+          >
+            <FaRegTrashAlt size={20} strokeWidth={8} className="mt-px" />
+            <span className="ml-1.5 font-medium">Remove</span>
+          </MenuItem>
+        </Menu>
+      </Dropdown>
+      <UploadImageModal
+        id={id}
+        image={image}
+        open={uploadModalOpen}
+        setOpen={setUploadModalOpen}
+        loading={loading}
+        setLoading={setLoading}
+        inputRef={inputRef}
+      />
+      <RemoveImageModal
+        id={id}
+        image={image}
+        open={removeModalOpen}
+        setOpen={setRemoveModalOpen}
+        loading={loading}
+        setLoading={setLoading}
+      />
+    </>
   );
 }
 
-function UploadImageButton({ id, image }: { id: string; image: string }) {
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+function UploadImageModal({
+  id,
+  image,
+  open,
+  setOpen,
+  loading,
+  setLoading,
+  inputRef,
+}: {
+  id: string;
+  image: string;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+  inputRef: RefObject<HTMLInputElement>;
+}) {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const fileFromInput = e.target.files?.[0];
@@ -82,18 +139,6 @@ function UploadImageButton({ id, image }: { id: string; image: string }) {
         onChange={handleFileChange}
         className="hidden"
       />
-      <button
-        type="button"
-        className="flex w-full flex-row items-center rounded-[5px] p-2.5 py-1.5 transition-all hover:bg-zinc-800"
-        onClick={() => {
-          inputRef.current?.click();
-        }}
-      >
-        <HiUpload size={20} />
-        <span className="ml-2 -translate-y-px text-base font-normal">
-          Upload
-        </span>
-      </button>
       <Modal
         aria-labelledby="Profile Image"
         aria-describedby="This will change the image associated with your profile."
@@ -199,73 +244,73 @@ function UploadImageButton({ id, image }: { id: string; image: string }) {
   );
 }
 
-function RemoveImageButton({ id, image }: { id: string; image: string }) {
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+function RemoveImageModal({
+  id,
+  image,
+  open,
+  setOpen,
+  loading,
+  setLoading,
+}: {
+  id: string;
+  image: string;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+}) {
   return (
-    <>
-      <button
-        type="button"
-        className="flex w-full flex-row items-center rounded-[5px] p-2.5 py-1.5 text-red-600 transition-all hover:bg-zinc-800"
-        onClick={() => {
-          setOpen(true);
-        }}
-      >
-        <FaRegTrashAlt size={20} strokeWidth={8} className="mt-px" />
-        <span className="ml-2 text-base font-[480]">Remove</span>
-      </button>
-      <Modal
-        aria-labelledby="Remove Profile Image"
-        aria-describedby="This will permanently delete the image associated with your profile."
-        open={open}
-        onClose={(event, reason: string) => {
-          if (reason !== "backdropClick" && !loading) setOpen(false);
-        }}
-        className="flex items-center justify-center"
-      >
-        <div className="flex w-5/6 flex-col justify-center rounded-lg border border-zinc-800 bg-black p-6 text-center sm:w-full sm:max-w-lg">
-          <div className="mb-2 flex flex-col -space-y-0.5 text-center sm:text-left">
-            <span className="text-lg font-semibold">Are you sure?</span>
-            <span className="text-sm text-zinc-400">
-              This action cannot be undone. This will permanently delete the
-              image associated with your profile.
-            </span>
-          </div>
-          <div className="mt-3 flex flex-col-reverse space-y-2 space-y-reverse sm:flex-row sm:justify-end sm:space-x-2 sm:space-y-0">
-            <button
-              className="text-md flex h-10 w-full items-center justify-center rounded-md border border-zinc-800 font-semibold transition-all hover:bg-zinc-800 sm:w-20"
-              onClick={() => setOpen(false)}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="text-md flex h-10 w-full items-center justify-center rounded-md border border-black bg-red-800 font-semibold transition-all hover:bg-red-900 sm:w-20"
-              onClick={async () => {
-                setLoading(true);
-                toast.remove("remove-profile-image");
-                toast.loading("Removing...", {
+    <Modal
+      aria-labelledby="Remove Profile Image"
+      aria-describedby="This will permanently delete the image associated with your profile."
+      open={open}
+      onClose={(event, reason: string) => {
+        if (reason !== "backdropClick" && !loading) setOpen(false);
+      }}
+      className="flex items-center justify-center"
+    >
+      <div className="flex w-5/6 flex-col justify-center rounded-lg border border-zinc-800 bg-black p-6 text-center sm:w-full sm:max-w-lg">
+        <div className="mb-2 flex flex-col -space-y-0.5 text-center sm:text-left">
+          <span className="text-lg font-semibold">Are you sure?</span>
+          <span className="text-sm text-zinc-400">
+            This action cannot be undone. This will permanently delete the image
+            associated with your profile.
+          </span>
+        </div>
+        <div className="mt-3 flex flex-col-reverse space-y-2 space-y-reverse sm:flex-row sm:justify-end sm:space-x-2 sm:space-y-0">
+          <button
+            className="text-md flex h-10 w-full items-center justify-center rounded-md border border-zinc-800 font-semibold transition-all hover:bg-zinc-800 sm:w-20"
+            onClick={() => setOpen(false)}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="text-md flex h-10 w-full items-center justify-center rounded-md border border-black bg-red-800 font-semibold transition-all hover:bg-red-900 sm:w-20"
+            onClick={async () => {
+              setLoading(true);
+              toast.remove("remove-profile-image");
+              toast.loading("Removing...", {
+                id: "remove-profile-image",
+              });
+              const res = await removeProfileImage(id, image);
+              if (res === "error") {
+                toast.error("There was an error editing your profile.", {
                   id: "remove-profile-image",
                 });
-                const res = await removeProfileImage(id, image);
-                if (res === "error") {
-                  toast.error("There was an error editing your profile.", {
-                    id: "remove-profile-image",
-                  });
-                } else {
-                  toast.success("Your profile image has been removed.", {
-                    id: "remove-profile-image",
-                  });
-                  setOpen(false);
-                }
-                setLoading(false);
-              }}
-            >
-              Delete
-            </button>
-          </div>
+              } else {
+                toast.success("Your profile image has been removed.", {
+                  id: "remove-profile-image",
+                });
+                setOpen(false);
+              }
+              setLoading(false);
+            }}
+          >
+            Delete
+          </button>
         </div>
-      </Modal>
-    </>
+      </div>
+    </Modal>
   );
 }
