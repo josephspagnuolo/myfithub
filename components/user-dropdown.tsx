@@ -32,24 +32,22 @@ export default function UserDropdown({
   };
 
   return (
-    <>
-      <ClickAwayListener onClickAway={closeDropdown}>
-        <div className="relative inline-block">
-          <button
-            onClick={toggleDropdown}
-            className="relative z-50 overflow-clip rounded-full transition-all sm:hover:opacity-75"
-          >
-            <Image
-              src={user.image ? user.image : "/user.png"}
-              alt="Profile Image"
-              width={38}
-              height={38}
-              className="h-[38px] w-[38px] rounded-full object-cover object-center"
-            />
-          </button>
-          <div
-            className={`${isOpen ? "absolute -right-px top-12 z-50 flex w-60 flex-col justify-center" : "hidden"}`}
-          >
+    <ClickAwayListener onClickAway={closeDropdown}>
+      <div className="relative inline-block">
+        <button
+          onClick={toggleDropdown}
+          className="relative z-50 overflow-clip rounded-full transition-all sm:hover:opacity-75"
+        >
+          <Image
+            src={user.image ? user.image : "/user.png"}
+            alt="Profile Image"
+            width={38}
+            height={38}
+            className="h-[38px] w-[38px] rounded-full object-cover object-center"
+          />
+        </button>
+        {isOpen && (
+          <div className="absolute -right-px top-12 z-50 flex w-60 flex-col justify-center">
             <div className="z-10 flex flex-col divide-y divide-zinc-800 rounded-lg border border-zinc-800 bg-black shadow-[0px_4px_8px_2px_rgba(0,0,0,0.5)]">
               <div className="p-3.5">
                 <p className="text-sm text-zinc-400">Signed in as</p>
@@ -90,11 +88,8 @@ export default function UserDropdown({
               </div>
             </div>
           </div>
-        </div>
-      </ClickAwayListener>
-      {/* <div
-        className={`${isOpen ? "fixed bottom-0 left-0 right-0 top-0 z-40" : "hidden"}`}
-      ></div> */}
-    </>
+        )}
+      </div>
+    </ClickAwayListener>
   );
 }

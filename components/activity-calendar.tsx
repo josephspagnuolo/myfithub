@@ -148,27 +148,66 @@ export default function ActivityCalendar({
   }
 
   return (
-    <>
-      <div className="flex scroll-mt-1 flex-row justify-center gap-1 overflow-x-auto pb-3 sm:pb-1.5">
-        <div className="grid w-[26px] min-w-[26px] gap-1">
-          <div className="h-3 w-3"></div>
-          <div className="h-3 w-3"></div>
-          <div className="h-3 w-3 text-xs leading-3">Mon</div>
-          <div className="h-3 w-3"></div>
-          <div className="h-3 w-3 text-xs leading-3">Wed</div>
-          <div className="h-3 w-3"></div>
-          <div className="h-3 w-3 text-xs leading-3">Fri</div>
-          <div className="h-3 w-3"></div>
+    <div className="flex scroll-mt-1 flex-row justify-center gap-1 overflow-x-auto pb-3 sm:pb-1.5">
+      <div className="grid w-[26px] min-w-[26px] gap-1">
+        <div className="h-3 w-3"></div>
+        <div className="h-3 w-3"></div>
+        <div className="h-3 w-3 text-xs leading-3">Mon</div>
+        <div className="h-3 w-3"></div>
+        <div className="h-3 w-3 text-xs leading-3">Wed</div>
+        <div className="h-3 w-3"></div>
+        <div className="h-3 w-3 text-xs leading-3">Fri</div>
+        <div className="h-3 w-3"></div>
+      </div>
+      {isItSunday ? (
+        <div className="grid w-[12px] gap-1">
+          <div className="h-[12px] overflow-visible p-0 pl-[0.5px] text-xs leading-3">
+            {getMonth(weeks[53])}
+          </div>
+          {remaining(weeks[53].length).map((day) => (
+            <div key={day} className="h-3 w-3"></div>
+          ))}
+          {weeks[53].map((day) => (
+            <DateBox
+              key={day}
+              date={day}
+              didworkout={workoutNamesAndTimes.map((w) => w.date).includes(day)}
+              workoutsThatDay={workoutNamesAndTimes.filter(
+                (c) => c.date === day,
+              )}
+              howmany={
+                workoutNamesAndTimes.filter((c) => c.date === day).length
+              }
+            />
+          ))}
         </div>
-        {isItSunday ? (
-          <div className="grid w-[12px] gap-1">
+      ) : null}
+      <div className="grid w-[12px] gap-1">
+        <div className="h-[12px] overflow-visible p-0 pl-[0.5px] text-xs leading-3">
+          {getMonth(weeks[52])}
+        </div>
+        {remaining(weeks[52].length).map((day) => (
+          <div key={day} className="h-3 w-3"></div>
+        ))}
+        {weeks[52].map((day) => (
+          <DateBox
+            key={day}
+            date={day}
+            didworkout={workoutNamesAndTimes.map((w) => w.date).includes(day)}
+            workoutsThatDay={workoutNamesAndTimes.filter((c) => c.date === day)}
+            howmany={workoutNamesAndTimes.filter((c) => c.date === day).length}
+          />
+        ))}
+      </div>
+      {weeks
+        .slice(1, 52)
+        .reverse()
+        .map((week, index) => (
+          <div key={index} className="grid w-[12px] gap-1">
             <div className="h-[12px] overflow-visible p-0 pl-[0.5px] text-xs leading-3">
-              {getMonth(weeks[53])}
+              {getMonth(week)}
             </div>
-            {remaining(weeks[53].length).map((day) => (
-              <div key={day} className="h-3 w-3"></div>
-            ))}
-            {weeks[53].map((day) => (
+            {week.map((day) => (
               <DateBox
                 key={day}
                 date={day}
@@ -184,70 +223,19 @@ export default function ActivityCalendar({
               />
             ))}
           </div>
-        ) : null}
-        <div className="grid w-[12px] gap-1">
-          <div className="h-[12px] overflow-visible p-0 pl-[0.5px] text-xs leading-3">
-            {getMonth(weeks[52])}
-          </div>
-          {remaining(weeks[52].length).map((day) => (
-            <div key={day} className="h-3 w-3"></div>
-          ))}
-          {weeks[52].map((day) => (
-            <DateBox
-              key={day}
-              date={day}
-              didworkout={workoutNamesAndTimes.map((w) => w.date).includes(day)}
-              workoutsThatDay={workoutNamesAndTimes.filter(
-                (c) => c.date === day,
-              )}
-              howmany={
-                workoutNamesAndTimes.filter((c) => c.date === day).length
-              }
-            />
-          ))}
-        </div>
-        {weeks
-          .slice(1, 52)
-          .reverse()
-          .map((week, index) => (
-            <div key={index} className="grid w-[12px] gap-1">
-              <div className="h-[12px] overflow-visible p-0 pl-[0.5px] text-xs leading-3">
-                {getMonth(week)}
-              </div>
-              {week.map((day) => (
-                <DateBox
-                  key={day}
-                  date={day}
-                  didworkout={workoutNamesAndTimes
-                    .map((w) => w.date)
-                    .includes(day)}
-                  workoutsThatDay={workoutNamesAndTimes.filter(
-                    (c) => c.date === day,
-                  )}
-                  howmany={
-                    workoutNamesAndTimes.filter((c) => c.date === day).length
-                  }
-                />
-              ))}
-            </div>
-          ))}
-        <div className="grid h-min w-[12px] gap-1">
-          <div className="h-[12px] overflow-visible p-0 text-xs leading-3"></div>
-          {weeks[0].map((day) => (
-            <DateBox
-              key={day}
-              date={day}
-              didworkout={workoutNamesAndTimes.map((w) => w.date).includes(day)}
-              workoutsThatDay={workoutNamesAndTimes.filter(
-                (c) => c.date === day,
-              )}
-              howmany={
-                workoutNamesAndTimes.filter((c) => c.date === day).length
-              }
-            />
-          ))}
-        </div>
+        ))}
+      <div className="grid h-min w-[12px] gap-1">
+        <div className="h-[12px] overflow-visible p-0 text-xs leading-3"></div>
+        {weeks[0].map((day) => (
+          <DateBox
+            key={day}
+            date={day}
+            didworkout={workoutNamesAndTimes.map((w) => w.date).includes(day)}
+            workoutsThatDay={workoutNamesAndTimes.filter((c) => c.date === day)}
+            howmany={workoutNamesAndTimes.filter((c) => c.date === day).length}
+          />
+        ))}
       </div>
-    </>
+    </div>
   );
 }

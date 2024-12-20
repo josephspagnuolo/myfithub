@@ -26,9 +26,9 @@ export default function AddExercise({
   async function submit() {
     setLoading(true);
     if (value == null) {
-      const input = document.getElementById("exercise");
-      (input as HTMLInputElement).setCustomValidity("Please select an option.");
-      (input as HTMLInputElement).reportValidity();
+      const input = document.getElementById("exercise") as HTMLInputElement;
+      input.setCustomValidity("Please select an option.");
+      input.reportValidity();
       input?.focus();
       setLoading(false);
       return;
@@ -86,39 +86,27 @@ export default function AddExercise({
     setLoading(false);
   }
   function validateDistance() {
-    const input = document.getElementById("distance");
-    const validityState = (input as HTMLInputElement).validity;
-    (input as HTMLInputElement).setCustomValidity("");
-    if ((input as HTMLInputElement).value.length < 1) {
-      (input as HTMLInputElement).setCustomValidity(
-        "Please fill out this field.",
-      );
+    const input = document.getElementById("distance") as HTMLInputElement;
+    input.setCustomValidity("");
+    if (input.value.length < 1) {
+      input.setCustomValidity("Please fill out this field.");
     } else if (
-      (input as HTMLInputElement).value.includes(" ") ||
-      !/[0-9]/.test((input as HTMLInputElement).value) ||
-      (input as HTMLInputElement).value.split(".").length - 1 > 1
+      input.value.includes(" ") ||
+      !/[0-9]/.test(input.value) ||
+      input.value.split(".").length - 1 > 1
     ) {
-      (input as HTMLInputElement).setCustomValidity(
-        "From 0.01 to 99.99 (up to 2 decimals)",
-      );
+      input.setCustomValidity("From 0.01 to 99.99 (up to 2 decimals)");
+    } else if (input.value.length > 2 && !input.value.includes(".")) {
+      input.setCustomValidity("From 0.01 to 99.99 (up to 2 decimals)");
     } else if (
-      (input as HTMLInputElement).value.length > 2 &&
-      !(input as HTMLInputElement).value.includes(".")
+      input.value.split(".")[1]?.length > 2 ||
+      input.value.split(".")[0]?.includes("00") ||
+      parseFloat(input.value) > 99.99 ||
+      parseFloat(input.value) < 0.01
     ) {
-      (input as HTMLInputElement).setCustomValidity(
-        "From 0.01 to 99.99 (up to 2 decimals)",
-      );
-    } else if (
-      (input as HTMLInputElement).value.split(".")[1]?.length > 2 ||
-      (input as HTMLInputElement).value.split(".")[0]?.includes("00") ||
-      parseFloat((input as HTMLInputElement).value) > 99.99 ||
-      parseFloat((input as HTMLInputElement).value) < 0.01
-    ) {
-      (input as HTMLInputElement).setCustomValidity(
-        "From 0.01 to 99.99 (up to 2 decimals)",
-      );
+      input.setCustomValidity("From 0.01 to 99.99 (up to 2 decimals)");
     } else {
-      (input as HTMLInputElement).setCustomValidity("");
+      input.setCustomValidity("");
     }
   }
   return (

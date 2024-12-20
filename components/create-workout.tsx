@@ -14,6 +14,12 @@ export default function CreateWorkout() {
   return (
     <div className="flex w-full max-w-md">
       <Card>
+        <div className="mb-2 flex flex-col -space-y-0.5">
+          <span className="text-lg font-semibold">Create a Workout</span>
+          <span className="text-sm text-zinc-400">
+            Give it a name so you can get started.
+          </span>
+        </div>
         <form
           onSubmit={async (e) => {
             e.preventDefault();
@@ -36,7 +42,7 @@ export default function CreateWorkout() {
               router.refresh();
             }
           }}
-          className="flex flex-col space-y-4 py-1"
+          className="flex flex-col space-y-4 pb-1"
         >
           <div>
             <label htmlFor="content" className="block text-xs text-zinc-400">
