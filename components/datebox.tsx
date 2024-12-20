@@ -176,29 +176,6 @@ export default function DateBox({
           ></span>
         </Tooltip>
       </div>
-      {/* <Tooltip onClose={handleTooltipClose} onOpen={handleTooltipOpen} open={open} arrow
-        sx={{
-          boxShadow: "0px 0px 0px 0px",
-          p: "3px 8px",
-          backgroundColor: "rgba(0, 0, 0, 0.8)",
-          translate: "0.5px 8px",
-        }}
-        placement="top" variant="plain" disableInteractive={howmany === 0} disableTouchListener
-        title={
-          <>
-            <span className="text-balance text-base">{howmany > 0 ? title + ":" : title}</span>
-            {howmany > 0 && <ul className="flex justify-center items-center flex-col-reverse text-sm pb-1">
-              {workoutsThatDay.map(workout => (
-                <li key={workout.id} className="text-sky-500 hover:text-sky-700">
-                  <Link href={`/dashboard/workout/${workout.id}`}>{workout.name}</Link>
-                </li>
-              ))}
-            </ul>}
-          </>
-        }>
-        <span onClick={handleTooltipOpen}
-          className={`rounded-sm ${didworkout ? "bg-green-500" : "bg-[#2d2d30]"} w-3 h-3`}></span>
-      </Tooltip> */}
     </>
   );
 }

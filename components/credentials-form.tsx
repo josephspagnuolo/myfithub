@@ -28,29 +28,23 @@ export default function CredentialsForm({
 
   function validate() {
     if (type === "register") {
-      const input = document.getElementById("password");
-      const validityState = (input as HTMLInputElement).validity;
-      (input as HTMLInputElement).setCustomValidity("");
-      if ((input as HTMLInputElement).value.length < 1) {
-        (input as HTMLInputElement).setCustomValidity(
-          "Please fill out this field.",
-        );
-      } else if ((input as HTMLInputElement).value.includes(" ")) {
-        (input as HTMLInputElement).setCustomValidity(
-          "Password cannot include spaces.",
-        );
-      } else if ((input as HTMLInputElement).value.length < 8) {
-        (input as HTMLInputElement).setCustomValidity(
+      const input = document.getElementById("password") as HTMLInputElement;
+      input.setCustomValidity("");
+      if (input.value.length < 1) {
+        input.setCustomValidity("Please fill out this field.");
+      } else if (input.value.includes(" ")) {
+        input.setCustomValidity("Password cannot include spaces.");
+      } else if (input.value.length < 8) {
+        input.setCustomValidity(
           "Password must be at least 8 characters and include a number.",
         );
-      } else if (!/[0-9]/.test((input as HTMLInputElement).value)) {
-        (input as HTMLInputElement).setCustomValidity(
+      } else if (!/[0-9]/.test(input.value)) {
+        input.setCustomValidity(
           "Password must be at least 8 characters and include a number.",
         );
       } else {
-        (input as HTMLInputElement).setCustomValidity("");
+        input.setCustomValidity("");
       }
-      //(input as HTMLInputElement).reportValidity();
     }
   }
 
