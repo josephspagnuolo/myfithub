@@ -45,7 +45,6 @@ export default function ExerciseMenuButton({
   const [pastSetsModalOpen, setPastSetsModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   return (
     <>
       <Dropdown>
@@ -105,15 +104,11 @@ export default function ExerciseMenuButton({
         notes={notes}
         open={editModalOpen}
         setOpen={setEditModalOpen}
-        loading={loading}
-        setLoading={setLoading}
       />
       <DeleteExerciseModal
         id={id}
         open={deleteModalOpen}
         setOpen={setDeleteModalOpen}
-        loading={loading}
-        setLoading={setLoading}
       />
     </>
   );
@@ -320,16 +315,13 @@ function EditExerciseNotesModal({
   notes,
   open,
   setOpen,
-  loading,
-  setLoading,
 }: {
   id: string;
   notes: string;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  loading: boolean;
-  setLoading: Dispatch<SetStateAction<boolean>>;
 }) {
+  const [loading, setLoading] = useState(false);
   return (
     <Modal
       aria-labelledby="Edit Notes"
@@ -446,15 +438,12 @@ function DeleteExerciseModal({
   id,
   open,
   setOpen,
-  loading,
-  setLoading,
 }: {
   id: string;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  loading: boolean;
-  setLoading: Dispatch<SetStateAction<boolean>>;
 }) {
+  const [loading, setLoading] = useState(false);
   return (
     <Modal
       aria-labelledby="Delete Exercise"
