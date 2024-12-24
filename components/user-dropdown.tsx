@@ -2,13 +2,22 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import SignOut from "@/components/sign-out";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import Link from "next/link";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { LuSettings } from "react-icons/lu";
 import LogoSVG from "@/components/logo-svg";
+import {
+  Dropdown,
+  MenuButton,
+  Menu,
+  MenuItem,
+  Modal,
+  IconButton,
+} from "@mui/joy";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { TbLogout2 } from "react-icons/tb";
+import { signOut } from "next-auth/react";
 
 export default function UserDropdown({
   user,
@@ -21,22 +30,23 @@ export default function UserDropdown({
     image?: string | null | undefined;
   };
 }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const closeDropdown = () => {
-    setIsOpen(false);
-  };
-
+  const router = useRouter();
+  const [SigningOutModalOpen, setSigningOutModalOpen] = useState(false);
   return (
-    <ClickAwayListener onClickAway={closeDropdown}>
-      <div className="relative inline-block">
-        <button
-          onClick={toggleDropdown}
-          className="relative z-50 overflow-clip rounded-full transition-all sm:hover:opacity-75"
+    <>
+      <Dropdown>
+        <MenuButton
+          slots={{ root: IconButton }}
+          sx={{
+            p: 0,
+            borderRadius: "9999px",
+            height: "38px",
+            width: "38px",
+            "&:hover": {
+              opacity: "75%",
+            },
+          }}
+          className="items-center justify-center border-none transition-all focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
         >
           <Image
             src={user.image ? user.image : "/user.png"}
@@ -45,51 +55,85 @@ export default function UserDropdown({
             height={38}
             className="h-[38px] w-[38px] rounded-full object-cover object-center"
           />
-        </button>
-        {isOpen && (
-          <div className="absolute -right-px top-12 z-50 flex w-60 flex-col justify-center">
-            <div className="z-10 flex flex-col divide-y divide-zinc-800 rounded-lg border border-zinc-800 bg-black shadow-[0px_4px_8px_2px_rgba(0,0,0,0.5)]">
-              <div className="p-3.5">
-                <p className="text-sm text-zinc-400">Signed in as</p>
-                <span>{user.name}</span>
-              </div>
-              <div onClick={closeDropdown} className="p-1">
-                <Link
-                  href="/dashboard"
-                  className="flex items-center space-x-2 rounded-md p-2 text-center transition-all hover:bg-zinc-800"
-                >
-                  <MdOutlineSpaceDashboard size={20} />
-                  <span>Dashboard</span>
-                </Link>
-                <Link
-                  href="/dashboard/workout/all"
-                  className="flex items-center space-x-2 rounded-md p-2 text-center transition-all hover:bg-zinc-800"
-                >
-                  <LogoSVG className="h-5 w-5" />
-                  <span>Workouts</span>
-                </Link>
-                <Link
-                  href="/dashboard/progress"
-                  className="flex items-center space-x-2 rounded-md p-2 text-center transition-all hover:bg-zinc-800"
-                >
-                  <FaArrowTrendUp size={18} className="ml-px mt-px" />
-                  <span className="ml-px">Progress</span>
-                </Link>
-                <Link
-                  href="/settings"
-                  className="flex items-center space-x-2 rounded-md p-2 text-center transition-all hover:bg-zinc-800"
-                >
-                  <LuSettings size={19} className="ml-px mt-px" />
-                  <span>Settings</span>
-                </Link>
-              </div>
-              <div className="p-1">
-                <SignOut />
-              </div>
-            </div>
+        </MenuButton>
+        <Menu
+          placement="bottom-end"
+          className="flex w-60 flex-col rounded-md border border-zinc-800 bg-black p-0 text-zinc-50"
+        >
+          <div className="p-3.5">
+            <p className="text-sm text-zinc-400">Signed in as</p>
+            <span>{user.name}</span>
           </div>
-        )}
-      </div>
-    </ClickAwayListener>
+          <div className="border-y border-zinc-800 p-1">
+            <MenuItem
+              onClick={() => router.push("/dashboard")}
+              className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+            >
+              <MdOutlineSpaceDashboard size={20} />
+              <span className="ml-2">Dashboard</span>
+            </MenuItem>
+            <MenuItem
+              onClick={() => router.push("/dashboard/workout/all")}
+              className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+            >
+              <LogoSVG className="mt-0.5 h-5 w-5" />
+              <span className="ml-[9px]">Workouts</span>
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                router.push("/dashboard/progress");
+              }}
+              className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+            >
+              <FaArrowTrendUp size={18} className="ml-px mt-px" />
+              <span className="ml-[9px]">Progress</span>
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                router.push("/settings");
+              }}
+              className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+            >
+              <LuSettings size={19} className="ml-px mt-px" />
+              <span className="ml-2">Settings</span>
+            </MenuItem>
+          </div>
+          <div className="p-1">
+            <MenuItem
+              className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+              onClick={async () => {
+                setSigningOutModalOpen(true);
+                const toastId = toast.loading("Signing out...");
+                const data = await signOut({
+                  redirect: false,
+                  callbackUrl: "/",
+                });
+                router.push(data.url);
+                router.refresh();
+                toast.success("Signed out successfully!", {
+                  id: toastId,
+                });
+              }}
+            >
+              <TbLogout2 size={19} strokeWidth={2.4} className="mt-px" />
+              <span className="ml-2">Sign out</span>
+            </MenuItem>
+          </div>
+        </Menu>
+      </Dropdown>
+      <SigningOutModal open={SigningOutModalOpen} />
+    </>
+  );
+}
+
+function SigningOutModal({ open }: { open: boolean }) {
+  return (
+    <Modal
+      aria-labelledby="Signing out"
+      aria-describedby="You are currently being signed out."
+      open={open}
+    >
+      <div></div>
+    </Modal>
   );
 }

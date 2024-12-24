@@ -34,7 +34,6 @@ export default function EditProfileButton({
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [removeModalOpen, setRemoveModalOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   return (
     <>
       <Dropdown>
@@ -83,8 +82,6 @@ export default function EditProfileButton({
         image={image}
         open={uploadModalOpen}
         setOpen={setUploadModalOpen}
-        loading={loading}
-        setLoading={setLoading}
         inputRef={inputRef}
       />
       <RemoveImageModal
@@ -92,8 +89,6 @@ export default function EditProfileButton({
         image={image}
         open={removeModalOpen}
         setOpen={setRemoveModalOpen}
-        loading={loading}
-        setLoading={setLoading}
       />
     </>
   );
@@ -104,18 +99,15 @@ function UploadImageModal({
   image,
   open,
   setOpen,
-  loading,
-  setLoading,
   inputRef,
 }: {
   id: string;
   image: string;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  loading: boolean;
-  setLoading: Dispatch<SetStateAction<boolean>>;
   inputRef: RefObject<HTMLInputElement>;
 }) {
+  const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -249,16 +241,13 @@ function RemoveImageModal({
   image,
   open,
   setOpen,
-  loading,
-  setLoading,
 }: {
   id: string;
   image: string;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  loading: boolean;
-  setLoading: Dispatch<SetStateAction<boolean>>;
 }) {
+  const [loading, setLoading] = useState(false);
   return (
     <Modal
       aria-labelledby="Remove Profile Image"

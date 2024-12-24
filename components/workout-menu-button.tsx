@@ -2,7 +2,7 @@
 
 import { BsThreeDots } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
-import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import LoadingDots from "@/components/loading-dots";
 import { deleteWorkout, editWorkoutTitle } from "@/lib/actions";
@@ -29,7 +29,6 @@ export default function WorkoutMenuButton({
   const router = useRouter();
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   return (
     <>
       <Dropdown>
@@ -52,8 +51,8 @@ export default function WorkoutMenuButton({
             onClick={() => router.push(`/dashboard/workout/${id}`)}
             className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
           >
-            <LogoSVG className="mt-px h-5 w-5" />
-            <span className="mb-px ml-1.5">View</span>
+            <LogoSVG className="mt-0.5 h-5 w-5" />
+            <span className="ml-1.5">View</span>
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -61,7 +60,7 @@ export default function WorkoutMenuButton({
             }}
             className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
           >
-            <MdEdit size={20} className="mb-px mt-px" />
+            <MdEdit size={20} className="mt-px" />
             <span className="ml-1.5">Edit Title</span>
           </MenuItem>
           <MenuItem
@@ -80,15 +79,11 @@ export default function WorkoutMenuButton({
         title={title}
         open={editModalOpen}
         setOpen={setEditModalOpen}
-        loading={loading}
-        setLoading={setLoading}
       />
       <DeleteWorkoutModal
         id={id}
         open={deleteModalOpen}
         setOpen={setDeleteModalOpen}
-        loading={loading}
-        setLoading={setLoading}
       />
     </>
   );
@@ -99,16 +94,13 @@ function EditWorkoutModal({
   title,
   open,
   setOpen,
-  loading,
-  setLoading,
 }: {
   id: string;
   title: string;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  loading: boolean;
-  setLoading: Dispatch<SetStateAction<boolean>>;
 }) {
+  const [loading, setLoading] = useState(false);
   return (
     <Modal
       aria-labelledby="Edit Title"
@@ -231,15 +223,12 @@ function DeleteWorkoutModal({
   id,
   open,
   setOpen,
-  loading,
-  setLoading,
 }: {
   id: string;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  loading: boolean;
-  setLoading: Dispatch<SetStateAction<boolean>>;
 }) {
+  const [loading, setLoading] = useState(false);
   return (
     <Modal
       aria-labelledby="Delete Workout"
