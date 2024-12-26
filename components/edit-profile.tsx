@@ -39,26 +39,39 @@ export default function EditProfileButton({
       <Dropdown>
         <MenuButton
           slots={{ root: IconButton }}
+          slotProps={{ root: { variant: "plain", color: "neutral" } }}
           sx={{
             width: "36px",
             height: "36px",
             padding: "8px",
-            backgroundColor: "rgb(2, 132, 199)",
+            backgroundColor: "#0284c7",
             borderRadius: "9999px",
+            "& > *": {
+              color: "#fafafa",
+            },
             "&:hover": {
               backgroundColor: "#0369a1",
             },
+            "&:focus-visible": {
+              outlineWidth: "2px",
+              outlineOffset: "0px",
+              outlineColor: "#fff",
+            },
           }}
-          className="border-none transition-all *:text-zinc-50 hover:bg-sky-700 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
         >
           <MdEdit size={20} />
         </MenuButton>
         <Menu
           placement="top-start"
-          className="flex w-36 flex-col rounded-md border border-zinc-800 bg-black p-1 text-zinc-50"
+          sx={{
+            p: "4px",
+            width: "144px",
+            border: "1px solid #27272a",
+            borderRadius: "8px",
+          }}
         >
           <MenuItem
-            className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+            className="items-center rounded-[4px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
             onClick={() => {
               inputRef.current?.click();
             }}
@@ -70,7 +83,7 @@ export default function EditProfileButton({
             onClick={() => {
               setRemoveModalOpen(true);
             }}
-            className="items-center rounded-[5px] px-2 *:text-red-600 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+            className="items-center rounded-[4px] px-2 *:text-red-600 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
           >
             <FaRegTrashAlt size={20} strokeWidth={8} className="mt-px" />
             <span className="ml-1.5 font-medium">Remove</span>

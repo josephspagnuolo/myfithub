@@ -50,25 +50,40 @@ export default function ExerciseMenuButton({
       <Dropdown>
         <MenuButton
           slots={{ root: IconButton }}
+          slotProps={{ root: { variant: "plain", color: "neutral" } }}
           sx={{
             mt: "4px",
+            height: "40px",
+            width: "40px",
+            "& > *": {
+              color: "#fafafa",
+            },
             "&:hover": {
               backgroundColor: "#27272a",
             },
+            "&:focus-visible": {
+              outlineWidth: "2px",
+              outlineOffset: "0px",
+              outlineColor: "#fff",
+            },
           }}
-          className="mt-1 h-10 w-10 items-center justify-center border-none p-0 transition-all *:text-zinc-50 hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
         >
           <BsThreeDots size={20} />
         </MenuButton>
         <Menu
           placement="bottom-end"
-          className="flex w-36 flex-col rounded-md border border-zinc-800 bg-black p-1 text-zinc-50"
+          sx={{
+            p: "4px",
+            width: "144px",
+            border: "1px solid #27272a",
+            borderRadius: "8px",
+          }}
         >
           <MenuItem
             onClick={() => {
               setPastSetsModalOpen(true);
             }}
-            className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+            className="items-center rounded-[4px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
           >
             <GoHistory size={20} strokeWidth={0.8} className="mb-px mt-px" />
             <span className="ml-1.5">Past Sets</span>
@@ -77,7 +92,7 @@ export default function ExerciseMenuButton({
             onClick={() => {
               setEditModalOpen(true);
             }}
-            className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+            className="items-center rounded-[4px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
           >
             <MdEdit size={20} className="mb-px mt-px" />
             <span className="ml-1.5">Edit Notes</span>
@@ -86,7 +101,7 @@ export default function ExerciseMenuButton({
             onClick={() => {
               setDeleteModalOpen(true);
             }}
-            className="items-center rounded-[5px] px-2 *:text-red-600 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+            className="items-center rounded-[4px] px-2 *:text-red-600 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
           >
             <FaRegTrashAlt size={20} strokeWidth={8} className="mt-px" />
             <span className="ml-1.5 font-medium">Delete</span>

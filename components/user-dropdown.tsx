@@ -37,6 +37,7 @@ export default function UserDropdown({
       <Dropdown>
         <MenuButton
           slots={{ root: IconButton }}
+          slotProps={{ root: { variant: "plain", color: "neutral" } }}
           sx={{
             p: 0,
             borderRadius: "9999px",
@@ -45,8 +46,12 @@ export default function UserDropdown({
             "&:hover": {
               opacity: "75%",
             },
+            "&:focus-visible": {
+              outlineWidth: "2px",
+              outlineOffset: "0px",
+              outlineColor: "#fff",
+            },
           }}
-          className="items-center justify-center border-none transition-all focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
         >
           <Image
             src={user.image ? user.image : "/user.png"}
@@ -58,7 +63,12 @@ export default function UserDropdown({
         </MenuButton>
         <Menu
           placement="bottom-end"
-          className="flex w-60 flex-col rounded-md border border-zinc-800 bg-black p-0 text-zinc-50"
+          sx={{
+            p: 0,
+            width: "240px",
+            border: "1px solid #27272a",
+            borderRadius: "8px",
+          }}
         >
           <div className="p-3.5">
             <p className="text-sm text-zinc-400">Signed in as</p>
@@ -67,14 +77,14 @@ export default function UserDropdown({
           <div className="border-y border-zinc-800 p-1">
             <MenuItem
               onClick={() => router.push("/dashboard")}
-              className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+              className="items-center rounded-[4px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
             >
               <MdOutlineSpaceDashboard size={20} />
               <span className="ml-2">Dashboard</span>
             </MenuItem>
             <MenuItem
               onClick={() => router.push("/dashboard/workout/all")}
-              className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+              className="items-center rounded-[4px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
             >
               <LogoSVG className="mt-0.5 h-5 w-5" />
               <span className="ml-[9px]">Workouts</span>
@@ -83,7 +93,7 @@ export default function UserDropdown({
               onClick={() => {
                 router.push("/dashboard/progress");
               }}
-              className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+              className="items-center rounded-[4px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
             >
               <FaArrowTrendUp size={18} className="ml-px mt-px" />
               <span className="ml-[9px]">Progress</span>
@@ -92,7 +102,7 @@ export default function UserDropdown({
               onClick={() => {
                 router.push("/settings");
               }}
-              className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+              className="items-center rounded-[4px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
             >
               <LuSettings size={19} className="ml-px mt-px" />
               <span className="ml-2">Settings</span>
@@ -100,7 +110,7 @@ export default function UserDropdown({
           </div>
           <div className="p-1">
             <MenuItem
-              className="items-center rounded-[5px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
+              className="items-center rounded-[4px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
               onClick={async () => {
                 setSigningOutModalOpen(true);
                 const toastId = toast.loading("Signing out...");
