@@ -9,7 +9,7 @@ export default async function PasswordResetPage({
 }: {
   params: { token: string };
 }) {
-  const { token } = params;
+  const { token } = await params;
 
   const thisToken = await prisma.passwordResetToken.findUnique({
     where: {

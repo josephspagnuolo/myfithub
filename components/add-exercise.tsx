@@ -219,17 +219,24 @@ export default function AddExercise({
                     },
                   },
                 }}
-                renderOption={(props, option) => (
-                  <AutocompleteOption
-                    {...props}
-                    sx={{
-                      marginX: "6px",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    {option}
-                  </AutocompleteOption>
-                )}
+                renderOption={(props, option) => {
+                  const { key, ...restProps } = props as {
+                    key: string;
+                    [key: string]: any;
+                  };
+                  return (
+                    <AutocompleteOption
+                      key={key}
+                      {...restProps}
+                      sx={{
+                        marginX: "6px",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      {option}
+                    </AutocompleteOption>
+                  );
+                }}
                 className="mt-1 w-full focus-within:outline-none focus-within:ring-2 focus-within:ring-sky-600"
               />
               {value && (

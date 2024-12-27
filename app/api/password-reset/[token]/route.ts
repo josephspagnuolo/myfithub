@@ -10,7 +10,7 @@ export async function POST(
     params: { token: string };
   },
 ) {
-  const token = params.token;
+  const { token } = await params;
   const { password } = await req.json();
   const passwordResetToken = await prisma.passwordResetToken.findUnique({
     where: {

@@ -31,7 +31,7 @@ export default function EditProfileButton({
   id: string;
   image: string;
 }) {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [removeModalOpen, setRemoveModalOpen] = useState(false);
   return (
@@ -118,7 +118,7 @@ function UploadImageModal({
   image: string;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  inputRef: RefObject<HTMLInputElement>;
+  inputRef: RefObject<HTMLInputElement | null>;
 }) {
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
