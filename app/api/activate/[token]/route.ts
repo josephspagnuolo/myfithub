@@ -9,7 +9,7 @@ export async function GET(
     params: { token: string };
   },
 ) {
-  const token = params.token;
+  const { token } = await params;
 
   const user = await prisma.user.findFirst({
     where: {
