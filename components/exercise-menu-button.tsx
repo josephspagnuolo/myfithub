@@ -86,7 +86,7 @@ export default function ExerciseMenuButton({
             className="items-center rounded-[4px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
           >
             <GoHistory size={20} strokeWidth={0.8} className="mb-px mt-px" />
-            <span className="ml-1.5">Past Sets</span>
+            <span>Past Sets</span>
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -95,7 +95,7 @@ export default function ExerciseMenuButton({
             className="items-center rounded-[4px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
           >
             <MdEdit size={20} className="mb-px mt-px" />
-            <span className="ml-1.5">Edit Notes</span>
+            <span>Edit Notes</span>
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -104,7 +104,7 @@ export default function ExerciseMenuButton({
             className="items-center rounded-[4px] px-2 *:text-red-600 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
           >
             <FaRegTrashAlt size={20} strokeWidth={8} className="mt-px" />
-            <span className="ml-1.5 font-medium">Delete</span>
+            <span className="font-medium">Delete</span>
           </MenuItem>
         </Menu>
       </Dropdown>
@@ -259,10 +259,13 @@ function PastSetsModal({
                       </span>
                     ) : (
                       <>
-                        <ul className="flex flex-col space-y-1 divide-y-[1px] divide-zinc-800">
+                        <ul className="flex flex-col divide-y-[1px] divide-zinc-800">
                           {ex.sets.map((set, idx) => (
-                            <li className="pb-1 pt-1.5" key={set.id}>
-                              <span className="pr-1 text-2xl font-light text-zinc-400">
+                            <li
+                              className="flex flex-row pb-1 pt-0.5"
+                              key={set.id}
+                            >
+                              <span className="whitespace-nowrap pr-1 text-2xl font-light text-zinc-400">
                                 Set {idx + 1}:&nbsp;
                               </span>
                               {getSetString1(set) === "" ? (

@@ -156,7 +156,7 @@ async function DashboardCards() {
           <div className="mb-2 flex flex-col -space-y-0.5">
             <div className="flex items-center justify-between">
               <span className="text-lg font-semibold">Your Progress</span>
-              {workouts.length > 0 && (
+              {filtered.length > 0 && (
                 <div>
                   <Link
                     className="text-sky-500 transition-all hover:text-sky-600"

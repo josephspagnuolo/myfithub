@@ -66,8 +66,8 @@ export default function WorkoutMenuButton({
             onClick={() => router.push(`/dashboard/workout/${id}`)}
             className="items-center rounded-[4px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
           >
-            <LogoSVG className="mt-0.5 h-5 w-5" />
-            <span className="ml-1.5">View</span>
+            <LogoSVG className="mt-px h-5 w-5" />
+            <span>View</span>
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -76,7 +76,7 @@ export default function WorkoutMenuButton({
             className="items-center rounded-[4px] px-2 *:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
           >
             <MdEdit size={20} className="mt-px" />
-            <span className="ml-1.5">Edit Title</span>
+            <span>Edit Title</span>
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -85,7 +85,7 @@ export default function WorkoutMenuButton({
             className="items-center rounded-[4px] px-2 *:text-red-600 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
           >
             <FaRegTrashAlt size={20} strokeWidth={8} className="mt-px" />
-            <span className="ml-1.5 font-medium">Delete</span>
+            <span className="font-medium">Delete</span>
           </MenuItem>
         </Menu>
       </Dropdown>
