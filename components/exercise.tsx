@@ -163,8 +163,8 @@ function Sets({
           className="flex grow flex-col divide-y-[1px] divide-zinc-800"
         >
           {sets.map((set, idx) => (
-            <li className="pb-1 pl-[3.9em] pt-0.5 -indent-[3.9em]" key={set.id}>
-              <span className="pr-1 text-2xl font-light text-zinc-400">
+            <li className="flex flex-row pb-1 pt-0.5" key={set.id}>
+              <span className="whitespace-nowrap pr-1 text-2xl font-light text-zinc-400">
                 Set {idx + 1}:&nbsp;
               </span>
               {getSetString1(set) === "" ? (

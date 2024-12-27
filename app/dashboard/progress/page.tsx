@@ -47,7 +47,7 @@ export default async function AllProgress() {
         <span className="w-full pb-2.5 text-left text-3xl font-medium">
           Your Progress
         </span>
-        {exercises.length === 0 ? (
+        {groupedExercises.length === 0 ? (
           <div className="flex grow items-center">
             <span className="text-sm text-zinc-400">Nothing so far...</span>
           </div>
@@ -88,7 +88,22 @@ async function ExerciseChartBox({
     (groupedExsWithSets) => groupedExsWithSets.sets.length != 0,
   );
   filtered.sort((a, b) => a.createdAt.valueOf() - b.createdAt.valueOf());
-  if (filtered.length === 0) return null;
+  if (filtered.length === 0)
+    return (
+      <Card id={groupedEx.name.toLowerCase().replaceAll(" ", "")}>
+        <div className="mb-2 flex flex-col -space-y-0.5">
+          <span className="text-lg font-semibold">{groupedEx.name}</span>
+          <span className="text-sm text-zinc-400">
+            Based on your top set from each workout{" "}
+          </span>
+        </div>
+        <div className="flex grow items-center justify-center">
+          <span className="text-sm text-zinc-400">
+            No sets to display so far...
+          </span>
+        </div>
+      </Card>
+    );
   const data = filtered.map((exercise) => {
     const weights = exercise.sets
       .map((set) => parseFloat(set.weight ?? "0"))

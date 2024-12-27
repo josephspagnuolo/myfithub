@@ -77,7 +77,7 @@ export default function EditProfileButton({
             }}
           >
             <HiUpload size={20} />
-            <span className="ml-1.5 -translate-y-px">Upload</span>
+            <span>Upload</span>
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -86,7 +86,7 @@ export default function EditProfileButton({
             className="items-center rounded-[4px] px-2 *:text-red-600 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-white"
           >
             <FaRegTrashAlt size={20} strokeWidth={8} className="mt-px" />
-            <span className="ml-1.5 font-medium">Remove</span>
+            <span className="font-medium">Remove</span>
           </MenuItem>
         </Menu>
       </Dropdown>
