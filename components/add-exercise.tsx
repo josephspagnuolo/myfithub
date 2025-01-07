@@ -231,6 +231,11 @@ export default function AddExercise({
                       sx={{
                         marginX: "6px",
                         borderRadius: "5px",
+                        "&.Mui-focusVisible": {
+                          outline: "2px solid white",
+                          outlineOffset: "0px",
+                          backgroundColor: "black",
+                        },
                       }}
                     >
                       {option}
@@ -257,6 +262,7 @@ export default function AddExercise({
                       </label>
                       <Input
                         id="distance"
+                        autoFocus
                         required
                         placeholder="3.5"
                         value={distanceValue}
@@ -303,6 +309,7 @@ export default function AddExercise({
                       </label>
                       <Input
                         id="notes"
+                        autoFocus
                         placeholder="Focus on range of motion"
                         value={notes}
                         disabled={loading}
