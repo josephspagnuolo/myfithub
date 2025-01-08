@@ -35,7 +35,7 @@ export default function ForgotPassword() {
               </p>
             </div>
             <form
-              className="flex flex-col space-y-3 pb-1"
+              className="flex flex-col space-y-3"
               onSubmit={(e) => {
                 e.preventDefault();
                 setLoading(true);

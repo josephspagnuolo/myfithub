@@ -148,7 +148,7 @@ export default function ActivityCalendar({
   }
 
   return (
-    <div className="flex scroll-mt-1 flex-row justify-center gap-1 overflow-x-auto pb-3 sm:pb-1.5">
+    <div className="flex scroll-mt-1 flex-row justify-center gap-1 overflow-x-auto pb-1.5">
       <div className="grid w-[26px] min-w-[26px] gap-1">
         <div className="h-3 w-3"></div>
         <div className="h-3 w-3"></div>
