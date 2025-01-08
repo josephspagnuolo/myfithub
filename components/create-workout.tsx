@@ -42,7 +42,7 @@ export default function CreateWorkout() {
               router.refresh();
             }
           }}
-          className="flex flex-col space-y-4 pb-1"
+          className="flex flex-col space-y-4"
         >
           <div>
             <label htmlFor="content" className="block text-xs text-zinc-400">

@@ -52,7 +52,7 @@ export default function ExerciseComponent({
   const [parent, enableAnimations] = useAutoAnimate();
   return (
     <div ref={parent} className="space-y-0">
-      <div className="flex justify-between">
+      <div className="-mb-1 flex justify-between">
         <div className="mb-0.5 flex flex-col -space-y-0.5">
           <span className="text-lg font-semibold">{thisExercise.name}</span>
           <span className="text-sm text-zinc-400">{subheading}</span>
@@ -163,7 +163,12 @@ function Sets({
           className="flex grow flex-col divide-y-[1px] divide-zinc-800"
         >
           {sets.map((set, idx) => (
-            <li className="flex flex-row pb-1 pt-0.5" key={set.id}>
+            <li
+              className={`flex flex-row pt-0.5 ${
+                idx !== sets.length - 1 ? "pb-1" : ""
+              }`}
+              key={set.id}
+            >
               <span className="whitespace-nowrap pr-1 text-2xl font-light text-zinc-400">
                 Set {idx + 1}:&nbsp;
               </span>

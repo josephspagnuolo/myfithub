@@ -43,7 +43,7 @@ export default async function AllWorkouts() {
               .reverse()
               .map((workout) => (
                 <Card key={workout.id}>
-                  <div className="flex justify-between">
+                  <div className="-mb-1 flex justify-between">
                     <div className="flex flex-col -space-y-0.5">
                       <span className="text-lg font-semibold">
                         <Link

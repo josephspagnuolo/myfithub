@@ -59,7 +59,7 @@ export default function AddSet({ id }: { id: string }) {
           setLoading(false);
         }
       }}
-      className="grid grid-cols-3 grid-rows-2 items-end gap-y-2 py-1 sm:grid-cols-6 sm:grid-rows-1"
+      className="grid grid-cols-3 grid-rows-2 items-end gap-y-2 pt-2 sm:grid-cols-6 sm:grid-rows-1"
     >
       <div>
         <input
