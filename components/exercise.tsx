@@ -79,6 +79,9 @@ export default function ExerciseComponent({
         </div>
       </div>
       <Sets sets={thisExercise.sets} />
+      {newSetOpen && thisExercise.sets.length === 0 && (
+        <div className="pt-2.5"></div>
+      )}
       {newSetOpen && <AddSet id={thisExercise.id} />}
     </div>
   );
@@ -165,7 +168,7 @@ function Sets({
           {sets.map((set, idx) => (
             <li
               className={`flex flex-row pt-0.5 ${
-                idx !== sets.length - 1 ? "pb-1" : ""
+                idx !== sets.length - 1 ? "pb-1" : "-mb-1"
               }`}
               key={set.id}
             >
