@@ -122,7 +122,7 @@ export default function CredentialsForm({
             type="text"
             placeholder="Your Name"
             required
-            disabled={working}
+            disabled={working || loading}
             sx={{
               "--Input-focusedThickness": "0rem",
               "--Input-placeholderOpacity": 0.25,
@@ -152,7 +152,7 @@ export default function CredentialsForm({
           placeholder="someone@example.com"
           autoComplete="email"
           required
-          disabled={working}
+          disabled={working || loading}
           slotProps={{
             input: {
               inputMode: "email",
@@ -198,7 +198,7 @@ export default function CredentialsForm({
           name="password"
           type={visible ? "text" : "password"}
           required
-          disabled={working}
+          disabled={working || loading}
           onChange={validate}
           sx={{
             "--Input-focusedThickness": "0rem",
@@ -238,11 +238,11 @@ export default function CredentialsForm({
       </div>
       <button
         type="submit"
-        disabled={working}
-        className={`${working ? "cursor-not-allowed hover:bg-sky-600" : ""} ${
+        disabled={working || loading}
+        className={`${
           loading
             ? "cursor-not-allowed border border-zinc-900 bg-zinc-900"
-            : "border border-black bg-sky-600 hover:bg-sky-700"
+            : `border border-black bg-sky-600 ${working ? "cursor-not-allowed" : "hover:bg-sky-700"}`
         } text-md flex h-10 w-full items-center justify-center rounded-md font-semibold transition-all`}
       >
         {loading ? (
