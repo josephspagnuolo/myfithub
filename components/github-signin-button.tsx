@@ -33,11 +33,11 @@ export default function GitHubSigninButton({
   return (
     <div className="flex w-full">
       <button
-        disabled={working}
-        className={`${working ? "cursor-not-allowed hover:bg-black" : ""} ${
+        disabled={working || loading}
+        className={`${
           loading
-            ? "cursor-not-allowed border border-zinc-900 bg-zinc-900 hover:bg-zinc-900"
-            : "border border-zinc-800 bg-black hover:bg-zinc-800"
+            ? "cursor-not-allowed border border-zinc-900 bg-zinc-900"
+            : `border border-zinc-800 bg-black ${working ? "cursor-not-allowed" : "hover:bg-zinc-800"}`
         } text-md flex h-10 w-full items-center justify-center rounded-md font-semibold transition-all`}
         onClick={(e) => {
           e.preventDefault();
