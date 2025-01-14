@@ -135,7 +135,7 @@ async function DashboardCards() {
                     key={workout.id}
                     href={`/dashboard/workout/${workout.id}`}
                   >
-                    <li className="flex w-full items-center justify-between p-4 transition-all hover:bg-zinc-800">
+                    <li className="flex w-full items-center justify-between space-x-1.5 p-4 transition-all hover:bg-zinc-800">
                       <div className="flex items-center truncate">
                         <span className="truncate">{workout.content}</span>
                       </div>
