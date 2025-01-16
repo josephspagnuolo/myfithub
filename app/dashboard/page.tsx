@@ -125,28 +125,27 @@ async function DashboardCards() {
               </Link>
             </div>
           ) : (
-            <ul className="flex flex-col divide-y divide-zinc-800 overflow-clip rounded-md border border-zinc-800">
+            <ul className="flex flex-col">
               {workouts
                 .sort((a, b) => a.createdAt.valueOf() - b.createdAt.valueOf())
                 .reverse()
                 .slice(0, 5)
-                .map((workout) => (
+                .map((workout, index) => (
                   <Link
                     key={workout.id}
                     href={`/dashboard/workout/${workout.id}`}
+                    className={`${index === 0 ? "rounded-t-md border-t" : ""} ${index === workouts.slice(0, 5).length - 1 ? "rounded-b-md" : ""} flex w-full items-center justify-between space-x-1.5 border-x border-b border-zinc-800 p-4 transition-all hover:bg-zinc-800 focus:z-10`}
                   >
-                    <li className="flex w-full items-center justify-between space-x-1.5 p-4 transition-all hover:bg-zinc-800">
-                      <div className="flex items-center truncate">
-                        <span className="truncate">{workout.content}</span>
-                      </div>
-                      <span className="whitespace-nowrap text-sm text-zinc-400">
-                        {workout.createdAt.toLocaleString("en-US", {
-                          timeZone: "America/New_York",
-                          dateStyle: "medium",
-                          timeStyle: "short",
-                        })}
-                      </span>
-                    </li>
+                    <div className="flex items-center truncate">
+                      <span className="truncate">{workout.content}</span>
+                    </div>
+                    <span className="whitespace-nowrap text-sm text-zinc-400">
+                      {workout.createdAt.toLocaleString("en-US", {
+                        timeZone: "America/New_York",
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                      })}
+                    </span>
                   </Link>
                 ))}
             </ul>
@@ -178,15 +177,21 @@ async function DashboardCards() {
               </span>
             </div>
           ) : (
-            <div className="grid grid-cols-2 overflow-clip rounded-md border border-zinc-800">
+            <div className="grid grid-cols-2">
               {filtered.slice(0, 4).map((topEx, index) => (
                 <TopExercise
                   key={index}
                   index={index}
-                  numberOfExs={filtered.length}
+                  numberOfExs={filtered.slice(0, 4).length}
                   topEx={topEx}
                 />
               ))}
+              {filtered.slice(0, 4).length === 1 && (
+                <div className="rounded-r-md border-y border-r border-zinc-800"></div>
+              )}
+              {filtered.slice(0, 4).length === 3 && (
+                <div className="rounded-br-md border-b border-r border-zinc-800"></div>
+              )}
             </div>
           )}
         </Card>
@@ -290,10 +295,21 @@ async function TopExercise({
       numberOfExs === 3 ? "border-r" : "border-t border-r",
       "border-t",
     ][index] || "";
+  const roundedClasses =
+    [
+      numberOfExs > 2
+        ? "rounded-tl-md border-t border-l"
+        : "rounded-l-md border-y border-l",
+      numberOfExs > 2
+        ? "rounded-tr-md border-t border-r"
+        : "rounded-r-md border-y border-r",
+      "rounded-bl-md border-b border-l",
+      "rounded-br-md border-b border-r",
+    ][index] || "";
   return (
     <a
       href={`/dashboard/progress#${topEx[0].name.toLowerCase().replaceAll(" ", "")}`}
-      className={`flex flex-col p-4 ${borderClasses} h-[136.25px] border-zinc-800 transition-all hover:bg-zinc-800`}
+      className={`flex flex-col p-4 ${borderClasses} ${roundedClasses} h-[136.25px] border-zinc-800 transition-all hover:bg-zinc-800 focus:z-10`}
     >
       <span className="mb-3">{topEx[0].name}</span>
       <span className="text-xl font-bold text-green-500">
