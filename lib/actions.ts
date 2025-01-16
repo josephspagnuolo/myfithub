@@ -146,6 +146,53 @@ export async function createWorkout(content: string) {
   }
 }
 
+export async function copyWorkout(id: string) {
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user || !session.user.id) {
+    console.log("An error occurred while copying the workout.");
+    return "error";
+  }
+
+  try {
+    const originalWorkout = await prisma.workout.findUnique({
+      where: { id },
+      include: { exercises: true },
+    });
+
+    if (!originalWorkout || originalWorkout.userId !== session.user.id) {
+      console.log("Workout not found or user not authorized to copy.");
+      return "error";
+    }
+
+    const newWorkout = prisma.workout.create({
+      data: {
+        content: originalWorkout.content,
+        userId: session.user.id,
+      },
+    });
+
+    const workout = await prisma.$transaction([newWorkout]);
+
+    const newExercises = originalWorkout.exercises.map((exercise, index) =>
+      prisma.exercise.create({
+        data: {
+          name: exercise.name,
+          notes: exercise.notes,
+          workoutId: workout[0].id,
+          createdAt: new Date(workout[0].createdAt.getTime() + index),
+        },
+      }),
+    );
+
+    await prisma.$transaction(newExercises);
+
+    return workout[0].id;
+  } catch (error) {
+    console.log("An error occurred while copying the workout:", error);
+    return "error";
+  }
+}
+
 export async function deleteWorkout(id: string) {
   const session = await getServerSession(authOptions);
   if (!session || !session.user || !session.user.id) {
