@@ -95,7 +95,11 @@ export default function CopyWorkout({
                         className={`${selectedWorkout === workout.id ? "bg-zinc-800" : "hover:bg-zinc-900"}`}
                       >
                         <button
-                          onClick={() => setSelectedWorkout(workout.id)}
+                          onClick={() =>
+                            setSelectedWorkout((prev) =>
+                              prev === workout.id ? null : workout.id,
+                            )
+                          }
                           className="flex w-full cursor-pointer items-center justify-between space-x-1.5 p-4 transition-all"
                         >
                           <div className="flex items-center truncate">
