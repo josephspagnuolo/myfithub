@@ -34,7 +34,7 @@ export default async function Home() {
             Explore a new world of fitness
           </p>
           <div className="mt-5 max-w-screen-sm text-center">
-            <p className="text-xl text-zinc-400">
+            <p className="text-2xl text-zinc-400">
               This is your hub for tracking your fitness progress
             </p>
           </div>
