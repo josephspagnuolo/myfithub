@@ -182,4 +182,7 @@ export const listOfAllExercises = [
   "Chest press machine",
   "Ab crunch machine",
   "Sissy squats",
+  "Arnold press",
+  "Front squat",
+  "Back extension machine",
 ];
