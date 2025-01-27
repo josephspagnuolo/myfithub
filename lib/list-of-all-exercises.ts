@@ -185,4 +185,6 @@ export const listOfAllExercises = [
   "Arnold press",
   "Front squat",
   "Back extension machine",
+  "Assisted Pull-ups",
+  "Assisted Dips",
 ];
