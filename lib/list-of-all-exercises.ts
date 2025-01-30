@@ -187,4 +187,13 @@ export const listOfAllExercises = [
   "Back extension machine",
   "Assisted Pull-ups",
   "Assisted Dips",
+  "Zercher Squat",
+  "Pause Squats",
+  "Anderson Squats",
+  "Deficit Deadlifts",
+  "Snatch",
+  "Pendlay Rows",
+  "Behind-the-Neck Press",
+  "Reverse Lunges",
+  "Kettlebell Squats",
 ];
