@@ -191,7 +191,7 @@ export const listOfAllExercises = [
   "Pause Squats",
   "Anderson Squats",
   "Deficit Deadlifts",
-  "Snatch",
+  "Snatches",
   "Pendlay Rows",
   "Behind-the-Neck Press",
   "Reverse Lunges",
