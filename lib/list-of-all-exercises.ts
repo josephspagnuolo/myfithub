@@ -21,7 +21,7 @@ export const listOfAllExercises = [
   "Overhead press",
   "Dips",
   "Bicep curls",
-  "Lateral raises",
+  "Dumbbell lateral raises",
   "Lat pulldowns",
   "Face pulls",
   "Skull crushers",
@@ -196,4 +196,8 @@ export const listOfAllExercises = [
   "Behind-the-Neck Press",
   "Reverse Lunges",
   "Kettlebell Squats",
+  "Upright rows",
+  "Cable kickbacks",
+  "Cable lateral raises",
+  "Lateral raise machine",
 ];
